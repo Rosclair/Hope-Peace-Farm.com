@@ -15,6 +15,7 @@ Hostinger Business — application Node.js (next start), déployée depuis GitHu
    ├─ /api/demandes          enregistrement d’une demande (JSON ou formulaire classique)
    ├─ /api/mesure            mesure maison (sendBeacon, groupée)
    ├─ /api/taches            tâches planifiées (jeton secret)
+   ├─ /api/sante             état de l’application ; rapport de l’hébergement avec jeton
    ├─ /api/auth/*            Better Auth
    ├─ /medias/*              photos servies depuis UPLOAD_DIR
    └─ /admin/*               back-office (noindex, sessions, TOTP)
@@ -54,6 +55,7 @@ app/
   api/demandes/route.ts        POST demande
   api/mesure/route.ts          POST événements groupés
   api/taches/route.ts          tâches planifiées
+  api/sante/                   diagnostic (état, rapport de l’hébergement, e-mail de test)
   api/auth/[...all]/route.ts   Better Auth
   medias/[...chemin]/route.ts  fichiers de UPLOAD_DIR (cache long, noms immuables)
   admin/                       back-office (voir §9)
@@ -128,8 +130,10 @@ nouvelles tentatives d’e-mails · purge des demandes au-delà de la durée de 
 
 Déclencheurs, du plus fiable au plus simple :
 
-1. tâche cron hPanel (`curl` vers l’URL) si elle est disponible pour l’application Node.js, ou depuis un autre site PHP du même compte ;
-2. sinon, minuteur interne lancé depuis `instrumentation.ts` (toutes les 15 min) : un développeur signale en septembre 2026 que les applications Node.js de Hostinger n’ont pas accès aux tâches cron de hPanel. **(à vérifier en phase 1.)**
+1. tâche cron hPanel (`curl` vers l’URL) si elle est disponible pour l’application Node.js, ou depuis un autre site du même compte ;
+2. en dernier recours, minuteur interne lancé depuis `instrumentation.ts` (`TACHES_MINUTEUR_MINUTES`, désactivé par défaut). La documentation Hostinger indique que le processus est **arrêté après une période sans trafic** : le minuteur ne tourne donc que pendant les visites et ne remplace pas un cron. **(à vérifier sur le serveur : `docs/deploiement-hostinger.md` §7.)**
+
+Phase 1 : tâches `emails` (file d’envoi, à chaque passage) et `purge-technique` (une fois par jour : exécutions de tâches > 30 jours, démarrages > 90 jours, e-mails de test > 30 jours). Chaque exécution est inscrite dans `tache_execution` avec son déclencheur (`cron`, `minuteur`, `manuel`).
 
 ## 9. Back-office (`/admin`)
 
@@ -189,15 +193,19 @@ Déclencheurs, du plus fiable au plus simple :
 - Parité : la maquette et le site sont capturés dans la même exécution (même navigateur) et comparés image par image ; seuil d’écart et liste des écarts justifiés tenus dans PROGRESS.md.
 - Lighthouse et axe-core automatisés ; PageSpeed Insights une fois en ligne.
 
-## 16. Hypothèses Hostinger à vérifier en phase 1
+## 16. Hypothèses Hostinger vérifiées en phase 1
 
-| Hypothèse | Ce que j’ai trouvé | Plan B |
-| --- | --- | --- |
-| Application Node.js sur l’offre Business, depuis GitHub | Confirmé par la documentation Hostinger (Business et Cloud ; Node 18, 20, 22, 24 ; jusqu’à 5 applications) | — |
-| Dossier persistant pour les téléversements | Non documenté. Hostinger indique seulement que les dossiers de build et `public_html` sont gérés par le déploiement | photos stockées en base (table de binaires), servies avec cache long |
-| Tâches cron | Signalé indisponible pour les applications Node.js (retour d’un développeur, sept. 2026) | cron depuis un autre site du compte, ou minuteur interne (§8) |
-| `NODE_ENV` | Le même développeur signale que la plateforme impose `NODE_ENV=development` | forcer `NODE_ENV=production` dans les variables et le script de démarrage |
-| Module natif sharp | Non documenté | à tester au premier déploiement ; sinon génération des variantes dans le navigateur |
-| Cache ou CDN devant l’application | Non documenté | en-têtes `Cache-Control` explicites, purge à la publication si besoin |
-| IP réelle du visiteur | Non documenté | lire l’en-tête du proxy identifié au test |
-| MySQL distant ou local, version | Base MySQL incluse ; version à relever | — |
+Documentation Hostinger relue le 11/10/2026 (détail et sources : [deploiement-hostinger.md](deploiement-hostinger.md)). Chaque point non documenté est contrôlé sur le serveur par `GET /api/sante` (rapport protégé par jeton) et `scripts/verifier-deploiement.mjs`.
+
+| Hypothèse | Ce que dit la documentation | Contrôle en ligne | Plan B |
+| --- | --- | --- | --- |
+| Application Node.js sur l’offre Business, depuis GitHub | Confirmé (Business et Cloud ; Node 18, 20, 22, 24) | page d’accueil, version de Node | — |
+| Démarrage de Next.js | Mode serveur ; Hostinger **impose `output: "standalone"`** et lance le serveur lui-même ; configuration en objet obligatoire | compilation réussie | — |
+| Dossier persistant pour les téléversements | Chaque déploiement crée `hbuilds/versions/<id>` et supprime les précédentes ; `hbuilds/` et `public_html/` réécrits. Rien sur un dossier hors de ces deux-là | marqueur dans `UPLOAD_DIR` relu après un 2ᵉ déploiement | photos stockées en base, servies avec cache long |
+| Tâches cron | Non documenté pour les applications Node.js ; processus **arrêté sans trafic** | dernier passage `cron` dans `tache_execution` | cron depuis un autre site du compte ; minuteur interne en dernier recours (§8) |
+| `NODE_ENV` | Non documenté (un développeur signale `development`) ; le serveur standalone de Next force `production` | valeur relevée à l’exécution | variable `NODE_ENV=production` |
+| Module natif sharp | Non documenté (« l’optimisation d’images fonctionne ») | encodage WebP réel, image servie depuis `UPLOAD_DIR` | variantes générées dans le navigateur |
+| Cache ou CDN devant l’application | Non documenté ; ISR et revalidation « fonctionnent » | en-têtes `age`, `x-*-cache`, `via` ; revalidation à la demande visible en moins d’une minute | en-têtes `Cache-Control` explicites, purge à la publication |
+| IP réelle du visiteur | Non documenté (requêtes routées par un `.htaccess`) | en-têtes `x-forwarded-for`, `x-real-ip`, `forwarded`… (adresses tronquées) | lire l’en-tête identifié |
+| MySQL ou MariaDB, version | Base incluse | version, fuseau, jeu de caractères, écriture | — |
+| Durées de compilation | 15 min pour l’installation, 15 min pour la compilation | journal de compilation | — |

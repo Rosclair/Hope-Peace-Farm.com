@@ -1,0 +1,30 @@
+/* Styles provisoires de la phase 1 ; remplacés par le CSS de la maquette en phase 2.
+   Couleurs et tailles reprises des jetons de la maquette (--forest, --ink, --white, --fs-h1). */
+
+body {
+  margin: 0;
+  background: #FFFFFF;
+  color: #14211A;
+  font-family: var(--police-texte), system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+.squelette {
+  min-height: 100svh;
+  display: grid;
+  place-content: center;
+  padding: 24px 20px;
+  text-align: center;
+}
+
+.squelette h1 {
+  margin: 0 0 8px;
+  color: #104A21;
+  font: 800 clamp(2rem, 1.4rem + 3.2vw, 4.25rem) / 1.04 var(--police-titre), Arial, sans-serif;
+}
+
+.squelette p {
+  margin: 0;
+  color: #4D5D52;
+}

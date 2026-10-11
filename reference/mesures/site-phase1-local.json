@@ -1,0 +1,225 @@
+{
+  "url": "http://localhost:3000/",
+  "date": "2026-10-11T20:39:36.697Z",
+  "poids": {
+    "html": {
+      "encodage": "gzip",
+      "transfere": null,
+      "decompresse": 8108,
+      "brotli": 2275
+    },
+    "jsFichiers": [
+      {
+        "src": "/_next/static/chunks/21jmab2xql1m7.js",
+        "encodage": "gzip",
+        "transfere": null,
+        "decompresse": 186444,
+        "brotli": 41943
+      },
+      {
+        "src": "/_next/static/chunks/0jz5u988qzqyf.js",
+        "encodage": "gzip",
+        "transfere": null,
+        "decompresse": 229850,
+        "brotli": 61478
+      },
+      {
+        "src": "/_next/static/chunks/turbopack-2c3mg3r-05n1w.js",
+        "encodage": "gzip",
+        "transfere": null,
+        "decompresse": 11255,
+        "brotli": 3923
+      },
+      {
+        "src": "/_next/static/chunks/1tq6ppe__m8m-.js",
+        "encodage": "gzip",
+        "transfere": null,
+        "decompresse": 14090,
+        "brotli": 3224
+      },
+      {
+        "src": "/_next/static/chunks/3cfn99dbrcvvp.js",
+        "encodage": "gzip",
+        "transfere": null,
+        "decompresse": 16898,
+        "brotli": 5213
+      }
+    ],
+    "jsTotalDecompresse": 458537,
+    "jsTotalTransfere": null,
+    "jsTotalBrotli": 115781,
+    "jsEnLigneDecompresse": 6676,
+    "jsNomoduleIgnores": [
+      "/_next/static/chunks/0cz1d0mv5g_q7.js"
+    ]
+  },
+  "lighthouse": {
+    "mobile": {
+      "medianePerformance": 98,
+      "passages": [
+        {
+          "performance": 98,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 54,
+          "fcpMs": 770,
+          "lcpMs": 1370,
+          "tbtMs": 171,
+          "cls": 0,
+          "mainThreadMs": {
+            "scriptEvaluation": 317,
+            "other": 221,
+            "scriptParseCompile": 68,
+            "styleLayout": 24,
+            "parseHTML": 8,
+            "garbageCollection": 5,
+            "paintCompositeRender": 4
+          },
+          "echecs": [
+            "meta-description : Le document ne contient pas d'attribut \"meta description\"",
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        },
+        {
+          "performance": 98,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 54,
+          "fcpMs": 766,
+          "lcpMs": 1366,
+          "tbtMs": 157,
+          "cls": 0,
+          "mainThreadMs": {
+            "scriptEvaluation": 310,
+            "other": 205,
+            "scriptParseCompile": 59,
+            "styleLayout": 25,
+            "parseHTML": 7,
+            "garbageCollection": 6,
+            "paintCompositeRender": 4
+          },
+          "echecs": [
+            "meta-description : Le document ne contient pas d'attribut \"meta description\"",
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        },
+        {
+          "performance": 98,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 54,
+          "fcpMs": 762,
+          "lcpMs": 1733,
+          "tbtMs": 156,
+          "cls": 0,
+          "mainThreadMs": {
+            "scriptEvaluation": 320,
+            "other": 218,
+            "scriptParseCompile": 63,
+            "styleLayout": 23,
+            "garbageCollection": 15,
+            "parseHTML": 7,
+            "paintCompositeRender": 4
+          },
+          "echecs": [
+            "meta-description : Le document ne contient pas d'attribut \"meta description\"",
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        }
+      ]
+    },
+    "ordinateur": {
+      "medianePerformance": 100,
+      "passages": [
+        {
+          "performance": 100,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 54,
+          "fcpMs": 215,
+          "lcpMs": 514,
+          "tbtMs": 2,
+          "cls": 0,
+          "mainThreadMs": {
+            "scriptEvaluation": 78,
+            "other": 50,
+            "scriptParseCompile": 16,
+            "styleLayout": 6,
+            "parseHTML": 2,
+            "paintCompositeRender": 1
+          },
+          "echecs": [
+            "meta-description : Le document ne contient pas d'attribut \"meta description\"",
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        },
+        {
+          "performance": 100,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 54,
+          "fcpMs": 217,
+          "lcpMs": 434,
+          "tbtMs": 1,
+          "cls": 0,
+          "mainThreadMs": {
+            "scriptEvaluation": 82,
+            "other": 55,
+            "scriptParseCompile": 16,
+            "styleLayout": 7,
+            "parseHTML": 2,
+            "paintCompositeRender": 1
+          },
+          "echecs": [
+            "meta-description : Le document ne contient pas d'attribut \"meta description\"",
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        },
+        {
+          "performance": 100,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 54,
+          "fcpMs": 215,
+          "lcpMs": 516,
+          "tbtMs": 4,
+          "cls": 0,
+          "mainThreadMs": {
+            "scriptEvaluation": 83,
+            "other": 52,
+            "scriptParseCompile": 16,
+            "styleLayout": 7,
+            "parseHTML": 2,
+            "paintCompositeRender": 1
+          },
+          "echecs": [
+            "meta-description : Le document ne contient pas d'attribut \"meta description\"",
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        },
+        {
+          "performance": 100,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 54,
+          "fcpMs": 217,
+          "lcpMs": 394,
+          "tbtMs": 4,
+          "cls": 0,
+          "mainThreadMs": {
+            "scriptEvaluation": 84,
+            "other": 57,
+            "scriptParseCompile": 16,
+            "styleLayout": 7,
+            "parseHTML": 2,
+            "paintCompositeRender": 1
+          },
+          "echecs": [
+            "meta-description : Le document ne contient pas d'attribut \"meta description\"",
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        }
+      ]
+    }
+  }
+}

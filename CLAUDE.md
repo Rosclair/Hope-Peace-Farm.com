@@ -21,7 +21,7 @@ Architecture : [docs/architecture.md](docs/architecture.md) · données : [docs/
 
 ## Pile
 
-- Next.js (App Router) + React + TypeScript strict. Composants serveur par défaut ; `"use client"` seulement pour l’interactif.
+- Next.js 16.4 (App Router, `cacheComponents`, sortie standalone) + React 19 + TypeScript strict. Composants serveur par défaut ; `"use client"` seulement pour l’interactif. Avant d’employer une API de Next, lire sa documentation dans `node_modules/next/dist/docs/` (elle diffère des versions antérieures).
 - Animations : moteur natif en TypeScript (`lib/moteur/`), lancé une fois côté client. Pas d’état React au défilement, ni Framer Motion ni GSAP ; uniquement `transform` et `opacity`.
 - MySQL/MariaDB + Drizzle (migrations versionnées dans `drizzle/`), Better Auth (sessions en base, TOTP obligatoire), Zod partout, Nodemailer, sharp.
 - Aucune ressource tierce chargée par le navigateur. Liens sortants permis : WhatsApp, Facebook, chaîne WhatsApp, Google Maps, téléphone.
@@ -38,10 +38,19 @@ Architecture : [docs/architecture.md](docs/architecture.md) · données : [docs/
 ## Environnement local (Windows)
 
 - Lancer npm, npx et node depuis Git Bash (outil Bash) : depuis PowerShell, npm s’est bloqué sans message dans ce dossier (dont le chemin contient `&`).
+- Avant tout script npm qui appelle un exécutable (`next`, `tsc`, `vitest`, `drizzle-kit`, `npx`) : `export npm_config_script_shell="C:\Program Files\Git\usr\bin\bash.exe"` (sinon cmd.exe coupe le chemin au `&`). Réglage local seulement : rien dans `.npmrc`.
+- Réseau lent et coupures : installer avec `--prefer-offline` ; une grosse archive se télécharge par morceaux (`curl -r`), puis `npm cache add` (npm la retrouve par son empreinte).
 - Chrome est installé : Playwright et Lighthouse l’utilisent (`channel: "chrome"`).
+- MySQL 8.4 de Laragon : base `hpf_dev`, utilisateur `hpf_dev` (identifiants dans `.env`). Ne jamais toucher la base `hopeandpeacefarm`, qui appartient à un autre projet.
+- E-mails de test : Mailpit dédié, `C:/laragon/bin/mailpit/1.22.3/mailpit.exe --smtp 127.0.0.1:1026 --listen 127.0.0.1:8026 --smtp-auth-accept-any --smtp-auth-allow-insecure` (celui de Laragon, ports 1025/8025, est partagé avec les autres projets du poste).
 
 ## Commandes
 
+- `npm run dev` · `npm run build` (puis copie des fichiers statiques dans la sortie standalone) · `npm run standalone` : serveur standalone, celui que Hostinger exécute.
+- `npm test` (Vitest) · `npm run typecheck`.
+- `npm run db:generer` : nouvelle migration depuis `lib/db/schema/` · `npm run db:migrer` : l’applique (aussi faite au démarrage du serveur).
+- `npm run deploiement:verifier -- <url> [--email] [--taches] [--cache]` : contrôle d’un déploiement (jetons `HPF_DIAGNOSTIC_SECRET`, `HPF_CRON_SECRET`), voir `docs/deploiement-hostinger.md`.
+- `npm run site:mesures -- <url> [--passages=3] [--sortie=f.json]` : Lighthouse et poids du JS client du site.
 - `npm run maquette:extraire` : extrait polices, logo, icônes, CSS et JS de la maquette.
 - `npm run maquette:captures` : captures de référence (4 formats × 3 modes) dans `reference/captures/`.
 - `npm run maquette:mesures` : Lighthouse mobile et ordinateur, axe-core, poids.
