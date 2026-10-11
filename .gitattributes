@@ -1,0 +1,12 @@
+# Fins de ligne LF partout (Hostinger tourne sous Linux)
+* text=auto eol=lf
+
+# La maquette fait foi : aucun traitement, octet pour octet
+reference/hope-and-peace-farm-apercu-2.html -text -diff
+
+# Binaires
+*.woff2 binary
+*.png binary
+*.jpg binary
+*.webp binary
+*.ico binary

@@ -1,0 +1,243 @@
+{
+  "url": "http://127.0.0.1:51804/",
+  "date": "2026-10-11T18:15:04.276Z",
+  "lighthouse": {
+    "mobile": {
+      "medianePerformance": 85,
+      "passages": [
+        {
+          "performance": 85,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 63,
+          "fcpMs": 1684,
+          "lcpMs": 2064,
+          "tbtMs": 522,
+          "cls": 0.0037,
+          "siMs": 2587,
+          "lcpElement": "<p class=\"hero__lead\">",
+          "mainThreadMs": {
+            "styleLayout": 1485,
+            "other": 1040,
+            "paintCompositeRender": 248,
+            "scriptEvaluation": 67,
+            "parseHTML": 61,
+            "scriptParseCompile": 10
+          },
+          "octetsTransferes": 94718,
+          "echecs": [
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        },
+        {
+          "performance": 85,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 63,
+          "fcpMs": 1075,
+          "lcpMs": 1430,
+          "tbtMs": 579,
+          "cls": 0.0037,
+          "siMs": 1321,
+          "lcpElement": "<p class=\"hero__lead\">",
+          "mainThreadMs": {
+            "styleLayout": 1641,
+            "other": 1149,
+            "paintCompositeRender": 285,
+            "scriptEvaluation": 77,
+            "parseHTML": 58,
+            "scriptParseCompile": 11
+          },
+          "octetsTransferes": 94718,
+          "echecs": [
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        },
+        {
+          "performance": 87,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 63,
+          "fcpMs": 1075,
+          "lcpMs": 1405,
+          "tbtMs": 517,
+          "cls": 0.0037,
+          "siMs": 1269,
+          "lcpElement": "<p class=\"hero__lead\">",
+          "mainThreadMs": {
+            "styleLayout": 1483,
+            "other": 1022,
+            "paintCompositeRender": 244,
+            "scriptEvaluation": 69,
+            "parseHTML": 57,
+            "scriptParseCompile": 11
+          },
+          "octetsTransferes": 94718,
+          "echecs": [
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        }
+      ],
+      "retenu": {
+        "performance": 85,
+        "accessibilite": 100,
+        "bonnesPratiques": 100,
+        "seo": 63,
+        "fcpMs": 1684,
+        "lcpMs": 2064,
+        "tbtMs": 522,
+        "cls": 0.0037,
+        "siMs": 2587,
+        "lcpElement": "<p class=\"hero__lead\">",
+        "mainThreadMs": {
+          "styleLayout": 1485,
+          "other": 1040,
+          "paintCompositeRender": 248,
+          "scriptEvaluation": 67,
+          "parseHTML": 61,
+          "scriptParseCompile": 10
+        },
+        "octetsTransferes": 94718,
+        "echecs": [
+          "is-crawlable : L'indexation de la page est bloquée"
+        ]
+      }
+    },
+    "ordinateur": {
+      "medianePerformance": 100,
+      "passages": [
+        {
+          "performance": 100,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 63,
+          "fcpMs": 249,
+          "lcpMs": 334,
+          "tbtMs": 56,
+          "cls": 0.0003,
+          "siMs": 463,
+          "lcpElement": "<span>",
+          "mainThreadMs": {
+            "styleLayout": 412,
+            "other": 270,
+            "paintCompositeRender": 62,
+            "parseHTML": 20,
+            "scriptEvaluation": 18,
+            "scriptParseCompile": 3
+          },
+          "octetsTransferes": 94718,
+          "echecs": [
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        },
+        {
+          "performance": 100,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 63,
+          "fcpMs": 248,
+          "lcpMs": 329,
+          "tbtMs": 63,
+          "cls": 0.0003,
+          "siMs": 461,
+          "lcpElement": "<span>",
+          "mainThreadMs": {
+            "styleLayout": 375,
+            "other": 194,
+            "paintCompositeRender": 54,
+            "parseHTML": 15,
+            "scriptEvaluation": 15,
+            "scriptParseCompile": 3
+          },
+          "octetsTransferes": 94718,
+          "echecs": [
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        },
+        {
+          "performance": 100,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 63,
+          "fcpMs": 248,
+          "lcpMs": 328,
+          "tbtMs": 61,
+          "cls": 0.0003,
+          "siMs": 450,
+          "lcpElement": "<span>",
+          "mainThreadMs": {
+            "styleLayout": 370,
+            "other": 224,
+            "paintCompositeRender": 55,
+            "scriptEvaluation": 16,
+            "parseHTML": 15,
+            "scriptParseCompile": 3
+          },
+          "octetsTransferes": 94718,
+          "echecs": [
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        }
+      ],
+      "retenu": {
+        "performance": 100,
+        "accessibilite": 100,
+        "bonnesPratiques": 100,
+        "seo": 63,
+        "fcpMs": 249,
+        "lcpMs": 334,
+        "tbtMs": 56,
+        "cls": 0.0003,
+        "siMs": 463,
+        "lcpElement": "<span>",
+        "mainThreadMs": {
+          "styleLayout": 412,
+          "other": 270,
+          "paintCompositeRender": 62,
+          "parseHTML": 20,
+          "scriptEvaluation": 18,
+          "scriptParseCompile": 3
+        },
+        "octetsTransferes": 94718,
+        "echecs": [
+          "is-crawlable : L'indexation de la page est bloquée"
+        ]
+      }
+    }
+  },
+  "axe": {
+    "393x780": {
+      "violations": [],
+      "incomplets": [
+        {
+          "id": "color-contrast",
+          "noeuds": 21
+        }
+      ],
+      "reussis": 50
+    },
+    "1280x800": {
+      "violations": [],
+      "incomplets": [
+        {
+          "id": "color-contrast",
+          "noeuds": 24
+        }
+      ],
+      "reussis": 50
+    }
+  },
+  "poids": {
+    "htmlBrut": 283459,
+    "htmlGzip": 103907,
+    "htmlBrotli": 94449,
+    "jsEnLigneBrut": 30947,
+    "jsEnLigneBrotli": 9008,
+    "policesWoff2": [
+      21844,
+      11384,
+      11544
+    ],
+    "policesBase64DansHtml": 59700
+  }
+}

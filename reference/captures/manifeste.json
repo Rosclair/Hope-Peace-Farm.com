@@ -1,0 +1,2290 @@
+{
+  "maquetteSha256": "e041773f131b0a279e42e061c2de0de6055b91d96d73011395fa8fe9afa2e054",
+  "navigateur": "Chrome 155.0.8059.39",
+  "heureFigee": "2026-10-11T09:00:00Z",
+  "formats": {
+    "360x640": {
+      "js": {
+        "classes": "js fetes-garanti motion scrolly reveal-on",
+        "scrolly": true,
+        "hauteurPage": 21748,
+        "enTete": 64,
+        "heroHautDoc": 141.890625,
+        "course": 1472,
+        "debordementHorizontal": 0,
+        "erreursConsole": [],
+        "positionsAccueil": [
+          {
+            "cible": 0,
+            "scrollY": 0,
+            "progression": 0
+          },
+          {
+            "cible": 0.14,
+            "scrollY": 284,
+            "progression": 0.14
+          },
+          {
+            "cible": 0.38,
+            "scrollY": 637,
+            "progression": 0.3798
+          },
+          {
+            "cible": 0.66,
+            "scrollY": 1049,
+            "progression": 0.6597
+          },
+          {
+            "cible": 0.97,
+            "scrollY": 1506,
+            "progression": 0.9702
+          }
+        ],
+        "messageCeremonie": "Bonjour Hope & Peace Farm, je prépare des funérailles le 19 décembre 2026 à Bazou, chefferie, près du marché, pour 100 à 200 invités. Je souhaite un devis. Nom : Exemple Test, j’habite à Douala.",
+        "lienCeremonie": "https://wa.me/237693645565?text=Bonjour%20Hope%20%26%20Peace%20Farm%2C%20je%20pr%C3%A9pare%20des%20fun%C3%A9railles%20le%2019%20d%C3%A9cembre%202026%20%C3%A0%20Bazou%2C%20chefferie%2C%20pr%C3%A8s%20du%20march%C3%A9%2C%20pour%20100%20%C3%A0%20200%20invit%C3%A9s.%20Je%20souhaite%20un%20devis.%20Nom%C2%A0%3A%20Exemple%20Test%2C%20j%E2%80%99habite%20%C3%A0%20Douala."
+      },
+      "sans-js": {
+        "classes": "no-js",
+        "scrolly": false,
+        "hauteurPage": 19940,
+        "enTete": 64,
+        "heroHautDoc": 121.59375,
+        "course": 1,
+        "debordementHorizontal": 0,
+        "erreursConsole": []
+      },
+      "reduit": {
+        "classes": "js fetes-garanti",
+        "scrolly": false,
+        "hauteurPage": 21034,
+        "enTete": 64,
+        "heroHautDoc": 141.890625,
+        "course": 1,
+        "debordementHorizontal": 0,
+        "erreursConsole": []
+      }
+    },
+    "393x780": {
+      "js": {
+        "classes": "js fetes-garanti motion scrolly reveal-on",
+        "scrolly": true,
+        "hauteurPage": 21201,
+        "enTete": 64,
+        "heroHautDoc": 141.890625,
+        "course": 1794,
+        "debordementHorizontal": 0,
+        "erreursConsole": [],
+        "positionsAccueil": [
+          {
+            "cible": 0,
+            "scrollY": 0,
+            "progression": 0
+          },
+          {
+            "cible": 0.14,
+            "scrollY": 329,
+            "progression": 0.14
+          },
+          {
+            "cible": 0.38,
+            "scrollY": 760,
+            "progression": 0.3802
+          },
+          {
+            "cible": 0.66,
+            "scrollY": 1262,
+            "progression": 0.66
+          },
+          {
+            "cible": 0.97,
+            "scrollY": 1818,
+            "progression": 0.97
+          }
+        ],
+        "messageCeremonie": "Bonjour Hope & Peace Farm, je prépare des funérailles le 19 décembre 2026 à Bazou, chefferie, près du marché, pour 100 à 200 invités. Je souhaite un devis. Nom : Exemple Test, j’habite à Douala.",
+        "lienCeremonie": "https://wa.me/237693645565?text=Bonjour%20Hope%20%26%20Peace%20Farm%2C%20je%20pr%C3%A9pare%20des%20fun%C3%A9railles%20le%2019%20d%C3%A9cembre%202026%20%C3%A0%20Bazou%2C%20chefferie%2C%20pr%C3%A8s%20du%20march%C3%A9%2C%20pour%20100%20%C3%A0%20200%20invit%C3%A9s.%20Je%20souhaite%20un%20devis.%20Nom%C2%A0%3A%20Exemple%20Test%2C%20j%E2%80%99habite%20%C3%A0%20Douala."
+      },
+      "sans-js": {
+        "classes": "no-js",
+        "scrolly": false,
+        "hauteurPage": 18913,
+        "enTete": 64,
+        "heroHautDoc": 121.59375,
+        "course": 1,
+        "debordementHorizontal": 0,
+        "erreursConsole": []
+      },
+      "reduit": {
+        "classes": "js fetes-garanti",
+        "scrolly": false,
+        "hauteurPage": 20012,
+        "enTete": 64,
+        "heroHautDoc": 141.890625,
+        "course": 1,
+        "debordementHorizontal": 0,
+        "erreursConsole": []
+      }
+    },
+    "768x1024": {
+      "js": {
+        "classes": "js fetes-garanti motion scrolly reveal-on",
+        "scrolly": true,
+        "hauteurPage": 19141,
+        "enTete": 64,
+        "heroHautDoc": 121.59375,
+        "course": 2355,
+        "debordementHorizontal": 0,
+        "erreursConsole": [],
+        "positionsAccueil": [
+          {
+            "cible": 0,
+            "scrollY": 0,
+            "progression": 0
+          },
+          {
+            "cible": 0.14,
+            "scrollY": 387,
+            "progression": 0.1399
+          },
+          {
+            "cible": 0.38,
+            "scrollY": 952,
+            "progression": 0.3798
+          },
+          {
+            "cible": 0.66,
+            "scrollY": 1612,
+            "progression": 0.66
+          },
+          {
+            "cible": 0.97,
+            "scrollY": 2342,
+            "progression": 0.97
+          }
+        ],
+        "messageCeremonie": "Bonjour Hope & Peace Farm, je prépare des funérailles le 19 décembre 2026 à Bazou, chefferie, près du marché, pour 100 à 200 invités. Je souhaite un devis. Nom : Exemple Test, j’habite à Douala.",
+        "lienCeremonie": "https://wa.me/237693645565?text=Bonjour%20Hope%20%26%20Peace%20Farm%2C%20je%20pr%C3%A9pare%20des%20fun%C3%A9railles%20le%2019%20d%C3%A9cembre%202026%20%C3%A0%20Bazou%2C%20chefferie%2C%20pr%C3%A8s%20du%20march%C3%A9%2C%20pour%20100%20%C3%A0%20200%20invit%C3%A9s.%20Je%20souhaite%20un%20devis.%20Nom%C2%A0%3A%20Exemple%20Test%2C%20j%E2%80%99habite%20%C3%A0%20Douala."
+      },
+      "sans-js": {
+        "classes": "no-js",
+        "scrolly": false,
+        "hauteurPage": 16166,
+        "enTete": 64,
+        "heroHautDoc": 101.296875,
+        "course": 1,
+        "debordementHorizontal": 0,
+        "erreursConsole": []
+      },
+      "reduit": {
+        "classes": "js fetes-garanti",
+        "scrolly": false,
+        "hauteurPage": 17109,
+        "enTete": 64,
+        "heroHautDoc": 121.59375,
+        "course": 1,
+        "debordementHorizontal": 0,
+        "erreursConsole": []
+      }
+    },
+    "1280x800": {
+      "js": {
+        "classes": "js fetes-garanti motion scrolly reveal-on",
+        "scrolly": true,
+        "hauteurPage": 14707,
+        "enTete": 72,
+        "heroHautDoc": 109.296875,
+        "course": 1680,
+        "debordementHorizontal": 0,
+        "erreursConsole": [],
+        "positionsAccueil": [
+          {
+            "cible": 0,
+            "scrollY": 0,
+            "progression": 0
+          },
+          {
+            "cible": 0.14,
+            "scrollY": 272,
+            "progression": 0.1397
+          },
+          {
+            "cible": 0.38,
+            "scrollY": 676,
+            "progression": 0.3802
+          },
+          {
+            "cible": 0.66,
+            "scrollY": 1146,
+            "progression": 0.6599
+          },
+          {
+            "cible": 0.97,
+            "scrollY": 1667,
+            "progression": 0.9701
+          }
+        ],
+        "messageCeremonie": "Bonjour Hope & Peace Farm, je prépare des funérailles le 19 décembre 2026 à Bazou, chefferie, près du marché, pour 100 à 200 invités. Je souhaite un devis. Nom : Exemple Test, j’habite à Douala.",
+        "lienCeremonie": "https://wa.me/237693645565?text=Bonjour%20Hope%20%26%20Peace%20Farm%2C%20je%20pr%C3%A9pare%20des%20fun%C3%A9railles%20le%2019%20d%C3%A9cembre%202026%20%C3%A0%20Bazou%2C%20chefferie%2C%20pr%C3%A8s%20du%20march%C3%A9%2C%20pour%20100%20%C3%A0%20200%20invit%C3%A9s.%20Je%20souhaite%20un%20devis.%20Nom%C2%A0%3A%20Exemple%20Test%2C%20j%E2%80%99habite%20%C3%A0%20Douala."
+      },
+      "sans-js": {
+        "classes": "no-js",
+        "scrolly": false,
+        "hauteurPage": 12739,
+        "enTete": 72,
+        "heroHautDoc": 109.296875,
+        "course": 1,
+        "debordementHorizontal": 0,
+        "erreursConsole": []
+      },
+      "reduit": {
+        "classes": "js fetes-garanti",
+        "scrolly": false,
+        "hauteurPage": 13356,
+        "enTete": 72,
+        "heroHautDoc": 109.296875,
+        "course": 1,
+        "debordementHorizontal": 0,
+        "erreursConsole": []
+      }
+    }
+  },
+  "captures": [
+    {
+      "fichier": "360x640/js/00-accueil-00.png",
+      "octets": 114595,
+      "sha256": "2a6ae80c2affb4e38a2c6724581a3adf868564cd62c8cebbd6b5630917918a9a"
+    },
+    {
+      "fichier": "360x640/js/00-accueil-14.png",
+      "octets": 72772,
+      "sha256": "1f471e2534b58fc45f9eaeb8649a1fa1a2e89b5ee5574f7aedf27cc8a281bdda"
+    },
+    {
+      "fichier": "360x640/js/00-accueil-38.png",
+      "octets": 44897,
+      "sha256": "24ff5909e34527c5fe2ca072888180db06f1dcc5dd99d5115cd0cb625aa5dee1"
+    },
+    {
+      "fichier": "360x640/js/00-accueil-66.png",
+      "octets": 70073,
+      "sha256": "ac97f51099aba928e97a671abf9d2a878bb67257578a108b54faf9f55dda75e9"
+    },
+    {
+      "fichier": "360x640/js/00-accueil-97.png",
+      "octets": 71819,
+      "sha256": "4b5adbaedacfa53f7ff50de69802b92e876c5893f5bf61e08f7c2c014f9f5702"
+    },
+    {
+      "fichier": "360x640/js/01-garanties.png",
+      "octets": 42729,
+      "sha256": "7c49c0229a5eccd0e0482b957f0b55da8c9d04e068d72ea438703de327e1dd4e"
+    },
+    {
+      "fichier": "360x640/js/02-choix.png",
+      "octets": 46440,
+      "sha256": "0deb7ff6d27852a48534ccc3656a524c84ddd13b942c6f9e4cfa8b64e0570a0d"
+    },
+    {
+      "fichier": "360x640/js/02-choix-2.png",
+      "octets": 46523,
+      "sha256": "fcc72a556760d2687e7a38fb39cda28cfbf7d328bfe479d98f36ab98067b5483"
+    },
+    {
+      "fichier": "360x640/js/03-deroule.png",
+      "octets": 46376,
+      "sha256": "97a9e6beca3443a91a100d917be5d816942f3e76ec3e5a5ec9dee8103f04b521"
+    },
+    {
+      "fichier": "360x640/js/04-ceremonies.png",
+      "octets": 49814,
+      "sha256": "b704c97b0dbee4c20b494db3e88c1c43b581a1799c8c13176debea7e59b1cd1d"
+    },
+    {
+      "fichier": "360x640/js/04-ceremonies-2.png",
+      "octets": 48020,
+      "sha256": "9792c176fc4b69908c8d29788b749e49042c40fb860f5a35ac33e9326d5b418f"
+    },
+    {
+      "fichier": "360x640/js/04-ceremonies-3.png",
+      "octets": 55851,
+      "sha256": "32219a8066b1924aede61199e4f6aa9445203d6dcea4bc7f2084701e481ccc50"
+    },
+    {
+      "fichier": "360x640/js/04-ceremonies-4.png",
+      "octets": 55391,
+      "sha256": "141877b6e5835e80082d489465863745cfca99a4ebca8b80d209f532d021e1ed"
+    },
+    {
+      "fichier": "360x640/js/04-ceremonies-5.png",
+      "octets": 53665,
+      "sha256": "120d0c46cfb89fd3b926257fe054f431def284bdc78a07769913b443b7a9bf73"
+    },
+    {
+      "fichier": "360x640/js/04-ceremonies-6.png",
+      "octets": 46233,
+      "sha256": "16644376d86deb7c7b93e8716b4b0f2c5a17cebd2c4cf3aac551b88fd883b78d"
+    },
+    {
+      "fichier": "360x640/js/04-ceremonies-7.png",
+      "octets": 52899,
+      "sha256": "9573e4ed4f4b33bb91685b67a93ab24dda815305cd203a964e4cf1d3c07a5da7"
+    },
+    {
+      "fichier": "360x640/js/05-poulets.png",
+      "octets": 68798,
+      "sha256": "e9032c8d597ed623e3b58bfe6c39d37d57389bd1984d668017e7bea7da30bab9"
+    },
+    {
+      "fichier": "360x640/js/05-poulets-2.png",
+      "octets": 59710,
+      "sha256": "32b09726d7347d27297ec42c5fe65e75c914a6017bd4d4bd7aa5463172610746"
+    },
+    {
+      "fichier": "360x640/js/05-poulets-3.png",
+      "octets": 50598,
+      "sha256": "b1e57bf0f65a2c246776b5bcf62d47ed8c15ed61f5211bea13aec807dc84eab7"
+    },
+    {
+      "fichier": "360x640/js/05-poulets-4.png",
+      "octets": 57141,
+      "sha256": "6baa4bd910fc94c0026b818ccc7c1171eabb89386907917a006ed4862c3e85dd"
+    },
+    {
+      "fichier": "360x640/js/06-professionnels.png",
+      "octets": 52976,
+      "sha256": "db7eaadc0a3d6d762407a70e5640ef471b5c60acec88b7191a1fb719d7bed1fd"
+    },
+    {
+      "fichier": "360x640/js/06-professionnels-2.png",
+      "octets": 44127,
+      "sha256": "8d47eaaba68f39817d8d949545d0d86636aa305735dc3d0e31a3509f920816a4"
+    },
+    {
+      "fichier": "360x640/js/07-livraison.png",
+      "octets": 45290,
+      "sha256": "1d7fd132370715e1b4a911a584cbd98c9319c312540c6a46b923522f807f072c"
+    },
+    {
+      "fichier": "360x640/js/07-livraison-2.png",
+      "octets": 48954,
+      "sha256": "41e3528e01a4b41da4e9fc281a83e5f8028229b76783cea666e58ddff59f0611"
+    },
+    {
+      "fichier": "360x640/js/07-livraison-3.png",
+      "octets": 49472,
+      "sha256": "18056499eb2772be993208511fea96245e4e537dd02a06629c667d7ad48153a4"
+    },
+    {
+      "fichier": "360x640/js/07-livraison-4.png",
+      "octets": 56335,
+      "sha256": "8e97392f4d35031a658cef2df6165756bad0538ab97c80307514fa33cb5b3a52"
+    },
+    {
+      "fichier": "360x640/js/07-livraison-5.png",
+      "octets": 47941,
+      "sha256": "34f19f59f7a37ec3c6469c912050f003b8e23ef3237c6bc75cf6f4ebb4aaeb36"
+    },
+    {
+      "fichier": "360x640/js/07-livraison-6.png",
+      "octets": 49083,
+      "sha256": "ee91e7fa76ba4c332c376451bc2271a023b5ad57d2a597ada7473b4c378e507f"
+    },
+    {
+      "fichier": "360x640/js/07-livraison-7.png",
+      "octets": 50311,
+      "sha256": "ea94dddb1f6b96fa6402195025a2cbeb68d268408b1bc709bfc7d21d0369451d"
+    },
+    {
+      "fichier": "360x640/js/08-la-ferme.png",
+      "octets": 56166,
+      "sha256": "ae1ac0e65e793ae0941208d64d18e897ec32111c8a012cb92d5f36bfb75bf62d"
+    },
+    {
+      "fichier": "360x640/js/08-la-ferme-2.png",
+      "octets": 48616,
+      "sha256": "c0f39a29be827b36f7eb239763288219b1dbd4e33ee7b750610152329386df8f"
+    },
+    {
+      "fichier": "360x640/js/08-la-ferme-3.png",
+      "octets": 53350,
+      "sha256": "d61734ed0865a530aeec7f4cdf783d390e064ff3f463f9a084a76b29a8dd4ba7"
+    },
+    {
+      "fichier": "360x640/js/08-la-ferme-4.png",
+      "octets": 51228,
+      "sha256": "78d7cbcf1582d9fe902e2ca50933302ec13a8f69e81a3db1f766231ed0f35235"
+    },
+    {
+      "fichier": "360x640/js/08-la-ferme-5.png",
+      "octets": 50677,
+      "sha256": "f1ead484128ebe16d14e283b020282343c8356e0de6a161422f99ecd1c3e8553"
+    },
+    {
+      "fichier": "360x640/js/09-questions.png",
+      "octets": 49380,
+      "sha256": "5afa9b3c01a7a08bd1000045f04b8b7bc93580fe7109c24efbc1b950c492bc8e"
+    },
+    {
+      "fichier": "360x640/js/09-questions-2.png",
+      "octets": 41797,
+      "sha256": "4d9800bc7d9ca91c973031dc962592b0670b0005c85a23f8d7c3c08df76e822a"
+    },
+    {
+      "fichier": "360x640/js/09-questions-3.png",
+      "octets": 40300,
+      "sha256": "9f59b35f5e961d88c2f3047dd91beed1adbe8496e1cce84ce0a8ad4c0df719ed"
+    },
+    {
+      "fichier": "360x640/js/10-demande.png",
+      "octets": 50661,
+      "sha256": "e3cce11d6cc152e6c78ca5044bff1a309c6644b8e2fee9749733b4c04ebbe0d2"
+    },
+    {
+      "fichier": "360x640/js/10-demande-2.png",
+      "octets": 51012,
+      "sha256": "c5f6b3aa1641e32b4770445474c842bb705a17bb1bce00c480d1b400bf0d06fc"
+    },
+    {
+      "fichier": "360x640/js/10-demande-3.png",
+      "octets": 38818,
+      "sha256": "bd0d3850bee0a7fc07e9b4affaec7c34a54b6fed55f129d408be2dc0dedad9c5"
+    },
+    {
+      "fichier": "360x640/js/10-demande-4.png",
+      "octets": 54498,
+      "sha256": "b7e58340df41bc3ef14d1d38031de098fc7f379141a10dd1c9f62841c3436797"
+    },
+    {
+      "fichier": "360x640/js/11-pied-de-page.png",
+      "octets": 50641,
+      "sha256": "79af2328ea19908da4418990bc29170859682b71397b5d0b060561a1778e8b2d"
+    },
+    {
+      "fichier": "360x640/js/11-pied-de-page-2.png",
+      "octets": 43538,
+      "sha256": "e2796af0162525b5308f0bdec847cd4b7a212534956c681e0685396194ad9f58"
+    },
+    {
+      "fichier": "360x640/js/11-pied-de-page-3.png",
+      "octets": 40853,
+      "sha256": "037cb4b4b8f9ab74922a73a76f8155d1451d0f3725bb598c05deff6974ba3fbd"
+    },
+    {
+      "fichier": "360x640/js/etats/menu-ouvert.png",
+      "octets": 36654,
+      "sha256": "62058b33cb0ddc60a8d71446e6ff87b7c41da0ceeadc7d19130428206d96b1d5"
+    },
+    {
+      "fichier": "360x640/js/etats/form-ceremonie-etape1.png",
+      "octets": 44037,
+      "sha256": "ab249756ad3f73ee1133c70a98d7d24b13c3461ffc9dc6ad1d3aea0098dac86e"
+    },
+    {
+      "fichier": "360x640/js/etats/form-ceremonie-erreurs.png",
+      "octets": 46811,
+      "sha256": "89889a04091a309fbfd46bb3e2a295118da42b8a5a3bd68e16d75d691fb6c9b2"
+    },
+    {
+      "fichier": "360x640/js/etats/form-ceremonie-etape2.png",
+      "octets": 42994,
+      "sha256": "55f905d09250b42b02bf78d3575a7403fb9b0bda853827807d36582f57e76de0"
+    },
+    {
+      "fichier": "360x640/js/etats/form-ceremonie-succes.png",
+      "octets": 58810,
+      "sha256": "b8752f64d0fd59ddfe68673e8b499e893f65bf915428e95778e6b726854f8f9a"
+    },
+    {
+      "fichier": "360x640/js/etats/form-poulets-etape1.png",
+      "octets": 50358,
+      "sha256": "19e32e5e5c1d160dff6c225c2ec801feff4ce26bc611e933a706d7eeef989889"
+    },
+    {
+      "fichier": "360x640/js/etats/form-pro-etape1.png",
+      "octets": 45201,
+      "sha256": "9d82e5ea5c5e12968602fad56318ae300e46ac6848670596efd334f4d2b9fe97"
+    },
+    {
+      "fichier": "360x640/sans-js/00-accueil.png",
+      "octets": 115226,
+      "sha256": "24edf60862b8c14dd7e8fc7357ed0ed0480ca9626c1fa30e07a417776b96d44e"
+    },
+    {
+      "fichier": "360x640/sans-js/01-garanties.png",
+      "octets": 41654,
+      "sha256": "5bb4b872b42fa3a5f8f8eec2a00e58944b2f7e2a0caeb0b8e0fff7f6a23086ae"
+    },
+    {
+      "fichier": "360x640/sans-js/02-choix.png",
+      "octets": 45318,
+      "sha256": "78de943c1e8be8631db33d7dce7271bc059fca42257bea00459342a8f585e929"
+    },
+    {
+      "fichier": "360x640/sans-js/02-choix-2.png",
+      "octets": 43891,
+      "sha256": "e3d1f2c1b8fd0d47557f1217f9cb3a38bb2e2cb8f385db42f6fffad28a58cfa2"
+    },
+    {
+      "fichier": "360x640/sans-js/03-deroule.png",
+      "octets": 43000,
+      "sha256": "db8335ea2e07946a10e5f614883ad368dfd8597437941aa8e9d31cc2333a4307"
+    },
+    {
+      "fichier": "360x640/sans-js/04-ceremonies.png",
+      "octets": 51621,
+      "sha256": "0e6f1921f5415b2a5445e6b661ddcf770d1891b521b97abf8313d71a690ca8ac"
+    },
+    {
+      "fichier": "360x640/sans-js/04-ceremonies-2.png",
+      "octets": 45785,
+      "sha256": "a9cc78717730e86efed8082473bdec37a8bc18e6b600b4676a758ce63fa33f2f"
+    },
+    {
+      "fichier": "360x640/sans-js/04-ceremonies-3.png",
+      "octets": 51989,
+      "sha256": "ca29440f7ec319e88fbe2bbbf15df5e5e63ee59622631a5730ba96b9269c7c4c"
+    },
+    {
+      "fichier": "360x640/sans-js/04-ceremonies-4.png",
+      "octets": 51573,
+      "sha256": "00e8686d984187b8b2e459c604035f64de8fa3e0e72f4b254d0d1ab47ede34ef"
+    },
+    {
+      "fichier": "360x640/sans-js/04-ceremonies-5.png",
+      "octets": 49733,
+      "sha256": "44331efca53701392052767aa1582f88729616affb759fbc4cd871bb550e41af"
+    },
+    {
+      "fichier": "360x640/sans-js/04-ceremonies-6.png",
+      "octets": 44663,
+      "sha256": "6674ded69884cea8bdf76f4db1e8190b9da71190f2f9e7a42670ffea36879c54"
+    },
+    {
+      "fichier": "360x640/sans-js/04-ceremonies-7.png",
+      "octets": 48847,
+      "sha256": "53c05a41a4b7015c0df66fb6e6a12e38fee9f7cfc64bf9b52067e18301776a0c"
+    },
+    {
+      "fichier": "360x640/sans-js/05-poulets.png",
+      "octets": 59912,
+      "sha256": "052d62b572c3b2dcf8c468b51a42d8cbba86ac27097525871e60f3435733b6dc"
+    },
+    {
+      "fichier": "360x640/sans-js/05-poulets-2.png",
+      "octets": 53761,
+      "sha256": "0bf7dbf53c9883b17d58acdcf53badc1f278f62b01641c28c5e7585e60b001c3"
+    },
+    {
+      "fichier": "360x640/sans-js/05-poulets-3.png",
+      "octets": 52908,
+      "sha256": "78c8530f718baf0323da64aba9d5bc72fc3ddd43cc3669d57005fd5320befc05"
+    },
+    {
+      "fichier": "360x640/sans-js/05-poulets-4.png",
+      "octets": 55926,
+      "sha256": "ca69e1ffe06bf834cc8043ff4b94f6d0aa03840326a8b91f7747ab96b7cb22e0"
+    },
+    {
+      "fichier": "360x640/sans-js/06-professionnels.png",
+      "octets": 53875,
+      "sha256": "c5f21de951ecff973231605ec730bf3c2b56f30d5dbda273199a749477434e4c"
+    },
+    {
+      "fichier": "360x640/sans-js/06-professionnels-2.png",
+      "octets": 42104,
+      "sha256": "e8e3d2c16b64024c4f88c372901d5ee1e8e50d887b801e441d05acf1f688dba8"
+    },
+    {
+      "fichier": "360x640/sans-js/07-livraison.png",
+      "octets": 43672,
+      "sha256": "3bff2535a8b1c6002da40c3285ddd12b92039fdd94721a3b61d98ee78394668f"
+    },
+    {
+      "fichier": "360x640/sans-js/07-livraison-2.png",
+      "octets": 47263,
+      "sha256": "b620c8d48c3029df3d77a89aa4947baa90476ff81afcb1539b2bc58d5d01f8c4"
+    },
+    {
+      "fichier": "360x640/sans-js/07-livraison-3.png",
+      "octets": 47714,
+      "sha256": "e0471b1d1f41719c0906f5762dfb95cee138ebe881f1e1a0cc58ebb7f65a94df"
+    },
+    {
+      "fichier": "360x640/sans-js/07-livraison-4.png",
+      "octets": 53820,
+      "sha256": "b75d92e9eaf9267da1f9c44531d386ccfb62ba302c6c27cf76f62679157fc0a2"
+    },
+    {
+      "fichier": "360x640/sans-js/07-livraison-5.png",
+      "octets": 45824,
+      "sha256": "cb11bd31d9e13c7b2a9c4151bc5a3dba16bceae96fd09ee7b9c5145bd4ad44f1"
+    },
+    {
+      "fichier": "360x640/sans-js/07-livraison-6.png",
+      "octets": 47430,
+      "sha256": "465cdf887b5a49ee5e48b372b3c78663ed360a8f67bb8984abd5a291da8bcb29"
+    },
+    {
+      "fichier": "360x640/sans-js/07-livraison-7.png",
+      "octets": 48354,
+      "sha256": "69cb791f774070ff1b0554ffac723b0ca47fff2a6c4f9db61531fc58d1d9892c"
+    },
+    {
+      "fichier": "360x640/sans-js/08-la-ferme.png",
+      "octets": 55145,
+      "sha256": "6e0d1d8710ed6363e277a7902616656482fc27452c732fbe3aecae8e1f61965b"
+    },
+    {
+      "fichier": "360x640/sans-js/08-la-ferme-2.png",
+      "octets": 46997,
+      "sha256": "0b23026ef9b6e0001950127072be19d7939b01535e32309b1cd15346c5ae22fd"
+    },
+    {
+      "fichier": "360x640/sans-js/08-la-ferme-3.png",
+      "octets": 51131,
+      "sha256": "d4fc5cbd75c094d255ce002357772a7802c338fd4f36a870ba1875104d9f51c9"
+    },
+    {
+      "fichier": "360x640/sans-js/08-la-ferme-4.png",
+      "octets": 49698,
+      "sha256": "9b58508cdf9534f1f5bd8d4ae4ec529fd882db20bc50ecb09385267a22e38aa4"
+    },
+    {
+      "fichier": "360x640/sans-js/08-la-ferme-5.png",
+      "octets": 49108,
+      "sha256": "4b2154d6433301abce0a09a7027fd26412a014c87cc74ea3b01800ec3a594be5"
+    },
+    {
+      "fichier": "360x640/sans-js/09-questions.png",
+      "octets": 47653,
+      "sha256": "ce0721aed7c4ff8187373c1180110a3d7aba7a04dc413a375e88f36976aeefd3"
+    },
+    {
+      "fichier": "360x640/sans-js/09-questions-2.png",
+      "octets": 39903,
+      "sha256": "aab05f77c0340be7f26ec5d007c208fcf809f64e2f40f447ec28090947fb54b9"
+    },
+    {
+      "fichier": "360x640/sans-js/09-questions-3.png",
+      "octets": 38523,
+      "sha256": "16ee9b3b7afae0cae902ce1af9137b89ba27bca65a461a8cebaeea37d1da89f6"
+    },
+    {
+      "fichier": "360x640/sans-js/10-demande.png",
+      "octets": 52370,
+      "sha256": "0d0e92e1168530f08c157ec98b9778253273c9ef9dc6084e46cab3584f73607d"
+    },
+    {
+      "fichier": "360x640/sans-js/10-demande-2.png",
+      "octets": 50655,
+      "sha256": "bbdce11c5ec10c47d4a8583a393ef3216fc1f9348e4e96be39945bbe9d0fcd4c"
+    },
+    {
+      "fichier": "360x640/sans-js/11-pied-de-page.png",
+      "octets": 51441,
+      "sha256": "091abec2c8c64931276b631c35e69181cddb97efeb04bbe39f6ba5f374a0c09a"
+    },
+    {
+      "fichier": "360x640/sans-js/11-pied-de-page-2.png",
+      "octets": 41973,
+      "sha256": "2b0dd48c67fe923a51ab554ed2fff0a97fdedd6be29ce54897d6cbfdc51653c1"
+    },
+    {
+      "fichier": "360x640/sans-js/11-pied-de-page-3.png",
+      "octets": 39269,
+      "sha256": "b2ae1bc0cb5ed0b7d41436bdbc4365bf955cbdae63c89fa70172fd04ab873c60"
+    },
+    {
+      "fichier": "360x640/sans-js/page-entiere.png",
+      "octets": 1496838,
+      "sha256": "abbc5bdcbc18def731fd81f0f7a077043ec31cd58bdfdbd859ee6a843f237d89"
+    },
+    {
+      "fichier": "360x640/reduit/00-accueil.png",
+      "octets": 116617,
+      "sha256": "416c7a2a9fe61fae39358488e5e21f98c1973570d379331993c1e9748d301a04"
+    },
+    {
+      "fichier": "360x640/reduit/01-garanties.png",
+      "octets": 42626,
+      "sha256": "6dd2cb74af84e673a0807e675ff4ba1dcaff47191bb9fdbfb82440f0066023c3"
+    },
+    {
+      "fichier": "360x640/reduit/02-choix.png",
+      "octets": 46406,
+      "sha256": "69f3d15ad61a84cd5b6754e28bb602cf62b4b93899c3f48c2a5cae70297157e9"
+    },
+    {
+      "fichier": "360x640/reduit/02-choix-2.png",
+      "octets": 46040,
+      "sha256": "daeab67ee61c875867c01988124a0f3e0bba24eabf9449dc68c940a702ebb4cd"
+    },
+    {
+      "fichier": "360x640/reduit/03-deroule.png",
+      "octets": 44452,
+      "sha256": "5373d0645a79fd8230e21d5e8555406b5d5460af648f128dbdf6243239917758"
+    },
+    {
+      "fichier": "360x640/reduit/04-ceremonies.png",
+      "octets": 50239,
+      "sha256": "dbe53f2682f5fd0f027315308b5b1944d2d445bab1b7123b1405172f4a82dfe5"
+    },
+    {
+      "fichier": "360x640/reduit/04-ceremonies-2.png",
+      "octets": 47218,
+      "sha256": "28a7e3257e6ecfdbd6a5a55d91475cc6b19c51202ed1a9d3dc249f3c8219bf07"
+    },
+    {
+      "fichier": "360x640/reduit/04-ceremonies-3.png",
+      "octets": 54317,
+      "sha256": "0df67a2eaaf0ce0c67996aa67ca69f949c7e63adfc4407c5958c9935eed8b61f"
+    },
+    {
+      "fichier": "360x640/reduit/04-ceremonies-4.png",
+      "octets": 54855,
+      "sha256": "90f92a94db236092d3de050c6aeba31f5fef9dfbda67a5c47bc1648cd621d75b"
+    },
+    {
+      "fichier": "360x640/reduit/04-ceremonies-5.png",
+      "octets": 51985,
+      "sha256": "acea5f7d284cee194ce7b6976fe3bffe157d0232ce16dcb8adee260e9de486ff"
+    },
+    {
+      "fichier": "360x640/reduit/04-ceremonies-6.png",
+      "octets": 46217,
+      "sha256": "feb6502642ed1cb2fb5e0a8582ae7626f9d7567a07148b386ff0be09a903d064"
+    },
+    {
+      "fichier": "360x640/reduit/04-ceremonies-7.png",
+      "octets": 52295,
+      "sha256": "a036b3fbcc53c886b1a729fc9f1af0031d53f8f0212b9b106a3240794345ba9e"
+    },
+    {
+      "fichier": "360x640/reduit/05-poulets.png",
+      "octets": 68318,
+      "sha256": "c94f3b4bfd84f6eb70d8fccd9e15a807ddf50d4ad098917b465aac96639c3d70"
+    },
+    {
+      "fichier": "360x640/reduit/05-poulets-2.png",
+      "octets": 59710,
+      "sha256": "b399c3e8da3a3c3af0a057bc206af961cfbe7828a4c5abe39edc8c15d80193ae"
+    },
+    {
+      "fichier": "360x640/reduit/05-poulets-3.png",
+      "octets": 50547,
+      "sha256": "3197a7dffc85a58d3040077b8db589ea329210870e94cd1f314318c52c431317"
+    },
+    {
+      "fichier": "360x640/reduit/05-poulets-4.png",
+      "octets": 57123,
+      "sha256": "3f7f6447a268fe2eb0e1c41b1631fe4a5320b9b4f5fb90ded28e6c2fb8a4cb3e"
+    },
+    {
+      "fichier": "360x640/reduit/06-professionnels.png",
+      "octets": 52938,
+      "sha256": "714ea97bf40dde45ec1b707267554134bdadc9d673a702604733b89953383dc8"
+    },
+    {
+      "fichier": "360x640/reduit/06-professionnels-2.png",
+      "octets": 44014,
+      "sha256": "5bd1a1c383373c9d7e9003c4d44384caaef59f0e54821278046f77997f67961d"
+    },
+    {
+      "fichier": "360x640/reduit/07-livraison.png",
+      "octets": 45089,
+      "sha256": "75926d514efa94337f8e9178f4edeec1fa4cdf60066793707dcdebb787101f6a"
+    },
+    {
+      "fichier": "360x640/reduit/07-livraison-2.png",
+      "octets": 49074,
+      "sha256": "3e8ab050390df56bb8aea29f7f4a216727914c7c567b73680c82e086f4a31364"
+    },
+    {
+      "fichier": "360x640/reduit/07-livraison-3.png",
+      "octets": 49477,
+      "sha256": "6949757584d653b1617815885b347e97c4f12722eddcbf67982ab00b260b7914"
+    },
+    {
+      "fichier": "360x640/reduit/07-livraison-4.png",
+      "octets": 56316,
+      "sha256": "ca34374cd51caddb20eb9e0b67a8b8064764fed464777366f6454134d2f928c7"
+    },
+    {
+      "fichier": "360x640/reduit/07-livraison-5.png",
+      "octets": 47910,
+      "sha256": "a1452a0a056ce44852692e886920c2f68b9721e1692db6866c3e21cb82525484"
+    },
+    {
+      "fichier": "360x640/reduit/07-livraison-6.png",
+      "octets": 49099,
+      "sha256": "af1f7d884ead4686a3b62aefd09f426c605f0713af23b4db2ec77515dd0184dd"
+    },
+    {
+      "fichier": "360x640/reduit/07-livraison-7.png",
+      "octets": 50747,
+      "sha256": "8799963188d98938342f7801f71d857dc732e1fe37107e85e050add4ea8e63c0"
+    },
+    {
+      "fichier": "360x640/reduit/08-la-ferme.png",
+      "octets": 56656,
+      "sha256": "06393cf67b9eb63a3e99a000eac0e0adb2e0ec5caa1a4b05b017fb7a36cf7e96"
+    },
+    {
+      "fichier": "360x640/reduit/08-la-ferme-2.png",
+      "octets": 48629,
+      "sha256": "d5fa3d058bc4fed8072d1c9617f470479e99a3050f55b73a943f8874e925e9ba"
+    },
+    {
+      "fichier": "360x640/reduit/08-la-ferme-3.png",
+      "octets": 53116,
+      "sha256": "25135bd2dd73ea8e6d5efa6a40819223e2902d404bc4f4babcf4c06bb301badf"
+    },
+    {
+      "fichier": "360x640/reduit/08-la-ferme-4.png",
+      "octets": 51209,
+      "sha256": "d6d23e2d84198087c982b920100720ff37f0375efaf1363daa12eb6474387300"
+    },
+    {
+      "fichier": "360x640/reduit/08-la-ferme-5.png",
+      "octets": 50865,
+      "sha256": "4096e1cf8053a56efb7839b4b801265e8bebbcc196ba08d1f61de6c0b5771b19"
+    },
+    {
+      "fichier": "360x640/reduit/09-questions.png",
+      "octets": 49489,
+      "sha256": "4f593d97717675dfcbf9ebe6bb845fdcb9f9c25921c5e246b35f7c6729c73929"
+    },
+    {
+      "fichier": "360x640/reduit/09-questions-2.png",
+      "octets": 41715,
+      "sha256": "d48bda0b0d98d7ced9df3c579766d7978eb6bb75fe0b4939a581ca3dc729d4a4"
+    },
+    {
+      "fichier": "360x640/reduit/09-questions-3.png",
+      "octets": 40362,
+      "sha256": "cedc680eccd2ff88531888c755a770cf55118dc3d16e3d15b2a5425a18f75c51"
+    },
+    {
+      "fichier": "360x640/reduit/10-demande.png",
+      "octets": 51002,
+      "sha256": "19602df5eb60c072d7ae3decd28886027928d9a20c5e89f7468cde268365769d"
+    },
+    {
+      "fichier": "360x640/reduit/10-demande-2.png",
+      "octets": 51035,
+      "sha256": "43044b03b9adb0709074abe2d413cf8a26993a8eea31797cbf5eb9583d2f9347"
+    },
+    {
+      "fichier": "360x640/reduit/10-demande-3.png",
+      "octets": 38817,
+      "sha256": "f967a2e2f6b5f484f4bcf02a0bdd87700d2d20c0edc0a242cc48760e79e27190"
+    },
+    {
+      "fichier": "360x640/reduit/10-demande-4.png",
+      "octets": 54279,
+      "sha256": "c07f0bf26366a5fd9dda680836cbf7eebdccd117f4079a6baab32ae02d6c65f5"
+    },
+    {
+      "fichier": "360x640/reduit/11-pied-de-page.png",
+      "octets": 50614,
+      "sha256": "f6792c936cd3804e27d99983f7a2333e5240d13e5aa4ff0bf352720cce80f008"
+    },
+    {
+      "fichier": "360x640/reduit/11-pied-de-page-2.png",
+      "octets": 43552,
+      "sha256": "9e399dd2efe9555dbaf53dc56d1eff33ebf75d670882f335209cf974ef4e11df"
+    },
+    {
+      "fichier": "360x640/reduit/11-pied-de-page-3.png",
+      "octets": 40860,
+      "sha256": "7a18a5b31daebd289e705b2d6753be17794feae558d42bc4a2ddf5778c3eadef"
+    },
+    {
+      "fichier": "360x640/reduit/page-entiere.png",
+      "octets": 1574012,
+      "sha256": "ddbc9430dfec130628720b48e39c9c312e4cbec5328d69384e88505ea4ec6faf"
+    },
+    {
+      "fichier": "393x780/js/00-accueil-00.png",
+      "octets": 136113,
+      "sha256": "c7fd39269f0223fb57ea7bb77ea4ef9b91dc1a7068b7b625b354132d92b85241"
+    },
+    {
+      "fichier": "393x780/js/00-accueil-14.png",
+      "octets": 76063,
+      "sha256": "dc5bbc4b4c36179c1fab658b1702206a25d65e1a70bd12416a1ca0f87a410c5e"
+    },
+    {
+      "fichier": "393x780/js/00-accueil-38.png",
+      "octets": 49739,
+      "sha256": "933f7dfc1bcb14f1f568041b3b3b37e9f1d46d39dd2ebca75c280b1c18bab9fd"
+    },
+    {
+      "fichier": "393x780/js/00-accueil-66.png",
+      "octets": 76526,
+      "sha256": "2e44a0d9cd88ebfd851bde4b8af275e446469c458b17f2d926d528d3fb3d361d"
+    },
+    {
+      "fichier": "393x780/js/00-accueil-97.png",
+      "octets": 78203,
+      "sha256": "55441a2ddf98a2bea6e2171cf3f896f25c709c2953e9d8fcf3b585f838fe9664"
+    },
+    {
+      "fichier": "393x780/js/01-garanties.png",
+      "octets": 51892,
+      "sha256": "82d198c64a227d6a5051892aafa8d62822116376d49ba4f90366e8008926322c"
+    },
+    {
+      "fichier": "393x780/js/02-choix.png",
+      "octets": 57096,
+      "sha256": "bf69831403fad7db11ef666e56d366d168bf40f5fd00946d8750316e6cbdacc4"
+    },
+    {
+      "fichier": "393x780/js/02-choix-2.png",
+      "octets": 55698,
+      "sha256": "6e2a874881b8f45eecc3229e6426229fc553858bc0b2a653fca13a683af38cc1"
+    },
+    {
+      "fichier": "393x780/js/03-deroule.png",
+      "octets": 62347,
+      "sha256": "d3ec709d884c035964ad7cf6dfb6151d2cb9989121ba84f37caadd8faa245bf4"
+    },
+    {
+      "fichier": "393x780/js/04-ceremonies.png",
+      "octets": 66344,
+      "sha256": "6623f8dcf6723d2d136374b409ea30c861f9fa65a87887f54c6fd8dfeb351269"
+    },
+    {
+      "fichier": "393x780/js/04-ceremonies-2.png",
+      "octets": 63574,
+      "sha256": "92455634a81461ced78df5cdddbc5c2ca2863a2f91c64d65f0b020d0559c33e9"
+    },
+    {
+      "fichier": "393x780/js/04-ceremonies-3.png",
+      "octets": 71553,
+      "sha256": "b08f60541324ff783dcf034863debb951b3a99cbf57b090c4446d85ae9b99547"
+    },
+    {
+      "fichier": "393x780/js/04-ceremonies-4.png",
+      "octets": 67482,
+      "sha256": "0ec7ae445817447b4ed1897f573dc1138bb895029e23c7587db047190e273e2e"
+    },
+    {
+      "fichier": "393x780/js/04-ceremonies-5.png",
+      "octets": 57350,
+      "sha256": "a71e40e76274751f67b5642b6c430f6ece7fe984ff5a0f3a4c2085b39372c576"
+    },
+    {
+      "fichier": "393x780/js/05-poulets.png",
+      "octets": 91903,
+      "sha256": "876b942f47f3eb2d3009a033a01cd9658f01d812c0f7b1da048d2cc0876c4aea"
+    },
+    {
+      "fichier": "393x780/js/05-poulets-2.png",
+      "octets": 67813,
+      "sha256": "d8cd4dd2a7479623a6d85dd5bee64daa25fa291ab9e370a1808602049deb28c3"
+    },
+    {
+      "fichier": "393x780/js/05-poulets-3.png",
+      "octets": 72940,
+      "sha256": "f78e09094c831b1f6f55d80686bff7dabd643c166079bd3b2e69759ac0de2a28"
+    },
+    {
+      "fichier": "393x780/js/06-professionnels.png",
+      "octets": 66081,
+      "sha256": "204e39ad624eb3abd5e4eecffb4a5971b8d48b2ffcdee335f0dc8f3d42ab1e20"
+    },
+    {
+      "fichier": "393x780/js/06-professionnels-2.png",
+      "octets": 55649,
+      "sha256": "e179e2c211fcaca260fc90bcefb1d53077412441205f127f6d261b8c67083dde"
+    },
+    {
+      "fichier": "393x780/js/07-livraison.png",
+      "octets": 57950,
+      "sha256": "c910dcf457b66a4005e20c4669ba50ef4277cf5e0e4e86fec1e23927062e237b"
+    },
+    {
+      "fichier": "393x780/js/07-livraison-2.png",
+      "octets": 63326,
+      "sha256": "3eae311767dede4fca5b0ed129d83c490c2177ffdffbfc554c947a88e87480e1"
+    },
+    {
+      "fichier": "393x780/js/07-livraison-3.png",
+      "octets": 66603,
+      "sha256": "323a38337dab9076b11bfd2f8e6ee46fd43a6f809760244ee6b2d4d44a0a3e0d"
+    },
+    {
+      "fichier": "393x780/js/07-livraison-4.png",
+      "octets": 59529,
+      "sha256": "70fa464d386e7fe2f064eef28d8fc68915c32295088f9d7a756c9dfb2a9d81f1"
+    },
+    {
+      "fichier": "393x780/js/07-livraison-5.png",
+      "octets": 65425,
+      "sha256": "caa1b00b546e8f736506fd8d3524efa502e4bd1a91a1802a830f4d55ccf3e9c1"
+    },
+    {
+      "fichier": "393x780/js/08-la-ferme.png",
+      "octets": 78050,
+      "sha256": "2338f4adb2bfae86a1a8cf9420c18f6d86d82700a084c676d3a704ec1cee06a7"
+    },
+    {
+      "fichier": "393x780/js/08-la-ferme-2.png",
+      "octets": 68586,
+      "sha256": "615e5c255aa57e13e1f338d163098eab116f6301be1df3c96a17aed1d50367a2"
+    },
+    {
+      "fichier": "393x780/js/08-la-ferme-3.png",
+      "octets": 61885,
+      "sha256": "7f4e8d3be6e22af5d713f1ec8815443768207cddff72811ddbf95e84064e74b2"
+    },
+    {
+      "fichier": "393x780/js/08-la-ferme-4.png",
+      "octets": 59180,
+      "sha256": "d449312c156e4b8e290a3abbe63cd2571ab9c8626478b23bae791e030afa137f"
+    },
+    {
+      "fichier": "393x780/js/09-questions.png",
+      "octets": 56488,
+      "sha256": "db0598f5ff88a4bfcc17317b7e03a546e62a04cac4304f70b7404e68d9d2a74a"
+    },
+    {
+      "fichier": "393x780/js/09-questions-2.png",
+      "octets": 55140,
+      "sha256": "c835bb7988c692506e8a307e49acbd013909da7f77236a473f01774380db7b81"
+    },
+    {
+      "fichier": "393x780/js/09-questions-3.png",
+      "octets": 59072,
+      "sha256": "7f013ad54d51d3336b823847826b861cee993775d58beebd76df8aa0f95ebcf3"
+    },
+    {
+      "fichier": "393x780/js/10-demande.png",
+      "octets": 63906,
+      "sha256": "2db36985d770b057ce6bd41ef2ad3d3581703bc1278d01b37acf7de0752db75e"
+    },
+    {
+      "fichier": "393x780/js/10-demande-2.png",
+      "octets": 54673,
+      "sha256": "e5b5d396e195599c82bd1ad3e5eac8ab35c14adbb838ada4d14564716fe18362"
+    },
+    {
+      "fichier": "393x780/js/10-demande-3.png",
+      "octets": 66333,
+      "sha256": "ff066309c6122a7b0481541b61f0ad7340ee891099a08679260ea26be6365466"
+    },
+    {
+      "fichier": "393x780/js/11-pied-de-page.png",
+      "octets": 58789,
+      "sha256": "8882e59f53bf6c9dc1cfa09f387c24613530c06671510998f99d7fd04312ada5"
+    },
+    {
+      "fichier": "393x780/js/11-pied-de-page-2.png",
+      "octets": 49259,
+      "sha256": "cafde47567a3cfce707db705d3393554ebb485e2a02d824ceb9361ab3a5438b9"
+    },
+    {
+      "fichier": "393x780/js/etats/menu-ouvert.png",
+      "octets": 37589,
+      "sha256": "c0f631814cb30adef5ff310e271b37b38614994403e8cc3c4e532bf7f047f5c5"
+    },
+    {
+      "fichier": "393x780/js/etats/form-ceremonie-etape1.png",
+      "octets": 53116,
+      "sha256": "453bfeafb5b26fd333ab7751e54cf3cd2e540c332f6fdfb8f1ebf43256c2296c"
+    },
+    {
+      "fichier": "393x780/js/etats/form-ceremonie-erreurs.png",
+      "octets": 66230,
+      "sha256": "f37dc4d7000c0ca4a3135510cc8bab9f1fb135a04adb911b1278e706469acd60"
+    },
+    {
+      "fichier": "393x780/js/etats/form-ceremonie-etape2.png",
+      "octets": 53247,
+      "sha256": "b0dfd5bcc1a5d80101abb3872adcdd9ab6e14cd529f0748874de19e7701980d9"
+    },
+    {
+      "fichier": "393x780/js/etats/form-ceremonie-succes.png",
+      "octets": 78084,
+      "sha256": "757d7195943211b50ef5a51ee1657e6222f3ca78cd3a62eac9f1ad933279bddc"
+    },
+    {
+      "fichier": "393x780/js/etats/form-poulets-etape1.png",
+      "octets": 62418,
+      "sha256": "8cffdbd8208b02e1a16a4b456fbbbc46612bfeaea825640d4a794a9f7822728b"
+    },
+    {
+      "fichier": "393x780/js/etats/form-pro-etape1.png",
+      "octets": 55746,
+      "sha256": "0aac2bd368d50076986911265dae700f5e23be8002a9e41a7edfc4bb58bac828"
+    },
+    {
+      "fichier": "393x780/sans-js/00-accueil.png",
+      "octets": 138437,
+      "sha256": "59dde02ad3cf288d65c8565f54f501bf2c7224d9514fbbf6a962f2a1eed9414a"
+    },
+    {
+      "fichier": "393x780/sans-js/01-garanties.png",
+      "octets": 50999,
+      "sha256": "35cfc61a6166d9dc82b250bcc15fb9201ed12a89d66023225ecbc099f6c3c1aa"
+    },
+    {
+      "fichier": "393x780/sans-js/02-choix.png",
+      "octets": 56138,
+      "sha256": "b56312b9a241ebaa530680640e5df69c960c5ffc34c6f6f0c48189482a140d8e"
+    },
+    {
+      "fichier": "393x780/sans-js/02-choix-2.png",
+      "octets": 52423,
+      "sha256": "c9f1df8c550f99e90701c5c4daf2e470964a7eff4503ae739fcef66362efc140"
+    },
+    {
+      "fichier": "393x780/sans-js/03-deroule.png",
+      "octets": 59175,
+      "sha256": "ddc46f6e6c9480eaebd72f02992957bb56b5debd2641841c18f69207c4df0ff5"
+    },
+    {
+      "fichier": "393x780/sans-js/04-ceremonies.png",
+      "octets": 64676,
+      "sha256": "eb032071968684c0140eaa6297383f1e576d54cb19452dd8bef7f13a3fbc686a"
+    },
+    {
+      "fichier": "393x780/sans-js/04-ceremonies-2.png",
+      "octets": 59787,
+      "sha256": "fc7418657086c589e1ac1157582beea169874200f848332bbcddf931ae19f445"
+    },
+    {
+      "fichier": "393x780/sans-js/04-ceremonies-3.png",
+      "octets": 68215,
+      "sha256": "d765452da86b5165ef50ed53ad5187d2253f057e993a0c3aafb3e9915ded24be"
+    },
+    {
+      "fichier": "393x780/sans-js/04-ceremonies-4.png",
+      "octets": 64043,
+      "sha256": "d37e47c3e8bdfc4a72a905501fde732b3a86eb61f3b80fd266a2f07a6ded71b5"
+    },
+    {
+      "fichier": "393x780/sans-js/04-ceremonies-5.png",
+      "octets": 56531,
+      "sha256": "e8a5154e0129463a124e101ac6bb7dc01732e60b8205559f200fc947a192e5d9"
+    },
+    {
+      "fichier": "393x780/sans-js/05-poulets.png",
+      "octets": 85480,
+      "sha256": "8ec0d4b3aed9fb4dce73ef8f5ac6309943d4debe12ae56c127695e396de06bcd"
+    },
+    {
+      "fichier": "393x780/sans-js/05-poulets-2.png",
+      "octets": 63760,
+      "sha256": "a2e0c74d90cbfc49d345b1431b782adced5b2c2afbba0993a1779967a15ff980"
+    },
+    {
+      "fichier": "393x780/sans-js/05-poulets-3.png",
+      "octets": 76257,
+      "sha256": "1a51773eab36e2fe92992af66591e6f07e4140fd290ff64e0acafb655a7d1bd1"
+    },
+    {
+      "fichier": "393x780/sans-js/06-professionnels.png",
+      "octets": 67860,
+      "sha256": "7485726df5d5a15570b2a7f63390fd62ea627d51f473019abef8097c3739b1b7"
+    },
+    {
+      "fichier": "393x780/sans-js/06-professionnels-2.png",
+      "octets": 53351,
+      "sha256": "0547e74ca3d4d22ccc56d1c5712ef270c2d745645a93597fbcc9ad14137e492a"
+    },
+    {
+      "fichier": "393x780/sans-js/07-livraison.png",
+      "octets": 56558,
+      "sha256": "b411199852466a375893685b57ad1149c1d64d64ad7b17a1997ba65ba4bc2da6"
+    },
+    {
+      "fichier": "393x780/sans-js/07-livraison-2.png",
+      "octets": 62495,
+      "sha256": "b7f77835b2db4b5f3a20d165a24fae11da40fb7bc776c079476554c25bc10279"
+    },
+    {
+      "fichier": "393x780/sans-js/07-livraison-3.png",
+      "octets": 64142,
+      "sha256": "bb071ce335aaea01424b09a535bff02643b128475c9d9a98ca400a1b6dee11b3"
+    },
+    {
+      "fichier": "393x780/sans-js/07-livraison-4.png",
+      "octets": 57591,
+      "sha256": "448ad746c61efb11d8bae0fd9d3d882d2d32f23e29b861684297cc2a01ca3124"
+    },
+    {
+      "fichier": "393x780/sans-js/07-livraison-5.png",
+      "octets": 64414,
+      "sha256": "8dfe9c0e760f62861f544832287431406652329956c8f3acc6dbc87e3dd75940"
+    },
+    {
+      "fichier": "393x780/sans-js/08-la-ferme.png",
+      "octets": 76059,
+      "sha256": "5757fe26b1687eb65dc83b99ed5341ac452e3daa23deb75743bdba6208fc36a9"
+    },
+    {
+      "fichier": "393x780/sans-js/08-la-ferme-2.png",
+      "octets": 66764,
+      "sha256": "38d9160a61a089e9eb553e5207e88f0eda6819e671d22b141496d9c82abc4a96"
+    },
+    {
+      "fichier": "393x780/sans-js/08-la-ferme-3.png",
+      "octets": 60108,
+      "sha256": "783fcbc72fd5d33c28ebd5455fc6713e96106f0411651615bd4a2b1081961c25"
+    },
+    {
+      "fichier": "393x780/sans-js/08-la-ferme-4.png",
+      "octets": 57781,
+      "sha256": "3218be875cc494d6114e177ba384eb1b68fe8a6121df61f088260260304f204d"
+    },
+    {
+      "fichier": "393x780/sans-js/09-questions.png",
+      "octets": 54935,
+      "sha256": "f42dad3e66fe761fbd2288dbb116bfc8f0e4cd564b899d6f6ccb35610577836d"
+    },
+    {
+      "fichier": "393x780/sans-js/09-questions-2.png",
+      "octets": 53170,
+      "sha256": "5daafdcf94fae18767cff99842c7bbb66f0a1b96f594cd64e721985b940d96ba"
+    },
+    {
+      "fichier": "393x780/sans-js/09-questions-3.png",
+      "octets": 59864,
+      "sha256": "0b023912f4aaf8b368b171bc33a7e3fcf7018cf684c7aac141d22f426c52d430"
+    },
+    {
+      "fichier": "393x780/sans-js/10-demande.png",
+      "octets": 67029,
+      "sha256": "66d08fdea8aa642311bdc15ca86d175012d190c04b74ccb58d3c82d43c162e76"
+    },
+    {
+      "fichier": "393x780/sans-js/10-demande-2.png",
+      "octets": 57393,
+      "sha256": "c03691cc9981cb1dfc4724fed5eef914d5dd984a9c26191a5680c770fce76fcf"
+    },
+    {
+      "fichier": "393x780/sans-js/11-pied-de-page.png",
+      "octets": 60528,
+      "sha256": "618e8ce306c828dbb6328febb5c39b5f9b148ad2caa0e0001e53b08a464e07f2"
+    },
+    {
+      "fichier": "393x780/sans-js/11-pied-de-page-2.png",
+      "octets": 47807,
+      "sha256": "18ddbab0dcf72cdc5cf42a09aede4a2c9bd4c4d9e0253d85cc9b86a9d6df6e7c"
+    },
+    {
+      "fichier": "393x780/sans-js/page-entiere.png",
+      "octets": 1521617,
+      "sha256": "77d0a5d0b0e1fde1baea1c1a1e17c1a4b7ae2fbcfc6ec430292d11b8c149bd75"
+    },
+    {
+      "fichier": "393x780/reduit/00-accueil.png",
+      "octets": 139293,
+      "sha256": "b508f263f381053b5be0748393d8ee3c31d38ae796784952e1826354ea0f0881"
+    },
+    {
+      "fichier": "393x780/reduit/01-garanties.png",
+      "octets": 51846,
+      "sha256": "c6f505151003fac59427490bf33cf3371a00666d33afc1a6ec21c9f1534571de"
+    },
+    {
+      "fichier": "393x780/reduit/02-choix.png",
+      "octets": 57035,
+      "sha256": "45d15334c20e25c2884a0c16c4aa498587510089cf16b41e0924cc6d96909a61"
+    },
+    {
+      "fichier": "393x780/reduit/02-choix-2.png",
+      "octets": 53659,
+      "sha256": "8228f2b82d8c979fd66c07a80a27601ab6c1e60889e0e9cf3f6048981f5a849e"
+    },
+    {
+      "fichier": "393x780/reduit/03-deroule.png",
+      "octets": 60439,
+      "sha256": "a4380d63967119cbbea7339c3580c522dba0ae70a0170c75ceaec03ae05790ba"
+    },
+    {
+      "fichier": "393x780/reduit/04-ceremonies.png",
+      "octets": 65637,
+      "sha256": "ecde3e564903c58ecfc0b0eddc287c7c86852aeee3458d3037bd7532388d86ae"
+    },
+    {
+      "fichier": "393x780/reduit/04-ceremonies-2.png",
+      "octets": 61189,
+      "sha256": "d02cdda9dc594a6f86b075d60ff3174eac93158b792fae7a72e662503f6751ba"
+    },
+    {
+      "fichier": "393x780/reduit/04-ceremonies-3.png",
+      "octets": 70437,
+      "sha256": "a0f40d365ce958ebc4d5fc623c7b94ab7f624e7131ce50605d8eef1290edd7b0"
+    },
+    {
+      "fichier": "393x780/reduit/04-ceremonies-4.png",
+      "octets": 65275,
+      "sha256": "cb4a4aba2b52f66b14246262b24059c9f8baddfcb8165d173ef99075cd40f97c"
+    },
+    {
+      "fichier": "393x780/reduit/04-ceremonies-5.png",
+      "octets": 58049,
+      "sha256": "4f35e528974be098e8c4371ec3e0c9bdd86928eae98bfc5f6122181c38589a2a"
+    },
+    {
+      "fichier": "393x780/reduit/05-poulets.png",
+      "octets": 91472,
+      "sha256": "5ab2aacc4b8d79f48a7a97ba040466097b62173148e3a1ccf87c0baca96db405"
+    },
+    {
+      "fichier": "393x780/reduit/05-poulets-2.png",
+      "octets": 67547,
+      "sha256": "4566f17574b3a75ed40f0eea5eb760a4446f02bfe058cdc5f52afaebc2b90614"
+    },
+    {
+      "fichier": "393x780/reduit/05-poulets-3.png",
+      "octets": 71998,
+      "sha256": "6cceed292e4b6cac8c9e805cea6e68fd4ee818586e3c52e2350bd8db2fad744f"
+    },
+    {
+      "fichier": "393x780/reduit/06-professionnels.png",
+      "octets": 65837,
+      "sha256": "0a70bea6a2acf69f8204a3a8b01b2ea91b94015adeef2530cf285e1d4d0f21c7"
+    },
+    {
+      "fichier": "393x780/reduit/06-professionnels-2.png",
+      "octets": 55656,
+      "sha256": "792716fb149efe57ac04bf7222b6ebe924587c0700066e7bff072caf69740e19"
+    },
+    {
+      "fichier": "393x780/reduit/07-livraison.png",
+      "octets": 57910,
+      "sha256": "12678592e342a580bb5f7ca05c2c8a6cd0eff74a7bb1fcba1d7d7c44d5090052"
+    },
+    {
+      "fichier": "393x780/reduit/07-livraison-2.png",
+      "octets": 62626,
+      "sha256": "f8455f6168d00c07c65145ac27c732848bfa34f3b4ab5b180866d9c932d80e64"
+    },
+    {
+      "fichier": "393x780/reduit/07-livraison-3.png",
+      "octets": 66089,
+      "sha256": "95cd2dcb29075116090c11bbc6d084cc3f22d8ed0d0a38f56c2f8cbddb85282f"
+    },
+    {
+      "fichier": "393x780/reduit/07-livraison-4.png",
+      "octets": 59620,
+      "sha256": "a6e75663934f2e46b4a57494359590c9f07a44c04bd6b0bdae70a83c6e487a90"
+    },
+    {
+      "fichier": "393x780/reduit/07-livraison-5.png",
+      "octets": 64622,
+      "sha256": "740acb84e4d6e12237cf35ad10337137c19bafe7c7a86665818d97f5239cef37"
+    },
+    {
+      "fichier": "393x780/reduit/08-la-ferme.png",
+      "octets": 77910,
+      "sha256": "d6fb889aaeed2e35cd0771d9e32b0138e24ba4ffcba910e588e10152c397fb13"
+    },
+    {
+      "fichier": "393x780/reduit/08-la-ferme-2.png",
+      "octets": 66745,
+      "sha256": "b5d4723ddf528519ce8d2f0b6dc41525dd349503cf0914cae463b254c92c932f"
+    },
+    {
+      "fichier": "393x780/reduit/08-la-ferme-3.png",
+      "octets": 61503,
+      "sha256": "f85ebf67e0dee000730f3eb470159464e2cb7a7e87475eb130b5673a49f5cf39"
+    },
+    {
+      "fichier": "393x780/reduit/08-la-ferme-4.png",
+      "octets": 59081,
+      "sha256": "deec8d9806a253aa3a98862580385de4c1dc852df933d71ee8f1c684f54b4c90"
+    },
+    {
+      "fichier": "393x780/reduit/09-questions.png",
+      "octets": 56627,
+      "sha256": "a6539773247e8faa7f31c7dc1591a04a82bc6b96c396c84dc52280db10228804"
+    },
+    {
+      "fichier": "393x780/reduit/09-questions-2.png",
+      "octets": 55187,
+      "sha256": "df4a7be58171f0e32412ce37cccc68823b04b75b30dad09cb91b3f0e9c12d84d"
+    },
+    {
+      "fichier": "393x780/reduit/09-questions-3.png",
+      "octets": 59820,
+      "sha256": "a3eea1723d877a1b8f7cdea8461f492a71c17c255aaa829278889f039036ea84"
+    },
+    {
+      "fichier": "393x780/reduit/10-demande.png",
+      "octets": 64706,
+      "sha256": "47fc7315dc31300607e827a1ff35f60a7ae7cd5359df14d966a5881ff398bc7c"
+    },
+    {
+      "fichier": "393x780/reduit/10-demande-2.png",
+      "octets": 55581,
+      "sha256": "0bf0ef4ae586341b898ad2bc32478bc50a82513e701e0977e7021945833d8b7f"
+    },
+    {
+      "fichier": "393x780/reduit/10-demande-3.png",
+      "octets": 66034,
+      "sha256": "5efa9b66c37a9777288c4c7567c4216ee454ffe6671b0cbaa2df697ef54c0f63"
+    },
+    {
+      "fichier": "393x780/reduit/11-pied-de-page.png",
+      "octets": 58866,
+      "sha256": "8cd5c90637dddb9f3048237d341bc785e9f2e7eacdb20a8f78956698bfa63410"
+    },
+    {
+      "fichier": "393x780/reduit/11-pied-de-page-2.png",
+      "octets": 49228,
+      "sha256": "c5cc78bd0bb0806a498ff7565208ce6f6fe295f44ea571ed7de6b1ab537c411a"
+    },
+    {
+      "fichier": "393x780/reduit/page-entiere.png",
+      "octets": 1598054,
+      "sha256": "90bcbf1dfc54237f004609682789314744cc6238e68bc166b9ac573050c481d2"
+    },
+    {
+      "fichier": "768x1024/js/00-accueil-00.png",
+      "octets": 199499,
+      "sha256": "d4c53b4dbdb95a26c93731b3bf2e75f91e748132877286162e821c2eb44f350d"
+    },
+    {
+      "fichier": "768x1024/js/00-accueil-14.png",
+      "octets": 99210,
+      "sha256": "49b903874a121d6b12c05c1ae778e92b068b6284090d9958d14e5d9629387b62"
+    },
+    {
+      "fichier": "768x1024/js/00-accueil-38.png",
+      "octets": 62636,
+      "sha256": "03143aa81f1df348867cdfa431aa37ae5739f602ef12b63809cd36f571faacaa"
+    },
+    {
+      "fichier": "768x1024/js/00-accueil-66.png",
+      "octets": 86947,
+      "sha256": "0deeedfb7265da2bc4b156aab9e35cf5921d832b69f914563f7fa9b1ae7a43ae"
+    },
+    {
+      "fichier": "768x1024/js/00-accueil-97.png",
+      "octets": 88825,
+      "sha256": "6af9e9383b09a6233d9582bca8254c1febc4adf2564e460e653acaf11e3da441"
+    },
+    {
+      "fichier": "768x1024/js/01-garanties.png",
+      "octets": 83254,
+      "sha256": "57a4d331e849b1f6689f8013402ed38dc45a4b7a005e875a75bcb56f6bb0767c"
+    },
+    {
+      "fichier": "768x1024/js/02-choix.png",
+      "octets": 85119,
+      "sha256": "f784eb37f742af73dad5381126b7eac35c737fd5ee7f45c052df4baa17b1887c"
+    },
+    {
+      "fichier": "768x1024/js/03-deroule.png",
+      "octets": 89611,
+      "sha256": "70dcbde996ec803c93660d2565f9ea1d95ffab120c082482d4696a1d0ff0f373"
+    },
+    {
+      "fichier": "768x1024/js/04-ceremonies.png",
+      "octets": 94033,
+      "sha256": "ff82cc38cb0a8bf470195e80cb2a90da3d66216270be87e7ec6cc308984e89d1"
+    },
+    {
+      "fichier": "768x1024/js/04-ceremonies-2.png",
+      "octets": 114013,
+      "sha256": "b56c8e0c5e3188777eb858b1952f464578478902c0232c675c6d8d09d87d3f73"
+    },
+    {
+      "fichier": "768x1024/js/04-ceremonies-3.png",
+      "octets": 96266,
+      "sha256": "b99a1d3d3e418f597746a58ef4bf466645d11c2af7eb6f8a6b067f771a7bb7d7"
+    },
+    {
+      "fichier": "768x1024/js/05-poulets.png",
+      "octets": 133480,
+      "sha256": "18d7d83e4cea04bc4a8b01ccc2098278719453b67402449763760889277933c6"
+    },
+    {
+      "fichier": "768x1024/js/05-poulets-2.png",
+      "octets": 111753,
+      "sha256": "75efdaefcabcac56b4d54541d8d3e55d6a03ef217d0f150107db0d7532217a30"
+    },
+    {
+      "fichier": "768x1024/js/06-professionnels.png",
+      "octets": 89454,
+      "sha256": "674b244fc0f729c6a92bd8bc396931d89139819953921bce47f9b5b424e6965e"
+    },
+    {
+      "fichier": "768x1024/js/07-livraison.png",
+      "octets": 82057,
+      "sha256": "bbcb7d2892f53a49fcdc2febed359b11226664cca0b4715e8b845f560f699e70"
+    },
+    {
+      "fichier": "768x1024/js/07-livraison-2.png",
+      "octets": 108916,
+      "sha256": "44e30abf159fc26b8872d728269e7c44fff35e20c72a856a9525a6b33364c13b"
+    },
+    {
+      "fichier": "768x1024/js/07-livraison-3.png",
+      "octets": 109042,
+      "sha256": "1080e70b0fc83e51298b3d29c0f9b62b5d59a24bb1ffa8de7946202cea2f2d47"
+    },
+    {
+      "fichier": "768x1024/js/07-livraison-4.png",
+      "octets": 115719,
+      "sha256": "7a8846dfb7e508e6c7df57519b061f1bca7e7c413c83a2991039bc11ac1ac424"
+    },
+    {
+      "fichier": "768x1024/js/08-la-ferme.png",
+      "octets": 125987,
+      "sha256": "60a770c9acf9b16cb44df3353594c4f7fac023d53b3e3c65933c3c246084e7d3"
+    },
+    {
+      "fichier": "768x1024/js/08-la-ferme-2.png",
+      "octets": 104130,
+      "sha256": "7160e0fd5c85dd10516fa8940ee416b79c39d5eb1a4e8029e303f64b492084cf"
+    },
+    {
+      "fichier": "768x1024/js/09-questions.png",
+      "octets": 72793,
+      "sha256": "30caf5207bf1986804c5244d6d3f795af4c3ecd64eeaa20a7a426029249c85aa"
+    },
+    {
+      "fichier": "768x1024/js/09-questions-2.png",
+      "octets": 84332,
+      "sha256": "1153924e7bee79fb86dbb4b34a1d298c169b901e32a0979cedec9a0e7aac7055"
+    },
+    {
+      "fichier": "768x1024/js/10-demande.png",
+      "octets": 96981,
+      "sha256": "76121de6f3d7a95b2e216b3db132c766bcb45122c74c7bbe80460929dee4c910"
+    },
+    {
+      "fichier": "768x1024/js/10-demande-2.png",
+      "octets": 84569,
+      "sha256": "5cf61275f2813a1d212049f871c7b672336303769cb8b3806a01645d20b6855f"
+    },
+    {
+      "fichier": "768x1024/js/11-pied-de-page.png",
+      "octets": 78483,
+      "sha256": "99dd389cdb8fc4526eecd2e4da82e3f1a6514aa94c3ae72146804e923179377e"
+    },
+    {
+      "fichier": "768x1024/js/11-pied-de-page-2.png",
+      "octets": 64852,
+      "sha256": "c3dd88e24635f5c4f3a4a393f06f785ce840b08a141d1bf5abdd3bcbe965a880"
+    },
+    {
+      "fichier": "768x1024/js/etats/menu-ouvert.png",
+      "octets": 41068,
+      "sha256": "9ff1b2a12534d91b4d424cc81f49c6afb53426362e114ec191f9b610b91e2112"
+    },
+    {
+      "fichier": "768x1024/js/etats/form-ceremonie-etape1.png",
+      "octets": 89105,
+      "sha256": "7a5f02cc1cc984b116fc7673edf134e75b4fa8d9695251b333f087efafae167e"
+    },
+    {
+      "fichier": "768x1024/js/etats/form-ceremonie-erreurs.png",
+      "octets": 103167,
+      "sha256": "678a21263835f9e33bd7868c0186dd8e10ab146e08065c042e6b098f47db215f"
+    },
+    {
+      "fichier": "768x1024/js/etats/form-ceremonie-etape2.png",
+      "octets": 84156,
+      "sha256": "cea2fbc917aaeef2908e3037b4c1357d0f63cf4db9ab5d4c006c6350b8b2f638"
+    },
+    {
+      "fichier": "768x1024/js/etats/form-ceremonie-succes.png",
+      "octets": 116510,
+      "sha256": "c6e200f22c65d03733699e694b25143538537f28cf97d593d3eb8c0b04c75298"
+    },
+    {
+      "fichier": "768x1024/js/etats/form-poulets-etape1.png",
+      "octets": 86608,
+      "sha256": "d9cfff2bd2b40fa2990b89ffcede336c6e4820123acc5a4e11c442b93ac57fbc"
+    },
+    {
+      "fichier": "768x1024/js/etats/form-pro-etape1.png",
+      "octets": 72086,
+      "sha256": "2e923145e6745d4ed7b53c132f22688bbc309abb985462118603d866ac8c75bf"
+    },
+    {
+      "fichier": "768x1024/sans-js/00-accueil.png",
+      "octets": 220078,
+      "sha256": "a9b76b735f9cc580d6261f3d88063a6db15d830146fe46d64df20767cc1bd675"
+    },
+    {
+      "fichier": "768x1024/sans-js/01-garanties.png",
+      "octets": 82004,
+      "sha256": "7482eec794b404cfca0e033712f4219c410c481bad3def1101092339b802c7df"
+    },
+    {
+      "fichier": "768x1024/sans-js/02-choix.png",
+      "octets": 82686,
+      "sha256": "4e46885f1f5cdf20c01d8f048dac2b1112a7063684eadfdcff20bbcac9038022"
+    },
+    {
+      "fichier": "768x1024/sans-js/03-deroule.png",
+      "octets": 88096,
+      "sha256": "ecbc4463b3b508f34d46afd48e5da1bbf52102e96885d9a8aff6d58a6a0bd9fb"
+    },
+    {
+      "fichier": "768x1024/sans-js/04-ceremonies.png",
+      "octets": 91123,
+      "sha256": "80d3eae68a881553c2e110c294fc1f1c6f3cbecb27ec704a1cfa4da7359517ff"
+    },
+    {
+      "fichier": "768x1024/sans-js/04-ceremonies-2.png",
+      "octets": 108228,
+      "sha256": "357e97dcd20f93ee9ac3c6860cbbba4938316bf27cb06bc50e2306834d1ffc95"
+    },
+    {
+      "fichier": "768x1024/sans-js/04-ceremonies-3.png",
+      "octets": 91504,
+      "sha256": "0708132daa379a85cd7c51e5367da0b3ef90e30a3404d83b2b3550da791e6661"
+    },
+    {
+      "fichier": "768x1024/sans-js/05-poulets.png",
+      "octets": 127076,
+      "sha256": "c3ccbcb39455664b6ba278533bb936c660f35a885e9a5595ea7c422fda4b2ae3"
+    },
+    {
+      "fichier": "768x1024/sans-js/05-poulets-2.png",
+      "octets": 112752,
+      "sha256": "b270fa6676284926dce92296d628205670fcfe5fe6bcb8e020dca74103b444e3"
+    },
+    {
+      "fichier": "768x1024/sans-js/06-professionnels.png",
+      "octets": 87640,
+      "sha256": "0411499a92a3e89ca4c5d396adc9d511802926604754734a7a1956295ebe793a"
+    },
+    {
+      "fichier": "768x1024/sans-js/07-livraison.png",
+      "octets": 80040,
+      "sha256": "c64fa2e30de775226ad03cdd7052707cc90031941a37e848ce0eb7e2fdb7c735"
+    },
+    {
+      "fichier": "768x1024/sans-js/07-livraison-2.png",
+      "octets": 106100,
+      "sha256": "19f1bfec2aed78609af45505a53e0911a1bbe1a96e4ad59b4ac2afacbdacad38"
+    },
+    {
+      "fichier": "768x1024/sans-js/07-livraison-3.png",
+      "octets": 106280,
+      "sha256": "6fd2c1bc38a12f0fc6f7a824f84ca1f1edda251f55af85b481239902f153aa9c"
+    },
+    {
+      "fichier": "768x1024/sans-js/07-livraison-4.png",
+      "octets": 113355,
+      "sha256": "9d5edaac82823f186a9a626b5d276812ef3ee645ae225f2586a9783b21f579bd"
+    },
+    {
+      "fichier": "768x1024/sans-js/08-la-ferme.png",
+      "octets": 124131,
+      "sha256": "748047491488cc8bc91bfe7640cac6bfe93829a0dae60282b1625d7514016f60"
+    },
+    {
+      "fichier": "768x1024/sans-js/08-la-ferme-2.png",
+      "octets": 101627,
+      "sha256": "9e45f9118564fb0170e6b77530e721da6f67cff963d18fd298ff99ed39fd4489"
+    },
+    {
+      "fichier": "768x1024/sans-js/09-questions.png",
+      "octets": 71171,
+      "sha256": "8b9db3be13d617173681fbce95e15917f9755cb6677b4cb34569ba3f5e4b0888"
+    },
+    {
+      "fichier": "768x1024/sans-js/09-questions-2.png",
+      "octets": 80744,
+      "sha256": "4be357c095b608c7ca909a95ea21b0546524075cb7c42e73c24d5e63c21a7368"
+    },
+    {
+      "fichier": "768x1024/sans-js/10-demande.png",
+      "octets": 97872,
+      "sha256": "5894838c473b93272972628ab040fd21f493d3754c253794d41b4dabc1255f25"
+    },
+    {
+      "fichier": "768x1024/sans-js/11-pied-de-page.png",
+      "octets": 76493,
+      "sha256": "fba6b9d19889ad5e1a76f8f818493592d1fd47d0458596d133a578526f49a462"
+    },
+    {
+      "fichier": "768x1024/sans-js/11-pied-de-page-2.png",
+      "octets": 62963,
+      "sha256": "1f86acaca68b18ec4af380eeab9a5beba4d1d1dc5222abbb645f43af71febde9"
+    },
+    {
+      "fichier": "768x1024/sans-js/page-entiere.png",
+      "octets": 1538361,
+      "sha256": "8f828e3c1819f5c59a67deb1cb6ad7ff9e8f9f5388abcf88617bf3e2b59cc4b5"
+    },
+    {
+      "fichier": "768x1024/reduit/00-accueil.png",
+      "octets": 222144,
+      "sha256": "4ac5cab5d6f22882be662243e3f6f21cd78f53b26b2cd3e2b00e3b716a854087"
+    },
+    {
+      "fichier": "768x1024/reduit/01-garanties.png",
+      "octets": 83123,
+      "sha256": "2008528727ef0f0fbcf363856f63efb7b302baf3eaa448bfdd5228835813ceac"
+    },
+    {
+      "fichier": "768x1024/reduit/02-choix.png",
+      "octets": 83937,
+      "sha256": "0a328d53a0058f72317a9eb4c412abab2593a4a08d8cc2161d4db1aa5aa94f53"
+    },
+    {
+      "fichier": "768x1024/reduit/03-deroule.png",
+      "octets": 87112,
+      "sha256": "c8d8059bd7534db445c7426494ffac99412087004a91771c26e92d0e45e73237"
+    },
+    {
+      "fichier": "768x1024/reduit/04-ceremonies.png",
+      "octets": 92151,
+      "sha256": "34136d6b8e2bf5c5e5b273951ef475b328eef700f31916e7f7277ab0c91f6992"
+    },
+    {
+      "fichier": "768x1024/reduit/04-ceremonies-2.png",
+      "octets": 110073,
+      "sha256": "9d71aded4d9725aaa425d823e45da8b3c2659c443a73344c3646b8946b9e0d56"
+    },
+    {
+      "fichier": "768x1024/reduit/04-ceremonies-3.png",
+      "octets": 93957,
+      "sha256": "632aee4e879398fc3e44ac9581f195962cc937f323b69bde56240e3bb8a01fe4"
+    },
+    {
+      "fichier": "768x1024/reduit/05-poulets.png",
+      "octets": 133315,
+      "sha256": "640492323a5fc67a92658f607792f90925dea53a01280dd9d9deef955e859b2b"
+    },
+    {
+      "fichier": "768x1024/reduit/05-poulets-2.png",
+      "octets": 111657,
+      "sha256": "2c0590d7978a2638e593bfa6c9e743e7aa6976e5a2e72ea690f8a87f880f2d75"
+    },
+    {
+      "fichier": "768x1024/reduit/06-professionnels.png",
+      "octets": 89425,
+      "sha256": "2d0c3d51e7d7e7df7b125d0497998125b4bdd78fbe4e7f7c12a5264a292d9191"
+    },
+    {
+      "fichier": "768x1024/reduit/07-livraison.png",
+      "octets": 81942,
+      "sha256": "b9791cbb8c6954839365356707f8cd74ba1b31216544fc4ac465da82a75c8549"
+    },
+    {
+      "fichier": "768x1024/reduit/07-livraison-2.png",
+      "octets": 108825,
+      "sha256": "901feb84f18f9997098d4c9307624d1a5b9dfe4d3adb1c8621581a90d24c6b99"
+    },
+    {
+      "fichier": "768x1024/reduit/07-livraison-3.png",
+      "octets": 108980,
+      "sha256": "ba69941db339807a64e26421b5380c41f4306b125024f7d82e3a649c49eee673"
+    },
+    {
+      "fichier": "768x1024/reduit/07-livraison-4.png",
+      "octets": 115704,
+      "sha256": "3f9b4dbf481edff6e6a677e0ab2ceba614ef47bc30331045f39b39ca9eec41ff"
+    },
+    {
+      "fichier": "768x1024/reduit/08-la-ferme.png",
+      "octets": 125928,
+      "sha256": "a651c3c73858209ab3e3a092cc376c3654ad00178c4cafc296d06a5f4b16069b"
+    },
+    {
+      "fichier": "768x1024/reduit/08-la-ferme-2.png",
+      "octets": 104134,
+      "sha256": "f54725f2699cb77bb7c4299cffc014c4d5d92ef3c5a5ec4359187eb89849875c"
+    },
+    {
+      "fichier": "768x1024/reduit/09-questions.png",
+      "octets": 72785,
+      "sha256": "467a761dbcf271dbe6b62f2c0beee50a50cb8eb79053e83ea5ccec2280f0d5ac"
+    },
+    {
+      "fichier": "768x1024/reduit/09-questions-2.png",
+      "octets": 84359,
+      "sha256": "56ed0835bfe7f035b179dee81ae370ac883a3430289413373c353ac53d51c5e5"
+    },
+    {
+      "fichier": "768x1024/reduit/10-demande.png",
+      "octets": 96977,
+      "sha256": "bf2829af7a0271979522df4cc4f0b5b2023a0a50c67e2f12ae979b6b246264a7"
+    },
+    {
+      "fichier": "768x1024/reduit/10-demande-2.png",
+      "octets": 84506,
+      "sha256": "725ccd2fa2a295f776eb4694102a13127761e57dc9b4b7e0222a8e75aaa5b10f"
+    },
+    {
+      "fichier": "768x1024/reduit/11-pied-de-page.png",
+      "octets": 78521,
+      "sha256": "33a95ab229f3e5050ad6e51610241d75b5d5830893179a36a5ba98da38810106"
+    },
+    {
+      "fichier": "768x1024/reduit/11-pied-de-page-2.png",
+      "octets": 64852,
+      "sha256": "c3dd88e24635f5c4f3a4a393f06f785ce840b08a141d1bf5abdd3bcbe965a880"
+    },
+    {
+      "fichier": "768x1024/reduit/page-entiere.png",
+      "octets": 1770701,
+      "sha256": "65c6b020e7a87606eae73818221c9ac2c6b8506f02b11022c98cda2f776fe520"
+    },
+    {
+      "fichier": "1280x800/js/00-accueil-00.png",
+      "octets": 340906,
+      "sha256": "d60d18e873dae772dfcedd59408bc9615fae6e397c62abf8293c8ed62d73d50b"
+    },
+    {
+      "fichier": "1280x800/js/00-accueil-14.png",
+      "octets": 333376,
+      "sha256": "15e0988e0d8ef32444a010c4ff160aa7368d25681b29d9cf0b2f5bf73a458d05"
+    },
+    {
+      "fichier": "1280x800/js/00-accueil-38.png",
+      "octets": 102823,
+      "sha256": "ba35d3b41b5a66e38ee5c81fd69b02df5f75de4a6574d59599fa8b633fa46076"
+    },
+    {
+      "fichier": "1280x800/js/00-accueil-66.png",
+      "octets": 157655,
+      "sha256": "0caaf190eb36463345849d4d6da6923930c2a9ad30065f1d42e08a095618a423"
+    },
+    {
+      "fichier": "1280x800/js/00-accueil-97.png",
+      "octets": 159774,
+      "sha256": "e8c2d3c6265b61325ec63ac620fbcf5f0cd88414e038a3472aefd92c0d39564e"
+    },
+    {
+      "fichier": "1280x800/js/01-garanties.png",
+      "octets": 75931,
+      "sha256": "6862ae8c8963eb51be1a6a9b6a7c8d6da3cbf736ccbfc6a995dd3e1db514980a"
+    },
+    {
+      "fichier": "1280x800/js/02-choix.png",
+      "octets": 68796,
+      "sha256": "05efaee4d2045a811ba4eabec033dd32768c50319460007b4b94ac09c60e76e8"
+    },
+    {
+      "fichier": "1280x800/js/03-deroule.png",
+      "octets": 85833,
+      "sha256": "cbd6a94a3bc48d558ed397798c268e584c37b668377e0f5e14a02440f1078076"
+    },
+    {
+      "fichier": "1280x800/js/04-ceremonies.png",
+      "octets": 95878,
+      "sha256": "f476c02ef27d051c410342590f800d254661f496665167ef4321974f07aeebdf"
+    },
+    {
+      "fichier": "1280x800/js/04-ceremonies-2.png",
+      "octets": 116831,
+      "sha256": "acec40ff3e8bc83e079bbbb35d76c7e5b1702804f1e1adf52970f7555542c0e5"
+    },
+    {
+      "fichier": "1280x800/js/04-ceremonies-3.png",
+      "octets": 105709,
+      "sha256": "4c19dfb7ce7cb7271c6912d2c67c449927573a5eef683fddd56a65c6a5d699ca"
+    },
+    {
+      "fichier": "1280x800/js/05-poulets.png",
+      "octets": 135522,
+      "sha256": "5cb263caa6a05d9ff7387c1cd8fda99ad7f46858f9e0a509fedea9728c06667c"
+    },
+    {
+      "fichier": "1280x800/js/05-poulets-2.png",
+      "octets": 93128,
+      "sha256": "a9a39fef101d232c879c224dc7f81a64c670f33a85d9e52ddf3622c47f329b18"
+    },
+    {
+      "fichier": "1280x800/js/06-professionnels.png",
+      "octets": 96692,
+      "sha256": "2c9c9ac234d0058adf122ebd600e508fb10747df5d2d13e1ad4592ad7ca0c4cf"
+    },
+    {
+      "fichier": "1280x800/js/07-livraison.png",
+      "octets": 111073,
+      "sha256": "8ec934c393ad456ecd84a9b26936663865b08eab1e264d2bd8b0143b52b3b33a"
+    },
+    {
+      "fichier": "1280x800/js/07-livraison-2.png",
+      "octets": 129527,
+      "sha256": "845561a565cd9ac16c9e7a3d165c325e1fdf0bce337637f7318becf00d8d947d"
+    },
+    {
+      "fichier": "1280x800/js/07-livraison-3.png",
+      "octets": 97819,
+      "sha256": "b61ce9cb120cfec0879156a600d92eadcd020c6cf173b143e7b3673844f3e5d2"
+    },
+    {
+      "fichier": "1280x800/js/07-livraison-4.png",
+      "octets": 127707,
+      "sha256": "0f0353c38e1b80c95df05daa4b7882557fe05cdc452b7f44a1b5601434ac996e"
+    },
+    {
+      "fichier": "1280x800/js/08-la-ferme.png",
+      "octets": 129958,
+      "sha256": "0b31c8f4bd87ddf31b4abab8071ab33e5c273bf16692b372f82609e48f177f5b"
+    },
+    {
+      "fichier": "1280x800/js/08-la-ferme-2.png",
+      "octets": 120946,
+      "sha256": "7a2323318c966f537a62f177daa4f86ce4f124e77fec373b4054c6ea4a7543b2"
+    },
+    {
+      "fichier": "1280x800/js/08-la-ferme-3.png",
+      "octets": 78862,
+      "sha256": "eee0d42c8d729ae367423ad4b6e91df559d05a7818fda249fa07ffc0309f0c8e"
+    },
+    {
+      "fichier": "1280x800/js/09-questions.png",
+      "octets": 90272,
+      "sha256": "cea2c3ba78ae8cfde7016d73564998517e876303c6f6794d084aa56693564ae0"
+    },
+    {
+      "fichier": "1280x800/js/09-questions-2.png",
+      "octets": 109415,
+      "sha256": "fa6f4ecab3f4d81042eea1fd2cebab44183e8342dfacd3bd5c330210f8746a5a"
+    },
+    {
+      "fichier": "1280x800/js/10-demande.png",
+      "octets": 123191,
+      "sha256": "07e83fb47803d911aaf657913f854831aad6581233b4f811cc5337ea6191b638"
+    },
+    {
+      "fichier": "1280x800/js/10-demande-2.png",
+      "octets": 130278,
+      "sha256": "6cc0c0b379e124fde1f334f0fbd687ab25e7c158a734ee5a0732bb2185560c2c"
+    },
+    {
+      "fichier": "1280x800/js/11-pied-de-page.png",
+      "octets": 106585,
+      "sha256": "a694b0386178ca8ca4d3191141318072f9803380983a34f0a401d693bf91fce8"
+    },
+    {
+      "fichier": "1280x800/js/11-pied-de-page-2.png",
+      "octets": 106570,
+      "sha256": "6a84e01ffa42e92e3e2cfe24b3615dc41c12bcdad5212a277c600da1c6b9dffc"
+    },
+    {
+      "fichier": "1280x800/js/etats/form-ceremonie-etape1.png",
+      "octets": 132399,
+      "sha256": "9116a249d997466fa39c6b08cb038c81e758559d6df439d095243020cccf6ff9"
+    },
+    {
+      "fichier": "1280x800/js/etats/form-ceremonie-erreurs.png",
+      "octets": 141498,
+      "sha256": "e204edce50c06d0fe2489df007860024368d9bf20cd42527461f489b7ed9e418"
+    },
+    {
+      "fichier": "1280x800/js/etats/form-ceremonie-etape2.png",
+      "octets": 128230,
+      "sha256": "28689970ba0f5be0eb71050c47bc0b3f16b5b82ced3b91a565b4291e30bfd5d0"
+    },
+    {
+      "fichier": "1280x800/js/etats/form-ceremonie-succes.png",
+      "octets": 159894,
+      "sha256": "cbf8d5f2d48cb85c6d5fb0391c903092907785c456f1d26a0ddd576c8424a68d"
+    },
+    {
+      "fichier": "1280x800/js/etats/form-poulets-etape1.png",
+      "octets": 135666,
+      "sha256": "4841f276bd1d03119142d40841eeb40b98175bb11f50c56bf508b4f81846dde0"
+    },
+    {
+      "fichier": "1280x800/js/etats/form-pro-etape1.png",
+      "octets": 120210,
+      "sha256": "e6ee49ad86b94074ad9dc1931fefc704da63bfcfd1de1ac8f65302f70b76e648"
+    },
+    {
+      "fichier": "1280x800/sans-js/00-accueil.png",
+      "octets": 316318,
+      "sha256": "ca5d416f0b57175ecff2c4d7e589932e062a191f09302563d86e4e33f2b99d0b"
+    },
+    {
+      "fichier": "1280x800/sans-js/01-garanties.png",
+      "octets": 74439,
+      "sha256": "3e97422d6e40a636ad624ccb19f1b1d1d87e3cc657079549c284cd1170962d5c"
+    },
+    {
+      "fichier": "1280x800/sans-js/02-choix.png",
+      "octets": 67167,
+      "sha256": "f2cef77c963a6db8ae987be9d5ee0233f6af5cc824e851525665c3e3bfa0a746"
+    },
+    {
+      "fichier": "1280x800/sans-js/03-deroule.png",
+      "octets": 81228,
+      "sha256": "2c7b29ed7747e45169c66bc9d31a3943aea306ed0fe164a2e2d4983fd60a145b"
+    },
+    {
+      "fichier": "1280x800/sans-js/04-ceremonies.png",
+      "octets": 97784,
+      "sha256": "dca57bd463f8aba84a6bea2d3fdab44f4d49739f2944d54f155e797c97e6ac46"
+    },
+    {
+      "fichier": "1280x800/sans-js/04-ceremonies-2.png",
+      "octets": 113615,
+      "sha256": "1e7bda25c1b9162d971ad7ce46015de1dad5bcb53b66ad3ca069fd543d7ce917"
+    },
+    {
+      "fichier": "1280x800/sans-js/04-ceremonies-3.png",
+      "octets": 98609,
+      "sha256": "a1d0099dccb54f2df8221cfccdbad3c267e353211c77f660957f16eea18592c8"
+    },
+    {
+      "fichier": "1280x800/sans-js/05-poulets.png",
+      "octets": 128105,
+      "sha256": "7e8ee6b5658c96ae2efa1235299b1030552379d3f689f914901a39e5c938b104"
+    },
+    {
+      "fichier": "1280x800/sans-js/05-poulets-2.png",
+      "octets": 92463,
+      "sha256": "57f14602927ac4b61a9d9654d875a9b9b857cb761c525e98bf412190ec56aeb1"
+    },
+    {
+      "fichier": "1280x800/sans-js/06-professionnels.png",
+      "octets": 98625,
+      "sha256": "a5fd604c5609d9b4c93b9936a4e1698ae08ae0a90824f5302d3382509c7f9fd9"
+    },
+    {
+      "fichier": "1280x800/sans-js/07-livraison.png",
+      "octets": 107020,
+      "sha256": "77a9ef2c91dc5ea772e441d0c4c64072314c361cd3a70d02171fec9edd8ca96c"
+    },
+    {
+      "fichier": "1280x800/sans-js/07-livraison-2.png",
+      "octets": 124372,
+      "sha256": "70b797c99421d89b8fcc258a8761d5d10dc6a9ba4a634b3f7f1203b99c19ad83"
+    },
+    {
+      "fichier": "1280x800/sans-js/07-livraison-3.png",
+      "octets": 93992,
+      "sha256": "82f18c00fbc93fb7be879ac9452aaf0633d3f67272c82c8921acd6e70e1fde64"
+    },
+    {
+      "fichier": "1280x800/sans-js/07-livraison-4.png",
+      "octets": 124418,
+      "sha256": "f01fe77f9fdd58a07f04d534ce8a047d5c9078fd0427c9811fb73c15cbf7344c"
+    },
+    {
+      "fichier": "1280x800/sans-js/08-la-ferme.png",
+      "octets": 127108,
+      "sha256": "421790f066c9a87c99fab0da11faebfc0edb62e9175225df948ead78ef717f76"
+    },
+    {
+      "fichier": "1280x800/sans-js/08-la-ferme-2.png",
+      "octets": 117661,
+      "sha256": "bc621dd17c7c63309ef94c677e66ded80d0ab8c6e168044e1d5798ba4c3f4b0d"
+    },
+    {
+      "fichier": "1280x800/sans-js/08-la-ferme-3.png",
+      "octets": 75901,
+      "sha256": "fabd800b9272f679beefb7ce980e777e59ca909c5947397356ce219f732f552f"
+    },
+    {
+      "fichier": "1280x800/sans-js/09-questions.png",
+      "octets": 86948,
+      "sha256": "18c21c9a6240c13b57e80c5c323907f3218405a5a126e94cfc6beb56fc450283"
+    },
+    {
+      "fichier": "1280x800/sans-js/09-questions-2.png",
+      "octets": 100406,
+      "sha256": "5a24bc518169c9f33b90a4f9b7ee74bbd63444c3ee31a42efaf06acabf5e2487"
+    },
+    {
+      "fichier": "1280x800/sans-js/10-demande.png",
+      "octets": 95282,
+      "sha256": "968d1b17436e7d892aaff2982b2d19ee8b330551d6df40e42ea582184696f1dd"
+    },
+    {
+      "fichier": "1280x800/sans-js/11-pied-de-page.png",
+      "octets": 104655,
+      "sha256": "5a56f6efebf74ed5857746ffafcb3e028e8ffb5bc0b572e73775cd9d2a636348"
+    },
+    {
+      "fichier": "1280x800/sans-js/11-pied-de-page-2.png",
+      "octets": 104752,
+      "sha256": "94e4a745cfbd3e273663fcefa552b649eacb48feed1185d10a36bf58a7a5dcd6"
+    },
+    {
+      "fichier": "1280x800/sans-js/page-entiere.png",
+      "octets": 1643491,
+      "sha256": "0f82ba53ed9ae20fde36c7d2e79f787bc9c03c9e6fa87e8a967d0f0c1cf3179c"
+    },
+    {
+      "fichier": "1280x800/reduit/00-accueil.png",
+      "octets": 319640,
+      "sha256": "eeb2c7282e3fc7f70b3c2e29f1922033098c50aff897c4cfd3776ad39ea4dfd7"
+    },
+    {
+      "fichier": "1280x800/reduit/01-garanties.png",
+      "octets": 75791,
+      "sha256": "13a920adaf189ec3dc68c2071f72db2d77c6d13a82f74d3199a51414070ff7ff"
+    },
+    {
+      "fichier": "1280x800/reduit/02-choix.png",
+      "octets": 68634,
+      "sha256": "574a9a072b643bbfaafbc765a11a7d679d71517b13d85b5e4ef6004fb2142646"
+    },
+    {
+      "fichier": "1280x800/reduit/03-deroule.png",
+      "octets": 83235,
+      "sha256": "006537446438162c1263ba0592e1d345671ff40c09195c068038f7a1fc902fcf"
+    },
+    {
+      "fichier": "1280x800/reduit/04-ceremonies.png",
+      "octets": 95468,
+      "sha256": "a86d2cddac6470873ab2c7ec836831909730b03b101fc0ff53124bb5616a271d"
+    },
+    {
+      "fichier": "1280x800/reduit/04-ceremonies-2.png",
+      "octets": 116340,
+      "sha256": "353e4bf0eb19d551bb2fa98c130e9198d605e134abd6be5b57c1d19e2268636a"
+    },
+    {
+      "fichier": "1280x800/reduit/04-ceremonies-3.png",
+      "octets": 102037,
+      "sha256": "6195395256fdeebaca371a1f774f6d52775a2c16dc634df2dd887dddf19261a5"
+    },
+    {
+      "fichier": "1280x800/reduit/05-poulets.png",
+      "octets": 134969,
+      "sha256": "4fb8a00f79a6207fe85b6b81d03d293fceb128d0bbfe02d5eb051bb990c0fa67"
+    },
+    {
+      "fichier": "1280x800/reduit/05-poulets-2.png",
+      "octets": 92993,
+      "sha256": "af3c925162cdd4e7f2327ef54ecdd289dff95c448dc91156f5c958c8da0293b8"
+    },
+    {
+      "fichier": "1280x800/reduit/06-professionnels.png",
+      "octets": 96816,
+      "sha256": "edd0cc7681aefee5e420be3e1fb8b3e63503931b8b4c853f542082f417d55f77"
+    },
+    {
+      "fichier": "1280x800/reduit/07-livraison.png",
+      "octets": 110700,
+      "sha256": "262074f29840828f721be1907a75ac7339fe44a0f8d8a3d4d7cd0d7058e74817"
+    },
+    {
+      "fichier": "1280x800/reduit/07-livraison-2.png",
+      "octets": 129593,
+      "sha256": "8ab11aae06b3fd79616d8911ed7080010bed3b31c7538442f480fe21133dfa74"
+    },
+    {
+      "fichier": "1280x800/reduit/07-livraison-3.png",
+      "octets": 97755,
+      "sha256": "9c75d47b113d3c137b7b26ac5792b5695e104741523078a9bd520d44ec8eb1d1"
+    },
+    {
+      "fichier": "1280x800/reduit/07-livraison-4.png",
+      "octets": 127659,
+      "sha256": "a9d604b3c6be32035a6dd4ec8e617a8d3e3632504e6d89f5116d8057006618ca"
+    },
+    {
+      "fichier": "1280x800/reduit/08-la-ferme.png",
+      "octets": 129896,
+      "sha256": "b58651a11af0012987cf3ace58fc69d15888558e6d977648c3ae91e5883db085"
+    },
+    {
+      "fichier": "1280x800/reduit/08-la-ferme-2.png",
+      "octets": 121011,
+      "sha256": "15fe852f434e1f89bd456419052dd9be8f24252c8d66fae8e26c13886100c54d"
+    },
+    {
+      "fichier": "1280x800/reduit/08-la-ferme-3.png",
+      "octets": 79055,
+      "sha256": "a3088ea7fbc4058ff0c97e41193e5a58f4513e971808d7fec666cdef0385f149"
+    },
+    {
+      "fichier": "1280x800/reduit/09-questions.png",
+      "octets": 90561,
+      "sha256": "8c14e67a43c1af14d641b321189bc187abac67c1c17e8e7a6510f04665fce92b"
+    },
+    {
+      "fichier": "1280x800/reduit/09-questions-2.png",
+      "octets": 109992,
+      "sha256": "a35145ed292822cbb3887ea01c83354f5e44d7bcd3bd04ed62cb6137c359197c"
+    },
+    {
+      "fichier": "1280x800/reduit/10-demande.png",
+      "octets": 123121,
+      "sha256": "472408dc00f63bf2e1a1dcf44ed9fd8fde0421ef161a02d880263cbb940c2705"
+    },
+    {
+      "fichier": "1280x800/reduit/10-demande-2.png",
+      "octets": 130343,
+      "sha256": "b17c897693f95d588d0395f4cf8d7aec4ed3be90e08426dada4aa44f0a22deea"
+    },
+    {
+      "fichier": "1280x800/reduit/11-pied-de-page.png",
+      "octets": 106595,
+      "sha256": "0e390622834eacc1ad600fa3eb458d2e5aca15bd1da15a689048bfee40671830"
+    },
+    {
+      "fichier": "1280x800/reduit/11-pied-de-page-2.png",
+      "octets": 106582,
+      "sha256": "d801289b670c85c15902b5fbb9b568a6188a82f6155e24b5c4ed63f9ad8938a4"
+    },
+    {
+      "fichier": "1280x800/reduit/page-entiere.png",
+      "octets": 1717706,
+      "sha256": "b580f388a05ab06f9e11a771322c3bba1989117daa3c590f77a3c15cba52c524"
+    },
+    {
+      "fichier": "fetes/garanti-haut.png",
+      "octets": 139293,
+      "sha256": "b508f263f381053b5be0748393d8ee3c31d38ae796784952e1826354ea0f0881"
+    },
+    {
+      "fichier": "fetes/garanti-bloc.png",
+      "octets": 87285,
+      "sha256": "951c59550872083f0f6d41be1214478b5d4475a52e696de8f2bf113dc7d1d387"
+    },
+    {
+      "fichier": "fetes/apres-date-limite-haut.png",
+      "octets": 137274,
+      "sha256": "de11010d58b78dba0b0291b417cda0b2f970524e7d756d4e900027ca9662d5a5"
+    },
+    {
+      "fichier": "fetes/apres-date-limite-bloc.png",
+      "octets": 86432,
+      "sha256": "bed53b292026d5b26d2d1d5ff8a9d2d832971bee7c0f945fdb6ac91c3dd2a272"
+    },
+    {
+      "fichier": "fetes/fin-haut.png",
+      "octets": 132950,
+      "sha256": "95e7337515719eef54b836514336fb9339d7debd732c0798fdad2d4c8b1ef8e8"
+    },
+    {
+      "fichier": "fetes/fin-bloc.png",
+      "octets": 132950,
+      "sha256": "95e7337515719eef54b836514336fb9339d7debd732c0798fdad2d4c8b1ef8e8"
+    }
+  ],
+  "fetes": {
+    "garanti": "js fetes-garanti",
+    "garanti-lien": "https://wa.me/237693645565?text=Bonjour%20Hope%20%26%20Peace%20Farm%2C%20je%20souhaite%20r%C3%A9server%20mes%20poulets%20pour%20les%20f%C3%AAtes%20(prix%20garanti%20avant%20le%201er%20novembre%202026).",
+    "apres-date-limite": "js",
+    "apres-date-limite-lien": "https://wa.me/237693645565?text=Bonjour%20Hope%20%26%20Peace%20Farm%2C%20je%20souhaite%20r%C3%A9server%20mes%20poulets%20pour%20les%20f%C3%AAtes.",
+    "fin": "js fetes-fin",
+    "fin-lien": "https://wa.me/237693645565?text=Bonjour%20Hope%20%26%20Peace%20Farm%2C%20je%20souhaite%20r%C3%A9server%20mes%20poulets%20pour%20les%20f%C3%AAtes."
+  },
+  "debordement": {
+    "320": 0,
+    "360": 0,
+    "393": 0,
+    "412": 0,
+    "768": 0,
+    "1024": 0,
+    "1280": 0,
+    "1440": 0,
+    "1920": 0
+  },
+  "duree": "464 s",
+  "total": 403,
+  "octets": 43843678
+}

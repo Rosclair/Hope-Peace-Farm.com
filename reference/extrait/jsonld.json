@@ -1,0 +1,44 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://hopeandpeacefarm.com/#organization",
+      "name": "Hope & Peace Farm",
+      "alternateName": "Hope and Peace Farm",
+      "url": "https://hopeandpeacefarm.com/",
+      "image": "https://hopeandpeacefarm.com/assets/img/og-default.png",
+      "description": "Hope & Peace Farm élève des poulets de chair et des chèvres à Bangangté, dans le Ndé. Vente directe aux familles, aux organisateurs de cérémonies et aux professionnels de l’Ouest, commandes de Douala, de Yaoundé et de l’étranger pour une livraison dans l’Ouest.",
+      "slogan": "Nourrir l’avenir avec confiance",
+      "telephone": "+237693645565",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Bangangté",
+        "addressRegion": "Ouest",
+        "addressCountry": "CM"
+      },
+      "areaServed": [
+        "Bangangté",
+        "Ndé",
+        "Bafoussam",
+        "Ouest",
+        "Douala",
+        "Yaoundé"
+      ],
+      "sameAs": [
+        "https://www.facebook.com/share/19txTSFrCX/",
+        "https://whatsapp.com/channel/0029Vb8zdD9Au3aZ2Jubpu1U"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://hopeandpeacefarm.com/#website",
+      "name": "Hope & Peace Farm",
+      "url": "https://hopeandpeacefarm.com/",
+      "inLanguage": "fr",
+      "publisher": {
+        "@id": "https://hopeandpeacefarm.com/#organization"
+      }
+    }
+  ]
+}

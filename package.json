@@ -1,0 +1,21 @@
+{
+  "name": "hope-and-peace-farm",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Site vitrine et back-office de Hope & Peace Farm (Bangangté)",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "maquette:extraire": "node scripts/extraire-maquette.mjs",
+    "maquette:captures": "node scripts/captures-maquette.mjs",
+    "maquette:mesures": "node scripts/mesures-maquette.mjs",
+    "maquette:diagnostic": "node scripts/diagnostic-maquette.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "chrome-launcher": "1.2.2",
+    "lighthouse": "13.5.0",
+    "playwright": "1.64.0"
+  }
+}

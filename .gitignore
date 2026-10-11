@@ -1,0 +1,33 @@
+# Dépendances et compilation
+node_modules/
+.next/
+out/
+build/
+dist/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Secrets : uniquement dans .env (jamais versionné)
+.env
+.env.*
+!.env.example
+
+# Fichiers téléversés (en production : UPLOAD_DIR, hors du dépôt)
+uploads/
+
+# Captures et rapports régénérables (npm run maquette:captures / maquette:mesures)
+# Le manifeste des captures (empreintes SHA-256) et mesures.json restent versionnés.
+reference/captures/**/*.png
+reference/mesures/*.html
+test-results/
+playwright-report/
+blob-report/
+
+# Systèmes et éditeurs
+.DS_Store
+Thumbs.db
+*.log
+.vscode/*
+!.vscode/extensions.json
+.idea/

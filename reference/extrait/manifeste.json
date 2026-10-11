@@ -1,0 +1,256 @@
+{
+  "source": "reference/hope-and-peace-farm-apercu-2.html",
+  "sourceOctets": 283459,
+  "sourceSha256": "e041773f131b0a279e42e061c2de0de6055b91d96d73011395fa8fe9afa2e054",
+  "generePar": "scripts/extraire-maquette.mjs",
+  "polices": [
+    {
+      "famille": "Bricolage Grotesque",
+      "graisse": 800,
+      "style": "normal",
+      "fichier": "polices/bricolage-grotesque-800.woff2",
+      "octets": 21844
+    },
+    {
+      "famille": "Figtree",
+      "graisse": 400,
+      "style": "normal",
+      "fichier": "polices/figtree-400.woff2",
+      "octets": 11384
+    },
+    {
+      "famille": "Figtree",
+      "graisse": 600,
+      "style": "normal",
+      "fichier": "polices/figtree-600.woff2",
+      "octets": 11544
+    }
+  ],
+  "logo": {
+    "viewBox": "103.8 94.6 816.8 816.8",
+    "calques": [
+      "lg-badge",
+      "lg-rings",
+      "lg-hills",
+      "lg-sun",
+      "lg-rays",
+      "lg-branch",
+      "lg-dove",
+      "lg-chicken",
+      "lg-banner",
+      "lg-banner-stripes",
+      "lg-banner-text",
+      "lg-tagline",
+      "lg-hills-bottom"
+    ],
+    "degrades": 26
+  },
+  "icones": [
+    "i-chat",
+    "i-phone",
+    "i-check",
+    "i-arrow",
+    "i-chevron",
+    "i-menu",
+    "i-close",
+    "i-pin",
+    "i-farm",
+    "i-doc",
+    "i-camera",
+    "i-receipt",
+    "i-calendar",
+    "i-truck",
+    "i-shield",
+    "i-video",
+    "i-people",
+    "i-home",
+    "i-store",
+    "i-clock",
+    "i-copy",
+    "i-help",
+    "i-facebook",
+    "i-channel"
+  ],
+  "fichiers": [
+    {
+      "fichier": "favicon.svg",
+      "octets": 230,
+      "sha256": "4fe60fa39162f5dcb414bfc49301b8df16aec9a502cdce0df4fd84852b090b48"
+    },
+    {
+      "fichier": "icones/i-arrow.svg",
+      "octets": 198,
+      "sha256": "3f557fdd24d5e3d26c68511a1324104cf9425ff0303288e100e5c9397d58da6a"
+    },
+    {
+      "fichier": "icones/i-calendar.svg",
+      "octets": 247,
+      "sha256": "d7d1dfa2cd4b96538a7b87ab2e225153c3314fb80581e67d57ad1b8a39c8c230"
+    },
+    {
+      "fichier": "icones/i-camera.svg",
+      "octets": 234,
+      "sha256": "23355a2b8195be886c4a060cc527118b3cef08eca0a7ee98dd3973b1080ea4b6"
+    },
+    {
+      "fichier": "icones/i-channel.svg",
+      "octets": 292,
+      "sha256": "568985ffb3e6baf8e8e3b9f071309fc33f2fb90d8f89660d2ce85e4663176084"
+    },
+    {
+      "fichier": "icones/i-chat.svg",
+      "octets": 251,
+      "sha256": "2bc788b6e833794a3654ef3d52ce92b73dc807dd2f1a78533b10d5fc325109b2"
+    },
+    {
+      "fichier": "icones/i-check.svg",
+      "octets": 199,
+      "sha256": "c5ff9d1c5d775631b8e14910717b6acce528407901dc1b79c4ecc225cad8cf57"
+    },
+    {
+      "fichier": "icones/i-chevron.svg",
+      "octets": 189,
+      "sha256": "fbff5f99141fec550cf3a6466f8cb329610ab7bbbbb7662147dfe78d4fcfef44"
+    },
+    {
+      "fichier": "icones/i-clock.svg",
+      "octets": 219,
+      "sha256": "5f1fc29903bb953eca1bb94e2f504a29baca7832de608f9e111b6476ed1b0766"
+    },
+    {
+      "fichier": "icones/i-close.svg",
+      "octets": 197,
+      "sha256": "bcfb97bbefa5947878abe17063c437dfd5b24b4b3e2947832bef452f2584f13e"
+    },
+    {
+      "fichier": "icones/i-copy.svg",
+      "octets": 250,
+      "sha256": "2bef33703d51a4dcd83b4c7f44aaaa8143fd59a68c895f8737ce01e374bfbbc4"
+    },
+    {
+      "fichier": "icones/i-doc.svg",
+      "octets": 258,
+      "sha256": "1a86d5342559b17065f9ef214ca7fc7ec76954b6e51e4ffba8234cdea1f2b7ad"
+    },
+    {
+      "fichier": "icones/i-facebook.svg",
+      "octets": 331,
+      "sha256": "e68d06b4898519b75bb6b0510fe83d8cf75671da122efea091225efc77dda95e"
+    },
+    {
+      "fichier": "icones/i-farm.svg",
+      "octets": 243,
+      "sha256": "50ed6afdc33f5c312d0ca3163d792337218653d63a76222473a95b2b77af7095"
+    },
+    {
+      "fichier": "icones/i-help.svg",
+      "octets": 268,
+      "sha256": "62ce8a16a153cb31c0280f65f0b4f082f34ac1b7d77f6233d9985d9c85d0f17e"
+    },
+    {
+      "fichier": "icones/i-home.svg",
+      "octets": 233,
+      "sha256": "bcd10057680b6be6d9f8baa94f7a70683e0822de35dea89b515405cfefce0bb5"
+    },
+    {
+      "fichier": "icones/i-menu.svg",
+      "octets": 200,
+      "sha256": "2facf780eac145f77d26fd82a55e294ccf80767495110a159933c2debadab02e"
+    },
+    {
+      "fichier": "icones/i-people.svg",
+      "octets": 286,
+      "sha256": "63b4dd7e57839add797175842bf98fe1a31b8f8b42a1df6232f13741e58bd4fd"
+    },
+    {
+      "fichier": "icones/i-phone.svg",
+      "octets": 302,
+      "sha256": "f940366efc7a6bf64f790542569e5f6e1541a6212454f1e2d08a5ceadbf93af2"
+    },
+    {
+      "fichier": "icones/i-pin.svg",
+      "octets": 267,
+      "sha256": "89bc8f59195b4f2ead0291a8de1fe009e44ff76728c7f34e0ece7c92057bfae9"
+    },
+    {
+      "fichier": "icones/i-receipt.svg",
+      "octets": 237,
+      "sha256": "c0e4124473f621e0a0ab6d17baebabc20bb501cb8c8262409df3e6aba91c0258"
+    },
+    {
+      "fichier": "icones/i-shield.svg",
+      "octets": 259,
+      "sha256": "838bb2730355e71c8fb11e2c7fb52b501da0c42993bd8c23deac70c48d77d901"
+    },
+    {
+      "fichier": "icones/i-store.svg",
+      "octets": 308,
+      "sha256": "8f3719d6c994805c337a1f59597346712a0f0591404e455148a943ca2fedf3df"
+    },
+    {
+      "fichier": "icones/i-truck.svg",
+      "octets": 267,
+      "sha256": "3bbaa3000bd82a810385e5bfad4d2f78ef73be11f9ef199bf2f8d2c8b80ac8f6"
+    },
+    {
+      "fichier": "icones/i-video.svg",
+      "octets": 244,
+      "sha256": "b69041baf9ec566d0bdbd6c2d5bd4f9498e833701cf7ef75b730fc0ec6e03bbe"
+    },
+    {
+      "fichier": "icones/sprite.svg",
+      "octets": 3315,
+      "sha256": "a3fa1c5c401900037fde2f6b5371229c71b8990e290295f7d158bde9860fe46d"
+    },
+    {
+      "fichier": "jsonld.json",
+      "octets": 1497,
+      "sha256": "3059409b27a4b8bda13d58d6c3c4fbf69d839293f561c7dcc5fcf9a917787407"
+    },
+    {
+      "fichier": "logo/logo-defs.svg",
+      "octets": 43736,
+      "sha256": "f865510b29fd3459bb383a32ce0b8744fd061eb1886ada353dc52ede54f75a4b"
+    },
+    {
+      "fichier": "logo/logo.svg",
+      "octets": 44077,
+      "sha256": "1bc3f58db7290578ced0f41df7399f10b564c84bbcd62d5f25a1d011e8f51e74"
+    },
+    {
+      "fichier": "polices/bricolage-grotesque-800.woff2",
+      "octets": 21844,
+      "sha256": "3e1b5f0a56ee995b7c1445bc54e6ec98c5dffb585ef5c4baf86731cf68e27c61"
+    },
+    {
+      "fichier": "polices/figtree-400.woff2",
+      "octets": 11384,
+      "sha256": "8f98dd642986f1fa39c45b89665a57372897c235b36028e0e4a136e43dc5f8ab"
+    },
+    {
+      "fichier": "polices/figtree-600.woff2",
+      "octets": 11544,
+      "sha256": "367d713287918784702563518f59239989da815c80d3c7337686b9816635a08b"
+    },
+    {
+      "fichier": "principal.js",
+      "octets": 30370,
+      "sha256": "05f0186120457960c5fe8c82e23f0fc4c7aff6a50c20fc26fe66905eb10d437b"
+    },
+    {
+      "fichier": "structure.html",
+      "octets": 84710,
+      "sha256": "874a0719f605c7b127d79abbe6e2eb59e52ff09928129edca5dfc0d9d499215c"
+    },
+    {
+      "fichier": "styles.css",
+      "octets": 64860,
+      "sha256": "19472ff5531dc961de844e5387f389499b34d1474dbd3f73ee8cf9928c3d88b4"
+    },
+    {
+      "fichier": "tete.js",
+      "octets": 576,
+      "sha256": "e8323a9d9dd0698e3215d8413d3734915e99b23c811a9c0a7d972e113eef0ec1"
+    }
+  ]
+}
