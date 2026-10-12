@@ -38,7 +38,9 @@ Architecture : [docs/architecture.md](docs/architecture.md) · données : [docs/
 
 ## Environnement local (Windows)
 
-- Lancer npm, npx et node depuis Git Bash (outil Bash) : depuis PowerShell, npm s’est bloqué sans message dans ce dossier (dont le chemin contient `&`).
+- Lancer npm, npx et node depuis Git Bash (outil Bash) : le chemin contient `&`. Depuis PowerShell, cela marche seulement avec, dans la session : `$env:Path = "C:\Program Files\Git\usr\bin;" + $env:Path` puis `$env:npm_config_script_shell = "C:\Program Files\Git\usr\bin\bash.exe"` (vérifié le 12/10/2026).
+- Serveurs lancés en arrière-plan : arrêter la tâche ne tue pas le processus Next ; le fermer par son PID (`netstat -ano`, puis `taskkill //PID … //F`). Next refuse un second `next dev` dans le même dossier.
+- Essai sur téléphone (même Wi-Fi) : version de production (`npm run standalone`, à l’écoute sur toutes les interfaces) ; `next dev -H 0.0.0.0` sert la page mais bloque sa liaison de développement, et le moteur ne démarre pas.
 - Avant tout script npm qui appelle un exécutable (`next`, `tsc`, `vitest`, `drizzle-kit`, `npx`) : `export npm_config_script_shell="C:\Program Files\Git\usr\bin\bash.exe"` (sinon cmd.exe coupe le chemin au `&`). Réglage local seulement : rien dans `.npmrc`.
 - Réseau lent et coupures : installer avec `--prefer-offline` ; une grosse archive se télécharge par morceaux (`curl -r`), puis `npm cache add` (npm la retrouve par son empreinte).
 - Chrome est installé : Playwright et Lighthouse l’utilisent (`channel: "chrome"`).
