@@ -35,9 +35,14 @@ export async function ouvrir(
     js?: boolean;
     reduit?: boolean;
     heure?: string;
+    /**
+     * Retire de la réponse les classes des Fêtes posées par le serveur (date réelle) :
+     * seul le script de tête décide, à l’heure simulée du navigateur.
+     */
+    sansFetesServeur?: boolean;
   } = {},
 ): Promise<Ouverture> {
-  const { chemin = "/", largeur = 393, hauteur = 780, js = true, reduit = false, heure = HEURE_REFERENCE } = options;
+  const { chemin = "/", largeur = 393, hauteur = 780, js = true, reduit = false, heure = HEURE_REFERENCE, sansFetesServeur = false } = options;
   const b = await lancer();
   const contexte = await b.newContext({
     viewport: { width: largeur, height: hauteur },
@@ -55,10 +60,17 @@ export async function ouvrir(
     if (m.type() === "error" || m.type() === "warning") erreurs.push(`${m.type()} : ${m.text()}`);
   });
   if (js) await page.clock.setFixedTime(new Date(heure));
+  if (sansFetesServeur) {
+    await page.route(new URL(chemin, SITE).href, async (route) => {
+      const reponse = await route.fetch();
+      const corps = (await reponse.text()).replace(/(<html[^>]*class="[^"]*?) fetes-(?:garanti|fin)/, "$1");
+      await route.fulfill({ response: reponse, body: corps });
+    });
+  }
   await page.goto(new URL(chemin, SITE).href, { waitUntil: "load" });
   if (js) {
     await page.evaluate(() => document.fonts.ready);
-    // Le moteur démarre après l’hydratation : la barre fixe devient « prête ».
+    // Le moteur immédiat a démarré : la barre fixe devient « prête ».
     await page.waitForSelector(".bar.is-ready", { state: "attached" });
   }
   return { contexte, page, erreurs };

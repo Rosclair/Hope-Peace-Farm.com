@@ -99,7 +99,7 @@ if (!jetonDiagnostic) {
   if (!rapport?.node) {
     noter("ÉCHEC", "rapport complet", `HTTP ${r.reponse.status} : jeton refusé ou réponse inattendue`);
   } else {
-    const { node, environnement, base: bd, televersement: tv, sharp, smtp, requete: rq } = rapport;
+    const { node, environnement, base: bd, contenu: ct, televersement: tv, sharp, smtp, requete: rq } = rapport;
     ok(/^v2[24]\./.test(node.version), "version de Node", `${node.version} · ${node.plateforme}`);
     ok(node.environnement === "production", "NODE_ENV à l’exécution", String(node.environnement));
     noter("À VOIR", "processus", `build ${node.build} · dossier ${node.dossier} · port ${node.port} · ${node.memoireMo.rss} Mo · démarré depuis ${node.dureeFonctionnementS} s`);
@@ -116,6 +116,11 @@ if (!jetonDiagnostic) {
       noter("À VOIR", "démarrages récents", bd.derniersDemarrages.map((d) => `${d.le} ${d.build}`).join(" · "));
       noter("À VOIR", "file des e-mails", JSON.stringify(bd.emails));
     } else ok(false, "base de données", bd.variables?.join(", ") ?? bd.erreur);
+
+    if (ct?.versionEnLigne) {
+      ok(true, "contenu publié", `version n° ${ct.versionEnLigne.numero} (${ct.versionEnLigne.publieLe}) · brouillon ${ct.brouillon?.nonPublie ? "avec modifications non publiées" : "identique"} · ${ct.brouillon?.aConfirmer ?? 0} valeur(s) à confirmer`);
+      ok(Boolean(ct.instantane), "instantané de secours du contenu (UPLOAD_DIR)", ct.instantane ? `version n° ${ct.instantane.numero}` : "absent : écrit au premier rendu de la page", "À VOIR");
+    } else ok(false, "contenu publié", ct?.erreur ?? "aucune version en ligne");
 
     if (tv.chemin) {
       ok(tv.ok, "UPLOAD_DIR accessible en écriture", `${tv.chemin} · ${tv.espaceLibreMo} Mo libres${tv.avertissements.length ? " · " + tv.avertissements.join(" ; ") : ""}`);

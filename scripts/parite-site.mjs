@@ -68,6 +68,7 @@ const HEURE = "2026-10-11T09:00:00Z";
 const ECARTS_JUSTIFIES = [
   "Apostrophe typographique dans le message WhatsApp général (« J’aimerais ») : correction permise par le brief.",
   "Mentions légales : les lignes « [… à renseigner] » (responsable, e-mail, hébergeur) sont masquées tant que la valeur manque (brief §5 : une donnée absente cache son bloc).",
+  "Sans JavaScript, le serveur pose la classe des Fêtes du jour (« fetes-garanti » ou « fetes-fin ») : le bandeau est juste sans JavaScript ; la maquette ne la pose qu’avec JavaScript (phase 3).",
 ];
 function appliquerEcartsJustifies() {
   document.querySelectorAll('a[href*="J\'aimerais"]').forEach((a) => {
@@ -289,7 +290,13 @@ const rapport = { site: SITE, navigateur: `Chrome ${navigateur.version()}`, heur
 if (avecCaptures) rmSync(sortie, { recursive: true, force: true });
 const debut = Date.now();
 
-async function ouvrir(url, format, mode, estMaquette) {
+/** Classes des Fêtes que le serveur du site pose sur <html>. */
+async function classesFetesDuServeur() {
+  const html = await (await fetch(SITE)).text();
+  return (/<html[^>]*class="([^"]*)"/.exec(html)?.[1] ?? "").split(/\s+/).filter((c) => c.startsWith("fetes-"));
+}
+
+async function ouvrir(url, format, mode, estMaquette, classesAjoutees = []) {
   const contexte = await navigateur.newContext({
     viewport: { width: format.width, height: format.height },
     deviceScaleFactor: 1,
@@ -308,6 +315,13 @@ async function ouvrir(url, format, mode, estMaquette) {
     if (m.type() === "error" || m.type() === "warning") erreurs.push(`${m.type()} : ${m.text()}`);
   });
   if (mode.js) await page.clock.setFixedTime(new Date(HEURE));
+  if (classesAjoutees.length) {
+    await page.route(url, async (route) => {
+      const reponse = await route.fetch();
+      const corps = (await reponse.text()).replace('class="no-js"', `class="no-js ${classesAjoutees.join(" ")}"`);
+      await route.fulfill({ response: reponse, body: corps });
+    });
+  }
   await page.goto(url, { waitUntil: "load" });
   if (mode.js) {
     await page.evaluate(() => document.fonts.ready);
@@ -324,9 +338,12 @@ try {
   for (const format of FORMATS) {
     rapport.formats[format.nom] = {};
     for (const mode of MODES) {
-      const m = await ouvrir(serveur.url, format, mode, true);
+      // Écart voulu : sans JavaScript, la classe des Fêtes du site vient du serveur ; elle est
+      // injectée dans le HTML de la maquette avant sa lecture (pas après le premier affichage).
+      const classesFetes = mode.js ? [] : await classesFetesDuServeur();
+      const m = await ouvrir(serveur.url, format, mode, true, classesFetes);
       const s = await ouvrir(SITE, format, mode, false);
-      const info = { erreursConsole: { maquette: m.erreurs, site: s.erreurs } };
+      const info = { erreursConsole: { maquette: m.erreurs, site: s.erreurs }, classesFetesServeur: classesFetes };
 
       // 0. Captures de l’accueil, juste après le chargement, comme scripts/captures-maquette.mjs :
       // le défilement complet qui précède les contrôles suivants laisserait des calques composités

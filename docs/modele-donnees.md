@@ -8,8 +8,8 @@ Le contenu publiable est **un document JSON** validé par un schéma Zod (`Conte
 
 | Table | Colonnes | Rôle |
 | --- | --- | --- |
-| `contenu_brouillon` | `id` (=1), `donnees` JSON, `a_confirmer` JSON (liste de chemins de champs), `revision` int, `modifie_le`, `modifie_par` | le brouillon unique ; `revision` empêche d’écraser la saisie d’un autre (verrou optimiste) |
-| `version_contenu` | `id`, `numero` int unique, `donnees` JSON, `a_confirmer` JSON, `empreinte` sha256, `publie_le`, `publie_par`, `restauree_depuis` → version, `note` | instantanés immuables, historique et retour arrière |
+| `contenu_brouillon` | `id` (=1), `donnees` JSON, `a_confirmer` JSON (liste de chemins de champs), `revision` int, `modifie_le`, `modifie_par` (auteur lisible ; compte en phase 5) | le brouillon unique ; `revision` empêche d’écraser la saisie d’un autre (verrou optimiste) |
+| `version_contenu` | `id`, `numero` int unique, `donnees` JSON, `a_confirmer` JSON, `empreinte` sha256 du JSON canonique, `publie_le`, `publie_par`, `restauree_depuis` (numéro), `note` | instantanés immuables, historique et retour arrière |
 | `etat_publication` | `id` (=1), `version_en_ligne` → version, `modifie_le` | quelle version est en ligne |
 
 ### Structure du document `ContenuPage` (groupes du back-office)
@@ -101,9 +101,10 @@ Purge : suppression définitive (demande, événements, e-mails liés) quand `ma
 | --- | --- | --- |
 | `journal_audit` | `id`, `le`, `utilisateur_id` (nul pour le système), `action` (ex. `contenu.modifier`, `contenu.publier`, `contenu.restaurer`, `demande.statut`, `demande.supprimer_client`, `connexion.reussie`, `connexion.echec`, `session.revoquer`, `reglage.modifier`, `media.ajouter`), `cible_type`, `cible_id`, `avant` JSON, `apres` JSON, `empreinte_ip` | valeurs sensibles masquées (`+237 6•• •• 55 65`) ; jamais de donnée personnelle d’un client en clair ; conservation 24 mois (réglable) |
 
-## 10. Données initiales (`npm run db:initialiser`)
+## 10. Données initiales (automatiques au premier démarrage ; `npm run db:initialiser` en local)
 
 - `contenu_brouillon` et la version n° 1 = contenu de la maquette, mot pour mot (avec les seules corrections typographiques permises). Badge « à confirmer » posé sur : prix « à partir de », frais/minimums/jours de livraison, conditions d’acompte et d’annulation, délais promis de réponse et de devis, téléphone.
 - Champs vides (bloc masqué) : responsable de la publication, e-mail de contact, hébergeur, MTN, Orange, nom du compte, promoteur, photos, lien d’itinéraire, avis.
 - Réglages par défaut ; aucun compte (créé ensuite par `npm run admin:creer`).
-- Contrôle automatique : la page rendue avec la version n° 1 est comparée à la maquette (textes et captures).
+- Contrôle automatique : la page rendue avec la version n° 1 est comparée à la maquette (textes et captures, `npm run site:parite`).
+- *Phase 3* : colonnes JSON relues aussi bien sur MySQL (objet) que sur MariaDB (texte) ; schéma Zod `lib/contenu/schema.ts`, migration `drizzle/0001_contenu.sql`.

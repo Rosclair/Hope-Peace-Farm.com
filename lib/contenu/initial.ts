@@ -563,3 +563,25 @@ export const CONTENU_INITIAL: ContenuPage = insecables<ContenuPage>({
     ],
   },
 });
+
+/**
+ * Champs importés avec le badge « à confirmer » (brief §5) : téléphone, prix « à partir
+ * de », frais, minimums et jours de livraison, conditions d’acompte et d’annulation,
+ * délais promis de réponse et de devis. Affiché dans le back-office, jamais sur le site.
+ */
+export const A_CONFIRMER_INITIAL: string[] = [
+  "coordonnees.telephone",
+  "prix.vivant",
+  "prix.pretACuire",
+  "prix.decoupe",
+  "livraison.zones",
+  "conditions.minimumCeremonie",
+  "conditions.minimumHorsNde",
+  "conditions.acomptePourcent",
+  "conditions.soldeJoursAvant",
+  "conditions.seuilRemboursementJours",
+  "conditions.seuilConserveJours",
+  "conditions.avoirMois",
+  "delais.reponse",
+  "delais.devis",
+];

@@ -4,6 +4,8 @@
 
 import { AxeBuilder } from "@axe-core/playwright";
 import { afterAll, describe, expect, it } from "vitest";
+import { dateDouala, etatFetes } from "@/lib/contenu/fetes";
+import { CONTENU_INITIAL } from "@/lib/contenu/initial";
 import { composerMessage, lienWa, texteRemerciement } from "@/lib/whatsapp/messages";
 import { fermer, lancer, ouvrir, SITE } from "./outils";
 
@@ -131,13 +133,22 @@ describe("ancres et historique", () => {
 });
 
 describe("Fêtes selon la date (heure de Douala)", () => {
+  it("le serveur pose la classe des Fêtes de la date du jour (page juste sans JavaScript)", async () => {
+    const html = await (await fetch(SITE)).text();
+    const classe = /<html[^>]*class="([^"]*)"/.exec(html)?.[1] ?? "";
+    const e = etatFetes(CONTENU_INITIAL.fetes, dateDouala());
+    expect(classe.includes("fetes-garanti")).toBe(e.garanti);
+    expect(classe.includes("fetes-fin")).toBe(e.fin);
+  });
+
+  // Script de tête et moteur, à une date simulée dans le navigateur (classes du serveur retirées).
   const cas = [
     ["2026-10-15T09:00:00Z", "fetes-garanti", "(prix garanti avant le 1er novembre 2026)"],
     ["2026-11-15T09:00:00Z", "", ""],
     ["2026-12-21T09:00:00Z", "fetes-fin", ""],
   ] as const;
   it.each(cas)("le %s", async (heure, classe, garantie) => {
-    const { contexte, page } = await ouvrir({ heure });
+    const { contexte, page } = await ouvrir({ heure, sansFetesServeur: true });
     const classes = await page.evaluate(() => document.documentElement.className);
     if (classe) expect(classes).toContain(classe);
     expect(classes.includes("fetes-garanti")).toBe(classe === "fetes-garanti");

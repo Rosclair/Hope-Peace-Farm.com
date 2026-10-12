@@ -18,6 +18,9 @@ import {
   configTaches,
   dossierTeleversement,
 } from "@/lib/config";
+import { lireBrouillon, lireVersionEnLigne } from "@/lib/contenu/depot";
+import { empreinteContenu } from "@/lib/contenu/empreinte";
+import { lireInstantane } from "@/lib/contenu/instantane";
 import { base, db } from "@/lib/db/client";
 import { DOSSIER_MIGRATIONS } from "@/lib/db/migrer";
 import { demarrageServeur, emailSortant, tacheExecution } from "@/lib/db/schema";
@@ -198,9 +201,23 @@ function analyserRequete(entetes: Headers) {
   };
 }
 
+/** Contenu de la page : version en ligne, brouillon, instantané de secours (phase 3). */
+async function verifierContenu() {
+  const [enLigne, brouillon, instantane] = await Promise.all([lireVersionEnLigne(), lireBrouillon(), lireInstantane()]);
+  return {
+    ok: Boolean(enLigne),
+    versionEnLigne: enLigne ? { numero: enLigne.numero, publieLe: enLigne.publieLe, empreinte: enLigne.empreinte.slice(0, 12) } : null,
+    brouillon: brouillon
+      ? { revision: brouillon.revision, nonPublie: !enLigne || empreinteContenu(brouillon.donnees) !== enLigne.empreinte, aConfirmer: brouillon.aConfirmer.length }
+      : null,
+    instantane: instantane ? { numero: instantane.numero } : null,
+  };
+}
+
 export async function rapportComplet(entetes: Headers) {
-  const [baseDeDonnees, televersement, sharp, smtp] = await Promise.all([
+  const [baseDeDonnees, contenu, televersement, sharp, smtp] = await Promise.all([
     avecDelai(verifierBase(), 20_000).catch(echec),
+    avecDelai(verifierContenu(), 10_000).catch(echec),
     avecDelai(verifierTeleversement(), 10_000).catch(echec),
     avecDelai(verifierSharp(), 15_000).catch(echec),
     verifierSmtp(),
@@ -220,6 +237,7 @@ export async function rapportComplet(entetes: Headers) {
     },
     environnement: environnement(),
     base: baseDeDonnees,
+    contenu,
     televersement,
     sharp,
     smtp,

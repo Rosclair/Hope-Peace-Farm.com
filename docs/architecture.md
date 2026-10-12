@@ -64,8 +64,9 @@ components/site/               composants serveur des sections (cadre, accueil, 
                                rendu des textes riches (riche.tsx), icônes
 components/site/client/        Comportements : seul composant client, lance le moteur (lib/moteur)
 components/admin/
-lib/contenu/                   types du contenu, contenu initial (= maquette), repères {…} et mise en forme ;
-                               phase 3 : schéma Zod, registre des champs, contrôles de publication
+lib/contenu/                   schéma Zod et types, contenu initial (= maquette), repères {…} et mise en forme,
+                               contrôles de publication, dépôt (brouillon, versions, retour arrière), lecture en cache ;
+                               phase 5 : registre des champs (aides, badges) pour le back-office
 lib/whatsapp/                  messages pré-remplis et composition (partagés serveur / navigateur) ; phase 4 : numéros
 lib/site/                      script de tête, sprite SVG (généré depuis la maquette)
 lib/demandes/                  référence HP-AAMMJJ-XXXXXX, anti-spam, enregistrement
@@ -80,9 +81,10 @@ tests/unitaires/ (npm test) · tests/e2e/ (npm run test:e2e, Playwright piloté 
 
 - **Composants serveur** pour toutes les sections ; le HTML est complet au premier octet, aucun contenu chargé après coup.
 - **Source unique** : la *version publiée* du contenu (un instantané JSON validé par Zod, voir modele-donnees.md), lue une fois par rendu.
-- **Cache** : la page est rendue statiquement et étiquetée `contenu-publie` (Cache Components de Next 16 : `"use cache"` + `cacheTag`). La Server Action « Publier » appelle `updateTag('contenu-publie')` (expiration immédiate, API de Next 16) : la requête suivante reçoit la nouvelle page, bien sous la minute. Un test de bout en bout le vérifiera.
-- **En-tête `Cache-Control` du HTML** : `public, max-age=0, s-maxage=30, stale-while-revalidate=30`. Next peut poser par défaut un `s-maxage` très long sur les pages statiques ; si un cache ou un CDN Hostinger est devant l’application, la publication ne se verrait pas avant longtemps. **(à vérifier en phase 1 : présence d’un cache intermédiaire et respect de l’en-tête.)**
-- **Fêtes** : comme dans la maquette, le script de tête pose `fetes-garanti` / `fetes-fin` selon la date de Douala, avant le premier rendu. En plus, le serveur pose déjà ces classes au rendu, et une tâche planifiée revalide la page à minuit (heure de Douala) aux dates de bascule : sans JavaScript aussi, le bandeau disparaît à la bonne date. Écart volontaire avec la maquette sans JS (qui n’affiche jamais la phrase de garantie), à justifier dans la recette.
+- **Cache** (phase 3) : la page est pré-rendue (statique) et le contenu publié, lu en base par `contenuPublie()` (`lib/contenu/lecture.ts`), est mis en cache (`"use cache"`), étiqueté `contenu-publie` et soumis au profil `PROFIL_CONTENU` (`lib/contenu/profil.ts`) : régénération en arrière-plan au plus toutes les 30 s, jamais servi au-delà de 5 min. La publication appelle `revaliderContenu()` (`lib/contenu/revalidation.ts` ; action serveur du back-office en phase 5, ou `POST /api/contenu/revalider` avec le jeton `CRON_SECRET` pour la ligne de commande) : `revalidateTag` + `revalidatePath("/")` tout de suite, puis de nouveau 2 s plus tard, avant de répondre ; la requête suivante reçoit la nouvelle page (5 passages sur 5 du test de bout en bout). Raisons, mesurées sur Next 16.4 : `revalidateTag(…, { expire: 0 })` seul laissait servir une fois l’ancienne page (« STALE ») ; et Next écrit l’entrée de cache d’une page après avoir répondu, si bien qu’une régénération commencée juste avant la publication pouvait écrire l’ancien contenu après la revalidation et paraître plus récente qu’elle. Le profil couvre ce que l’étiquette ne couvre pas : Next garde l’état des étiquettes **en mémoire** (documentation « How revalidation works »), perdu quand Hostinger arrête le processus faute de trafic ; la page suit alors la base en 30 s (mesuré : 33 s sans revalidation ; après redémarrage, 1 requête servie périmée puis la nouvelle). `expire` reste à 5 min, car en dessous Next exclut la page du pré-rendu.
+- **Repli** si la base est indisponible (compilation chez l’hébergeur, panne) : dernier contenu publié gardé sur disque (`UPLOAD_DIR/.contenu/publie.json`, `lib/contenu/instantane.ts`), sinon contenu de la maquette ; tout contenu relu est revalidé par Zod avant le rendu.
+- **En-tête `Cache-Control` du HTML** : posé par Next d’après le profil, `s-maxage=30, stale-while-revalidate=270` (vérifié en phase 3 ; il était d’un an avant, R16). Un cache intermédiaire chez Hostinger reste à vérifier en ligne.
+- **Fêtes** : comme dans la maquette, le script de tête pose `fetes-garanti` / `fetes-fin` selon la date de Douala, avant le premier rendu. En plus (phase 3), le serveur pose ces classes au rendu (`lib/contenu/fetes.ts`, même règle, testée contre le script de tête lui-même) ; la page étant régénérée au plus toutes les 30 s, la bascule de minuit se voit dans la minute, sans tâche dédiée. Écart volontaire avec la maquette sans JS (qui n’affiche jamais la phrase de garantie).
 - **Polices** : `next/font/local` avec les trois WOFF2 extraits ; les polices de repli ajustées de la maquette (`Display Fallback`, `Text Fallback`) sont reprises telles quelles (pas de `adjustFontFallback` automatique, pour garder les mêmes métriques).
 - **Sprite SVG** (logo en 13 calques, 24 icônes) rendu une fois en tête de `<body>`, comme dans la maquette.
 - **Performance** : la maquette fait 87 sur Lighthouse mobile ; le temps de blocage vient du style et de la mise en page, pas du script (diagnostic dans `reference/mesures/diagnostic.json`, `npm run maquette:diagnostic`). Pistes sans effet visuel à reprendre au portage : `content-visibility: auto` sur les sections hors écran, et arbitrage sur la recherche `local()` des polices de repli (gain de blocage contre risque de décalage).
@@ -134,7 +136,7 @@ Formulaires rendus côté serveur (`components/site/demande.tsx`), comportements
 ## 8. Tâches planifiées
 
 Un seul point d’entrée `POST /api/taches` protégé par un jeton (`CRON_SECRET`), qui exécute les tâches dues, chacune idempotente et protégée par un verrou MySQL (`GET_LOCK`) :
-nouvelles tentatives d’e-mails · purge des demandes au-delà de la durée de conservation (12 mois par défaut) · purge des limites de débit et des sessions expirées · agrégation quotidienne des statistiques · revalidation aux bascules des Fêtes.
+nouvelles tentatives d’e-mails · purge des demandes au-delà de la durée de conservation (12 mois par défaut) · purge des limites de débit et des sessions expirées · agrégation quotidienne des statistiques. (Plus de revalidation aux bascules des Fêtes : le profil de cache du contenu suffit, voir §4.)
 
 Déclencheurs, du plus fiable au plus simple :
 
@@ -157,9 +159,10 @@ Phase 1 : tâches `emails` (file d’envoi, à chaque passage) et `purge-techniq
 ## 10. Contenus, brouillon et publication
 
 - Le contenu complet de la page est **un document JSON typé** (schéma Zod `ContenuPage`) : valeurs (coordonnées, prix, délais, conditions, dates des Fêtes…), textes des sections et listes (FAQ, zones, avis, photos, promoteur).
-- **Brouillon** : une ligne unique, modifiée champ par champ depuis le back-office (chaque enregistrement est validé et journalisé).
+- **Brouillon** : une ligne unique, modifiée champ par champ depuis le back-office (chaque enregistrement est validé et journalisé). Enregistrement du document complet, validé par le schéma, sous verrou optimiste (`revision`).
 - **Publier** : contrôles (schéma valide, champs obligatoires, aucun `[…]` restant, aucune photo sans texte alternatif, aucun avis sans accord écrit), puis copie immuable du brouillon dans `version_contenu`, désignation comme version en ligne et revalidation de la page.
-- **Retour arrière** : republier une ancienne version (nouvelle version « restaurée depuis la n° X »), avec la même revalidation.
+- **Retour arrière** : republier une ancienne version (nouvelle version « restaurée depuis la n° X »), avec la même revalidation. Le brouillon est remis à la version restaurée (sinon la publication suivante ramènerait l’erreur corrigée) ; l’opération signale s’il contenait des modifications non publiées. Publier un brouillon identique à la version en ligne ne crée pas de version.
+- **Code (phase 3)** : `lib/contenu/schema.ts` (Zod, types déduits), `controles.ts`, `empreinte.ts`, `depot.ts` (verrou MySQL `hpf_contenu` + transaction), `lecture.ts`, `instantane.ts` ; ligne de commande `npm run contenu` en attendant le back-office ; contenu de la maquette publié automatiquement au premier démarrage (`initialiserSiVide`).
 - **Aperçu** : `/admin/apercu` rend la page publique avec le brouillon (mêmes composants), sans cache, en `noindex`.
 - **Valeurs dans les textes** : un texte peut citer une valeur avec un repère, par exemple `Devis écrit sous {delais.devis}`. Changer le délai une fois met à jour toutes les phrases ; un repère inconnu bloque la publication. L’éditeur affiche le rendu final sous chaque champ.
 - **Badge « à confirmer »** : stocké avec le brouillon, par champ ; affiché dans le back-office et compté au tableau de bord, jamais sur le site.

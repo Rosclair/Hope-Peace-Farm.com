@@ -35,6 +35,8 @@ Points **non documentés**, vérifiés par le diagnostic : persistance réelle d
 
 Chaque envoi sur `main` déclenchera un déploiement.
 
+Contenu de la page (phase 3) : au premier démarrage, l’application publie elle-même le contenu de la maquette (version n° 1) si la base est vide ; rien à faire. Le diagnostic (`/api/sante` avec jeton, `npm run deploiement:verifier`) indique la version en ligne et la présence de l’instantané de secours dans `UPLOAD_DIR/.contenu/`.
+
 Répartition convenue le 12/10/2026 : vous créez le dépôt (privé, vide) et faites les étapes Hostinger ; je pousse le code sur ce dépôt à la fin de chaque phase, sans jamais toucher au compte Hostinger.
 
 ## 2. Base MySQL

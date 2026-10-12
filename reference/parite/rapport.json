@@ -4,7 +4,8 @@
   "heureFigee": "2026-10-11T09:00:00Z",
   "ecartsJustifies": [
     "Apostrophe typographique dans le message WhatsApp général (« J’aimerais ») : correction permise par le brief.",
-    "Mentions légales : les lignes « [… à renseigner] » (responsable, e-mail, hébergeur) sont masquées tant que la valeur manque (brief §5 : une donnée absente cache son bloc)."
+    "Mentions légales : les lignes « [… à renseigner] » (responsable, e-mail, hébergeur) sont masquées tant que la valeur manque (brief §5 : une donnée absente cache son bloc).",
+    "Sans JavaScript, le serveur pose la classe des Fêtes du jour (« fetes-garanti » ou « fetes-fin ») : le bandeau est juste sans JavaScript ; la maquette ne la pose qu’avec JavaScript (phase 3)."
   ],
   "formats": {
     "360x640": {
@@ -13,6 +14,7 @@
           "maquette": [],
           "site": []
         },
+        "classesFetesServeur": [],
         "geometrie": {
           "maquette": {
             "scrolly": true,
@@ -53,8 +55,21 @@
         },
         "captures": {
           "total": 49,
-          "identiques": 49,
-          "differentes": []
+          "identiques": 47,
+          "differentes": [
+            {
+              "nom": "00-accueil-66",
+              "differents": 6547,
+              "ratio": 0.028416,
+              "dimensions": "360×640"
+            },
+            {
+              "nom": "00-accueil-97",
+              "differents": 7956,
+              "ratio": 0.034531,
+              "dimensions": "360×640"
+            }
+          ]
         }
       },
       "sans-js": {
@@ -62,20 +77,23 @@
           "maquette": [],
           "site": []
         },
+        "classesFetesServeur": [
+          "fetes-garanti"
+        ],
         "geometrie": {
           "maquette": {
             "scrolly": false,
-            "hauteurPage": 19940,
+            "hauteurPage": 20014,
             "enTete": 64,
-            "heroHautDoc": 121.59375,
+            "heroHautDoc": 141.890625,
             "course": 1,
             "debordement": 0
           },
           "site": {
             "scrolly": false,
-            "hauteurPage": 19940,
+            "hauteurPage": 20014,
             "enTete": 64,
-            "heroHautDoc": 121.59375,
+            "heroHautDoc": 141.890625,
             "course": 1,
             "debordement": 0
           }
@@ -106,6 +124,7 @@
           "maquette": [],
           "site": []
         },
+        "classesFetesServeur": [],
         "geometrie": {
           "maquette": {
             "scrolly": false,
@@ -141,8 +160,15 @@
         },
         "captures": {
           "total": 41,
-          "identiques": 41,
-          "differentes": []
+          "identiques": 40,
+          "differentes": [
+            {
+              "nom": "page-entiere",
+              "differents": 2,
+              "ratio": 0,
+              "dimensions": "360×21034"
+            }
+          ]
         }
       }
     },
@@ -152,6 +178,7 @@
           "maquette": [],
           "site": []
         },
+        "classesFetesServeur": [],
         "geometrie": {
           "maquette": {
             "scrolly": true,
@@ -192,21 +219,8 @@
         },
         "captures": {
           "total": 41,
-          "identiques": 39,
-          "differentes": [
-            {
-              "nom": "00-accueil-66",
-              "differents": 6750,
-              "ratio": 0.02202,
-              "dimensions": "393×780"
-            },
-            {
-              "nom": "00-accueil-97",
-              "differents": 8188,
-              "ratio": 0.026711,
-              "dimensions": "393×780"
-            }
-          ]
+          "identiques": 41,
+          "differentes": []
         }
       },
       "sans-js": {
@@ -214,20 +228,23 @@
           "maquette": [],
           "site": []
         },
+        "classesFetesServeur": [
+          "fetes-garanti"
+        ],
         "geometrie": {
           "maquette": {
             "scrolly": false,
-            "hauteurPage": 18913,
+            "hauteurPage": 18988,
             "enTete": 64,
-            "heroHautDoc": 121.59375,
+            "heroHautDoc": 141.890625,
             "course": 1,
             "debordement": 0
           },
           "site": {
             "scrolly": false,
-            "hauteurPage": 18913,
+            "hauteurPage": 18988,
             "enTete": 64,
-            "heroHautDoc": 121.59375,
+            "heroHautDoc": 141.890625,
             "course": 1,
             "debordement": 0
           }
@@ -258,6 +275,7 @@
           "maquette": [],
           "site": []
         },
+        "classesFetesServeur": [],
         "geometrie": {
           "maquette": {
             "scrolly": false,
@@ -293,15 +311,8 @@
         },
         "captures": {
           "total": 33,
-          "identiques": 32,
-          "differentes": [
-            {
-              "nom": "page-entiere",
-              "differents": 2,
-              "ratio": 0,
-              "dimensions": "393×20012"
-            }
-          ]
+          "identiques": 33,
+          "differentes": []
         }
       }
     },
@@ -311,6 +322,7 @@
           "maquette": [],
           "site": []
         },
+        "classesFetesServeur": [],
         "geometrie": {
           "maquette": {
             "scrolly": true,
@@ -351,12 +363,18 @@
         },
         "captures": {
           "total": 31,
-          "identiques": 30,
+          "identiques": 29,
           "differentes": [
             {
+              "nom": "00-accueil-66",
+              "differents": 5020,
+              "ratio": 0.006383,
+              "dimensions": "768×1024"
+            },
+            {
               "nom": "00-accueil-97",
-              "differents": 55,
-              "ratio": 0.00007,
+              "differents": 6704,
+              "ratio": 0.008525,
               "dimensions": "768×1024"
             }
           ]
@@ -367,20 +385,23 @@
           "maquette": [],
           "site": []
         },
+        "classesFetesServeur": [
+          "fetes-garanti"
+        ],
         "geometrie": {
           "maquette": {
             "scrolly": false,
-            "hauteurPage": 16166,
+            "hauteurPage": 16213,
             "enTete": 64,
-            "heroHautDoc": 101.296875,
+            "heroHautDoc": 121.59375,
             "course": 1,
             "debordement": 0
           },
           "site": {
             "scrolly": false,
-            "hauteurPage": 16166,
+            "hauteurPage": 16213,
             "enTete": 64,
-            "heroHautDoc": 101.296875,
+            "heroHautDoc": 121.59375,
             "course": 1,
             "debordement": 0
           }
@@ -411,6 +432,7 @@
           "maquette": [],
           "site": []
         },
+        "classesFetesServeur": [],
         "geometrie": {
           "maquette": {
             "scrolly": false,
@@ -457,6 +479,7 @@
           "maquette": [],
           "site": []
         },
+        "classesFetesServeur": [],
         "geometrie": {
           "maquette": {
             "scrolly": true,
@@ -497,12 +520,18 @@
         },
         "captures": {
           "total": 31,
-          "identiques": 30,
+          "identiques": 29,
           "differentes": [
             {
+              "nom": "00-accueil-66",
+              "differents": 2,
+              "ratio": 0.000002,
+              "dimensions": "1280×800"
+            },
+            {
               "nom": "00-accueil-97",
-              "differents": 32,
-              "ratio": 0.000031,
+              "differents": 10,
+              "ratio": 0.00001,
               "dimensions": "1280×800"
             }
           ]
@@ -513,10 +542,13 @@
           "maquette": [],
           "site": []
         },
+        "classesFetesServeur": [
+          "fetes-garanti"
+        ],
         "geometrie": {
           "maquette": {
             "scrolly": false,
-            "hauteurPage": 12739,
+            "hauteurPage": 12767,
             "enTete": 72,
             "heroHautDoc": 109.296875,
             "course": 1,
@@ -524,7 +556,7 @@
           },
           "site": {
             "scrolly": false,
-            "hauteurPage": 12739,
+            "hauteurPage": 12767,
             "enTete": 72,
             "heroHautDoc": 109.296875,
             "course": 1,
@@ -557,6 +589,7 @@
           "maquette": [],
           "site": []
         },
+        "classesFetesServeur": [],
         "geometrie": {
           "maquette": {
             "scrolly": false,
@@ -598,5 +631,8 @@
       }
     }
   },
-  "duree": "971 s"
+  "duree": "975 s",
+  "notes": [
+    "Mode sans JavaScript repris d’un second passage (même compilation, même serveur) après correction de l’injection de la classe des Fêtes dans la maquette."
+  ]
 }

@@ -1,18 +1,69 @@
 # Suivi du projet
 
-**État : phase 2 terminée et vérifiée en local (12/10/2026) ; en attente du « GO phase 3 ». Déploiement : par vous ([guide](docs/deploiement-hostinger.md)) ; je pousse sur GitHub dès que j’ai l’adresse du dépôt. Questions ouvertes : 2 et 3 de [docs/risques-et-questions.md §5](docs/risques-et-questions.md#5-questions-3).**
+**État : phase 3 terminée et vérifiée en local (12/10/2026) ; en attente du « GO phase 4 ». Code poussé sur GitHub (`origin` : Rosclair/Hope-Peace-Farm.com) ; déploiement par vous ([guide](docs/deploiement-hostinger.md)). Questions ouvertes : 2 et 3 de [docs/risques-et-questions.md §5](docs/risques-et-questions.md#5-questions-3).**
 
 | Phase | Contenu | État |
 | --- | --- | --- |
 | 0 | Cadrage, extraction, captures et mesures de référence | terminée (11/10/2026) |
 | 1 | Squelette déployé sur Hostinger | squelette prêt et vérifié en local (11/10/2026) ; déploiement fait par vous, en attente |
 | 2 | Portage fidèle de la page, tests de parité | terminée (12/10/2026), vérifiée en local |
-| 3 | Contenus en base, publication, retour arrière | — |
+| 3 | Contenus en base, publication, retour arrière | terminée (12/10/2026), vérifiée en local |
 | 4 | Formulaires, demandes, e-mail, WhatsApp | — |
 | 5 | Back-office : connexion, tableau de bord, demandes, contenus, publication | — |
 | 6 | Back-office : listes, photos, campagnes, statistiques, journal | — |
 | 7 | SEO, performance, accessibilité, sécurité, recette | — |
 | 8 | Mise en production, README, guide du propriétaire | — |
+
+## Phase 3 — fait (contenus en base, publication, retour arrière ; vérifié en local)
+
+- **Schéma Zod du contenu** (`lib/contenu/schema.ts`) : longueurs bornées (au moins 30 % de marge sur la maquette), champs obligatoires, dates des Fêtes cohérentes, numéros au bon format, liens sortants limités aux domaines permis (Facebook, chaîne WhatsApp, Google Maps), 4 groupes de FAQ, messages d’erreur en français. Les types du code en sont déduits (une seule définition).
+- **Tables** `contenu_brouillon`, `version_contenu`, `etat_publication` (migration `drizzle/0001_contenu.sql`), colonnes JSON relues aussi bien sur MySQL que sur MariaDB.
+- **Dépôt** (`lib/contenu/depot.ts`) : brouillon avec verrou optimiste (révision), publication (contrôles, version immuable, empreinte SHA-256 du JSON canonique, version en ligne), retour arrière (« restaurée depuis la n° X », brouillon remis à la version restaurée), historique ; verrou MySQL `hpf_contenu` + transaction ; journal applicatif sans donnée personnelle.
+- **Contrôles de publication** (`lib/contenu/controles.ts`) — bloquants : schéma, champ obligatoire vide, « […] » à remplacer, repère inconnu, marque incomplète, lien vers une ancre inexistante ; avertissements : valeurs « à confirmer » (14 au départ, liste du brief §5).
+- **Données initiales** : la maquette est publiée en version n° 1 **automatiquement au premier démarrage** si la base est vide (après les migrations) ; aussi `npm run db:initialiser`.
+- **Page publique lue en base**, en cache (`"use cache"`, étiquette `contenu-publie`, profil 30 s / 5 min), avec repli si la base est indisponible : dernier contenu publié gardé dans `UPLOAD_DIR/.contenu/publie.json`, sinon la maquette ; tout contenu relu est revalidé par Zod.
+- **Revalidation** (`lib/contenu/revalidation.ts`, route `POST /api/contenu/revalider` protégée par `CRON_SECRET`) : page à jour dès la requête suivante.
+- **Fêtes posées par le serveur** (`lib/contenu/fetes.ts`) : bandeau juste aussi sans JavaScript ; bascule de minuit visible dans la minute grâce au profil de cache (plus besoin de tâche dédiée).
+- **Ligne de commande** en attendant le back-office : `npm run contenu -- etat | historique | controler | publier | restaurer <n> | exporter <f> | importer <f>` (chargeur TypeScript maison `scripts/lib/chargeur-ts.mjs`, sans nouvelle dépendance).
+- **Diagnostic** : `/api/sante` (avec jeton) et `npm run deploiement:verifier` indiquent la version en ligne, l’état du brouillon et l’instantané de secours.
+- **Documents** : [architecture](docs/architecture.md) §3, §4, §8, §10 ; [modèle de données](docs/modele-donnees.md) §1 et §10 ; [guide de déploiement](docs/deploiement-hostinger.md) §1 ; [risques](docs/risques-et-questions.md) R16 réglé.
+
+## Phase 3 — décisions
+
+- **Cache de la page : étiquette + durée bornée.** Next garde l’état des étiquettes de revalidation **en mémoire** (documentation « How revalidation works ») : perdu quand Hostinger arrête le processus faute de trafic. Le profil `PROFIL_CONTENU` (régénération en arrière-plan au plus toutes les 30 s, jamais servi au-delà de 5 min ; en dessous de 5 min, Next exclurait la page du pré-rendu) borne donc le retard dans tous les cas. Conséquence : `Cache-Control: s-maxage=30, stale-while-revalidate=270` au lieu d’un an (R16 réglé).
+- **Revalidation en deux temps.** Mesuré sur Next 16.4 : `revalidateTag(…, { expire: 0 })` seul laissait servir une fois l’ancienne page (`STALE`) ; et une régénération commencée juste avant la publication pouvait écrire l’ancien contenu après la revalidation (écriture du cache après la réponse) — échec intermittent du test. Retenu : `revalidateTag` + `revalidatePath("/")`, puis de nouveau 2 s plus tard, avant de répondre.
+- **Retour arrière = brouillon remis à la version restaurée** (sinon la publication suivante ramènerait l’erreur corrigée) ; l’opération signale si des modifications non publiées ont été remplacées. Publier un brouillon identique à la version en ligne ne crée pas de version.
+- **Repli sur instantané disque** plutôt qu’une erreur : si la base est injoignable lors d’un rendu (compilation chez l’hébergeur, panne), la page montre le dernier contenu publié ; la base n’est pas réessayée pendant 30 s (délai de connexion de 10 s).
+- **Base de test séparée** `hpf_test` (même utilisateur limité `hpf_dev`) pour les tests d’intégration et de bout en bout ; garde : aucune base dont le nom ne finit pas par `_test`. La base `hopeandpeacefarm` (autre projet) n’a pas été touchée.
+- **Reportés** : aperçu du brouillon (`/admin/apercu`) et journal d’audit avec l’auteur → phase 5 (ils exigent la connexion) ; photos sans texte alternatif et avis sans accord écrit dans les contrôles → phase 6.
+
+## Phase 3 — écart avec la maquette (justifié)
+
+| Écart | Raison |
+| --- | --- |
+| Sans JavaScript, la classe des Fêtes du jour (`fetes-garanti` / `fetes-fin`) est posée par le serveur : la phrase du prix garanti s’affiche (ou le bandeau disparaît) à la bonne date | la maquette ne la pose qu’avec JavaScript ; écart prévu par l’architecture §4 |
+
+## Phase 3 — contrôles exécutés
+
+| Contrôle | Résultat |
+| --- | --- |
+| `npm run typecheck` | 0 erreur |
+| `npm test` | **73 tests** réussis (7 fichiers), dont : schéma (contenu de la maquette valide ; 12 valeurs mal formées refusées avec le bon chemin ; lien Google Maps accepté, clé inconnue refusée), contrôles de publication (maquette publiable, 14 avertissements ; « […] », repère inconnu, marques incomplètes, ancre inexistante bloqués), empreinte indépendante de l’ordre des clés, **état des Fêtes du serveur identique au script de tête de la maquette exécuté tel quel** (7 instants dont les minuits de Douala), repli de lecture (base → instantané → maquette, version invalide jamais rendue) |
+| `npm run test:base` (base `hpf_test`), 3 passages | **8 tests** réussis : initialisation unique, verrou optimiste, document hors schéma refusé, publication et brouillon identique (« inchangée »), publication refusée sans rien changer en ligne, **deux publications simultanées → une seule version**, retour arrière (nouveau numéro, brouillon remis), version déjà en ligne / inconnue |
+| `npm run test:e2e` (serveur standalone sur `hpf_test`) | **24 tests** réussis, dont publication : **page à jour dès la requête suivante** (prix de la porte et exemple de devis recalculé), **retour arrière visible aussitôt**, **sans revalidation, page à jour en 33 s** ; tests de publication seuls : 5 passages sur 5 ; classe des Fêtes posée par le serveur à la date du jour |
+| Redémarrage du serveur après une publication non revalidée | 1ʳᵉ requête : ancienne page servie pendant la régénération ; 2ᵉ requête (3 s après) : à jour |
+| `npm run site:parite` (4 formats × 3 modes, contenu lu en base) | DOM, géométrie (1 111 éléments, au 1/100 px) et textes identiques dans les 12 combinaisons ; **382 captures sur 389 identiques au pixel près** (sans JS 116/116, mouvement réduit 120/121, avec JS 146/152) ; les 7 autres : accueil épinglé à 66 et 97 % (anticrénelage des calques animés, déjà expliqué en phase 2) et 2 px de tuile. Contrôle repassé sans captures sur la compilation finale (seule la route de revalidation avait changé) : 0 écart |
+| En-têtes de la page | `Cache-Control: s-maxage=30, stale-while-revalidate=270`, `x-nextjs-cache` `HIT` / `MISS` cohérents |
+| `npm run contenu` sur `hpf_dev` | initialisation (version n° 1, 14 « à confirmer »), état, historique, contrôle, export/import, publication, retour arrière |
+| Maquette | empreinte SHA-256 inchangée |
+
+## Phase 3 — mesures (local)
+
+Lighthouse 13.5, serveur standalone, contenu lu en base (`reference/mesures/site-phase3-local.json`) : mobile **92** (92, 92, 92), ordinateur 100 ; accessibilité, bonnes pratiques 100 ; SEO 66 (`noindex` volontaire) ; FCP 1,36 s, LCP 2,96 s, TBT 168–184 ms, CLS 0. Inchangé par rapport à la phase 2 (HTML identique à 11 octets près). Une première série avait donné un passage aberrant (74, TBT 686 ms) au milieu de deux à 92 et 90 : rejetée après une seconde série stable.
+
+## Phase 3 — reste à faire
+
+- Une fois en ligne (par vous) : `npm run deploiement:verifier -- <adresse>` doit montrer « contenu publié » OK et, après la première visite, l’instantané de secours.
 
 ## Phase 2 — fait (portage fidèle, vérifié en local)
 
@@ -88,7 +139,7 @@ Rapport détaillé : `reference/parite/rapport.json` (captures et images d’éc
 
 ## Phase 2 — reste à faire
 
-- Envoi sur GitHub : il me faut l’adresse d’un dépôt privé vide.
+- ~~Envoi sur GitHub~~ : fait le 12/10/2026 (commit `213f3b4`, dépôt Rosclair/Hope-Peace-Farm.com).
 - Une fois le site en ligne : `npm run site:parite -- --site=<adresse>` et PageSpeed Insights.
 
 ## Phase 1 — fait (squelette, vérifié en local)
@@ -236,11 +287,10 @@ Conditions : Lighthouse 13.5.0, Chrome 155 sans interface, Windows 10, maquette 
 ## Reste à faire
 
 - Terminer la phase 1 en ligne (par vous) : voir « Phase 1 — reste à faire » ci-dessus.
-- Phase 3 (contenus en base, publication et retour arrière) dès le « GO phase 3 ».
+- Phase 4 (formulaires, demandes, e-mail, WhatsApp) dès le « GO phase 4 ».
 
 ## Blocages
 
-- **GitHub** : adresse d’un dépôt privé vide à me donner pour pousser le code (aucun dépôt distant configuré ; l’outil `gh` n’est pas installé, je ne crée rien sur votre compte).
 - **Déploiement** : fait par vous (réponse à la question 1).
 - **Domaine** `hopeandpeacefarm.com` non enregistré (question 2) : sans lui, pas de boîte e-mail chez Hostinger, donc pas d’essai SMTP réel ni de SPF/DKIM.
 - Question 3 (hébergement hors du Cameroun) : ne bloque pas le travail technique.

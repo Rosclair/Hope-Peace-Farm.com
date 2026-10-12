@@ -2,12 +2,8 @@
 // tâches planifiées, démarrages du serveur. Dates en UTC (session forcée à
 // +00:00 dans client.ts), précision à la milliseconde.
 
-import { sql } from "drizzle-orm";
-import { bigint, datetime, index, int, mysqlEnum, mysqlTable, text, varchar } from "drizzle-orm/mysql-core";
-
-const maintenant = sql`CURRENT_TIMESTAMP(3)`;
-const horodatage = (nom: string) => datetime(nom, { mode: "date", fsp: 3 });
-const identifiant = () => bigint("id", { mode: "number", unsigned: true }).autoincrement().primaryKey();
+import { index, int, mysqlEnum, mysqlTable, text, varchar } from "drizzle-orm/mysql-core";
+import { horodatage, identifiant, maintenant } from "./colonnes";
 
 export const TYPES_EMAIL = ["nouvelle_demande", "alerte_securite", "invitation", "test"] as const;
 export const STATUTS_EMAIL = ["en_attente", "envoye", "echec"] as const;

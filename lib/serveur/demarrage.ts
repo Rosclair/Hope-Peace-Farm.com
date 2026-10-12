@@ -1,10 +1,11 @@
 // Travaux lancés une fois au démarrage du processus Node (instrumentation.ts) :
-// migrations, trace du démarrage, marqueur de persistance d’UPLOAD_DIR et, si
-// demandé, minuteur interne des tâches. Aucune erreur ici n’empêche le site de
+// migrations, contenu initial si la base est vide, trace du démarrage, marqueur de
+// persistance d’UPLOAD_DIR et, si demandé, minuteur interne des tâches. Aucune erreur ici n’empêche le site de
 // répondre : elles sont journalisées et visibles dans le diagnostic.
 
 import "server-only";
 import { configTaches, dossierTeleversement } from "@/lib/config";
+import { initialiserSiVide } from "@/lib/contenu/depot";
 import { db } from "@/lib/db/client";
 import { appliquerMigrations } from "@/lib/db/migrer";
 import { demarrageServeur } from "@/lib/db/schema";
@@ -25,6 +26,8 @@ export async function demarrerServeur(): Promise<void> {
   try {
     const etat = await appliquerMigrations();
     journal.info("migrations", { etat });
+    // Contenu de la maquette, publié en version n° 1, si la base n’a encore aucun contenu.
+    journal.info("contenu", { etat: await initialiserSiVide() });
     await db().insert(demarrageServeur).values({ build, versionNode: process.version });
   } catch (e) {
     journal.erreur("base indisponible au démarrage", { erreur: codeErreur(e) });

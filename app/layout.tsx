@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { configSite } from "@/lib/config";
+import { classesFetes } from "@/lib/contenu/fetes";
 import { contenuPublie } from "@/lib/contenu/lecture";
 import { SCRIPT_TETE } from "@/lib/site/script-tete";
 import { policeTexte, policeTitre } from "./polices";
@@ -24,12 +25,14 @@ export const viewport: Viewport = {
 
 export default async function Racine({ children }: { children: ReactNode }) {
   const c = await contenuPublie();
+  // Classes des Fêtes posées aussi par le serveur : juste sans JavaScript (le script de tête les complète).
+  const fetes = await classesFetes(c.fetes.actif, c.fetes.dateLimitePrixGaranti, c.fetes.dateFin);
   return (
     // suppressHydrationWarning : le script de tête change les classes avant l’hydratation.
     // data-wa et data-fetes-* : réglages lus par le script de tête et le moteur, comme la maquette.
     <html
       lang="fr"
-      className={`no-js ${policeTitre.variable} ${policeTexte.variable}`}
+      className={`no-js ${policeTitre.variable} ${policeTexte.variable}${fetes ? ` ${fetes}` : ""}`}
       data-wa={c.coordonnees.whatsapp}
       data-fetes-deadline={c.fetes.actif ? c.fetes.dateLimitePrixGaranti : undefined}
       data-fetes-end={c.fetes.actif ? c.fetes.dateFin : undefined}
