@@ -35,6 +35,8 @@ Points **non documentés**, vérifiés par le diagnostic : persistance réelle d
 
 Chaque envoi sur `main` déclenchera un déploiement.
 
+Répartition convenue le 12/10/2026 : vous créez le dépôt (privé, vide) et faites les étapes Hostinger ; je pousse le code sur ce dépôt à la fin de chaque phase, sans jamais toucher au compte Hostinger.
+
 ## 2. Base MySQL
 
 hPanel → **Sites web** → le site → **Bases de données** → **Bases de données MySQL** :

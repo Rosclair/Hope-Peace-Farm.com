@@ -18,6 +18,7 @@ Architecture : [docs/architecture.md](docs/architecture.md) · données : [docs/
 - Textes mot pour mot. Seules corrections : apostrophe ’, espace insécable avant `:` `;` `?` `!` et dans « ».
 - Garder ancres, classes CSS et attributs `data-cta`, `data-demande`, `data-primary-cta`, `data-reveal`, `data-stagger`, `data-animate`.
 - Comportements : `reference/extrait/principal.js` est la référence ; tout écart visuel est corrigé ou justifié dans PROGRESS.md.
+- Fichiers générés, jamais modifiés à la main : `app/maquette.css` et `lib/site/sprite.ts` (`npm run maquette:extraire`), `lib/site/moteur-immediat.ts` (`npm run moteur:construire`, après toute modification de `lib/moteur/`). Ajouts de style du site : `app/site.css`.
 
 ## Pile
 
@@ -47,7 +48,8 @@ Architecture : [docs/architecture.md](docs/architecture.md) · données : [docs/
 ## Commandes
 
 - `npm run dev` · `npm run build` (puis copie des fichiers statiques dans la sortie standalone) · `npm run standalone` : serveur standalone, celui que Hostinger exécute.
-- `npm test` (Vitest) · `npm run typecheck`.
+- `npm test` (Vitest) · `npm run typecheck` · `npm run test:e2e` (Playwright, contre `HPF_SITE_URL`, défaut `http://127.0.0.1:3100`).
+- `npm run site:parite -- --site=<url>` : parité maquette / site (DOM, géométrie, textes, captures), rapport dans `reference/parite/` · `npm run site:demarrage` : délai de démarrage du moteur en conditions mobiles.
 - `npm run db:generer` : nouvelle migration depuis `lib/db/schema/` · `npm run db:migrer` : l’applique (aussi faite au démarrage du serveur).
 - `npm run deploiement:verifier -- <url> [--email] [--taches] [--cache]` : contrôle d’un déploiement (jetons `HPF_DIAGNOSTIC_SECRET`, `HPF_CRON_SECRET`), voir `docs/deploiement-hostinger.md`.
 - `npm run site:mesures -- <url> [--passages=3] [--sortie=f.json]` : Lighthouse et poids du JS client du site.

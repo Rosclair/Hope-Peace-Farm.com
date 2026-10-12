@@ -54,16 +54,26 @@ console.log(`HTML : ${page.decompresse} o (${page.encodage ?? "non compressé"})
 
 // ---------- Lighthouse ----------
 const mediane = (l) => [...l].sort((a, b) => a - b)[Math.floor(l.length / 2)];
-const chrome = await chromeLauncher.launch({ chromeFlags: ["--headless=new", "--no-first-run", "--disable-extensions"] });
-try {
+// Un Chrome neuf par passage : réutilisé, il produit souvent des traces sans début de
+// navigation (NO_NAVSTART). Les passages en erreur sont refaits, 4 essais au plus par passage.
+async function passageLighthouse(config) {
+  const chrome = await chromeLauncher.launch({ chromeFlags: ["--headless=new", "--no-first-run", "--disable-extensions"] });
+  try {
+    return (await lighthouse(url, { port: chrome.port, output: "json", logLevel: "error", locale: "fr" }, config)).lhr;
+  } finally {
+    await chrome.kill();
+  }
+}
+{
   for (const [forme, config] of [["mobile", undefined], ["ordinateur", desktopConfig]]) {
     const passages = [];
-    for (let i = 0; i < PASSAGES; i++) {
-      const { lhr } = await lighthouse(url, { port: chrome.port, output: "json", logLevel: "error", locale: "fr" }, config);
+    for (let i = 0, essais = 0; passages.length < PASSAGES && essais < PASSAGES * 4; essais++) {
+      const lhr = await passageLighthouse(config);
       if (lhr.runtimeError) {
-        console.log(`Lighthouse ${forme} #${i + 1} : erreur ${lhr.runtimeError.code} — ${lhr.runtimeError.message}`);
+        console.log(`Lighthouse ${forme} (essai ${essais + 1}) : erreur ${lhr.runtimeError.code}, nouvel essai`);
         continue;
       }
+      i++;
       const score = (c) => Math.round((lhr.categories[c]?.score ?? 0) * 100);
       const num = (a) => lhr.audits[a]?.numericValue;
       const p = {
@@ -86,8 +96,6 @@ try {
     const perf = passages.length ? mediane(passages.map((p) => p.performance)) : null;
     resultats.lighthouse[forme] = { medianePerformance: perf, passages };
   }
-} finally {
-  await chrome.kill();
 }
 
 const sortie = option("sortie");

@@ -1,6 +1,6 @@
 # Architecture proposée
 
-État : proposition de la phase 0, à valider avant la phase 1. Les choix marqués **(à vérifier en phase 1)** dépendent de l’hébergement réel.
+État : proposition de la phase 0, mise à jour aux phases 1 (hébergement, §16) et 2 (page publique : §3 à §6). Les choix marqués **(à vérifier en phase 1)** dépendent de l’hébergement réel.
 
 ## 1. Vue d’ensemble
 
@@ -48,9 +48,9 @@ Une seule application Next.js à la racine du dépôt, un seul processus Node. P
 
 ```text
 app/
-  (site)/layout.tsx            <html class="no-js" suppressHydrationWarning data-wa data-fetes-*>, script de tête, polices
-  (site)/page.tsx              page publique (serveur)
-  (site)/demande/confirmation/ page de confirmation sans JS
+  layout.tsx                   <html class="no-js" suppressHydrationWarning data-wa data-fetes-*>, script de tête, polices
+  page.tsx                     page publique (serveur) ; maquette.css (généré depuis la maquette, ne pas modifier)
+  demande/confirmation/        page de confirmation sans JS (phase 4)
   go/[code]/route.ts           redirection de campagne + comptage
   api/demandes/route.ts        POST demande
   api/mesure/route.ts          POST événements groupés
@@ -60,18 +60,20 @@ app/
   medias/[...chemin]/route.ts  fichiers de UPLOAD_DIR (cache long, noms immuables)
   admin/                       back-office (voir §9)
   sitemap.ts · robots.ts
-components/site/               un composant serveur par section (voir correspondance-sections.md)
-components/site/client/        Menu, BarreFixe, Demande (formulaires), MoteurAnimations
+components/site/               composants serveur des sections (cadre, accueil, ceremonies, offres, ferme, demande),
+                               rendu des textes riches (riche.tsx), icônes
+components/site/client/        Comportements : seul composant client, lance le moteur (lib/moteur)
 components/admin/
-lib/contenu/                   schéma Zod du contenu, valeurs initiales (= maquette), registre des champs, contrôles de publication
-lib/whatsapp/                  normalisation des numéros, composition des messages, liens wa.me
+lib/contenu/                   types du contenu, contenu initial (= maquette), repères {…} et mise en forme ;
+                               phase 3 : schéma Zod, registre des champs, contrôles de publication
+lib/whatsapp/                  messages pré-remplis et composition (partagés serveur / navigateur) ; phase 4 : numéros
+lib/site/                      script de tête, sprite SVG (généré depuis la maquette)
 lib/demandes/                  référence HP-AAMMJJ-XXXXXX, anti-spam, enregistrement
-lib/moteur/                    moteur d’animations porté de la maquette (TS natif, sans React)
+lib/moteur/                    moteur porté de principal.js (TS natif, sans React) : menu, barre fixe, formulaires, landing, apparitions
 lib/mail/ lib/mesure/ lib/medias/ lib/securite/ lib/auth/ lib/db/
-styles/maquette.css            CSS de la maquette, mêmes classes ; styles/admin.css
 public/                        favicon, image Open Graph
 drizzle/                       migrations ; scripts/ : extraction, captures, mesures, migration, données initiales
-tests/unitaires/ · tests/e2e/
+tests/unitaires/ (npm test) · tests/e2e/ (npm run test:e2e, Playwright piloté par Vitest)
 ```
 
 ## 4. Page publique : rendu et cache
@@ -88,13 +90,19 @@ tests/unitaires/ · tests/e2e/
 ## 5. Moteur d’animations
 
 - `lib/moteur/` reprend les sections 2 à 10 de `principal.js` (menu, section courante, barre fixe, détails depuis l’ancre, landing épinglée, en-tête et barre de lecture, apparitions), découpées en modules TypeScript sans dépendance.
-- Un composant client `MoteurAnimations` (rendu `null`) l’appelle une seule fois dans `useEffect` ; une garde empêche le double lancement (mode strict, navigation). Aucune donnée de défilement ne passe par l’état React : le moteur pose des variables CSS et des classes, comme la maquette.
+- **Deux temps** (phase 2, après mesure) :
+  1. *partie immédiate* (`lib/moteur/immediat.ts` : Fêtes, menu, section courante, barre fixe, détails, landing, en-tête, apparitions), compilée par `npm run moteur:construire` en un script en ligne (`lib/site/moteur-immediat.ts`, 13 Ko bruts, 4,6 Ko en brotli), placé en fin de `<body>` comme celui de la maquette et lancé juste après la première image ; elle ne touche qu’aux classes, attributs, propriétés et variables CSS, ce que React 19 ne compare pas à l’hydratation en production ;
+  2. *formulaires* (`lib/moteur/demande.ts`), lancés après l’hydratation par le composant client `Comportements` (rendu `null`, garde contre le double lancement), car ils écrivent des textes et des listes que l’hydratation exige identiques au HTML.
+- Pourquoi : lancé après l’hydratation, tout le moteur démarrait 1,2 s (4G lente) à 1,8 s (3G) après le premier affichage, contre ~0,7 s pour la maquette (`npm run site:demarrage`, processeur ralenti ×4) ; la landing restait figée si l’on faisait défiler tôt. En ligne, il démarre 0,14 à 0,28 s après le premier affichage, sans le retarder. En développement, la partie immédiate démarre aussi après l’hydratation (sinon React signale les attributs posés avant elle).
+- Aucune donnée de défilement ne passe par l’état React : le moteur pose des variables CSS et des classes, comme la maquette.
+- **Phase 2 — choix retenu** : tout le comportement de la page (menu, section courante, barre fixe, détails, formulaires, landing, en-tête, apparitions) est dans ce moteur, et non dans des composants React clients. Raisons : fidélité (c’est le code de la maquette, typé, sans réécriture), poids (aucun balisage de formulaire dans le JavaScript envoyé, pas d’hydratation de composants), et formulaires préparés seulement à l’approche, comme la maquette. Le balisage des formulaires est rendu côté serveur, identique à la maquette. React reste maître du DOM : le moteur ne crée ni ne retire d’éléments rendus par React, il ne change que classes, attributs, textes vides prévus pour lui et variables CSS ; la page n’étant jamais re-rendue côté navigateur, rien ne les écrase.
+- Retour arrière après un lien d’ancre : le routeur de Next ignore les entrées d’historique sans état (`handlePopState`), la page n’est ni rechargée ni re-rendue (test de bout en bout).
 - Le script de tête est repris à l’identique (classes `js`, `motion`, `scrolly`, Fêtes) en `<script>` en ligne dans `<head>`, avant tout CSS bloquant.
-- Différence de minutage à surveiller : dans la maquette, le script s’exécute en fin de `<body>` ; avec Next, il s’exécute après l’hydratation. La règle « ce qui est déjà visible au chargement n’est jamais masqué » de la maquette évite tout clignotement ; les captures de parité le vérifieront.
+- Minutage : la partie immédiate s’exécute en fin de `<body>` comme le script de la maquette (voir « Deux temps ») ; la règle « ce qui est déjà visible au démarrage n’est jamais masqué » évite tout clignotement ; captures de parité à l’appui.
 
 ## 6. Formulaires et demandes
 
-Composant client `Demande` : onglets, deux étapes, validation, brouillon en `sessionStorage`, compteur, vue de succès, copie du message — portés de la section 6 de `principal.js`, avec les mêmes libellés.
+Formulaires rendus côté serveur (`components/site/demande.tsx`), comportements dans `lib/moteur/demande.ts` : onglets, deux étapes, validation, brouillon en `sessionStorage`, compteur, vue de succès, copie du message — portés de la section 6 de `principal.js`, avec les mêmes libellés (phase 2). Les messages sont composés par `lib/whatsapp/messages.ts`, testé contre les fonctions de la maquette.
 
 **Ajouts** à la dernière étape des trois formulaires : « Numéro WhatsApp » (obligatoire), case obligatoire « J’accepte d’être contacté sur WhatsApp au sujet de ma demande. », champ piège invisible. La case des annonces reste facultative et décochée.
 
@@ -173,7 +181,7 @@ Phase 1 : tâches `emails` (file d’envoi, à chaque passage) et `purge-techniq
 
 ## 13. Sécurité
 
-- En-têtes sur toutes les réponses : `Content-Security-Policy`, `Strict-Transport-Security` (2 ans, `includeSubDomains`), `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` (tout fermé), `frame-ancestors 'none'`, `Cross-Origin-Opener-Policy: same-origin`.
+- En-têtes sur toutes les réponses : `Content-Security-Policy`, `Strict-Transport-Security` (2 ans, `includeSubDomains`), `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` (tout fermé), `frame-ancestors 'none'`. *Phase 2* : `Cross-Origin-Opener-Policy: same-origin` retiré, car il empêche Lighthouse de mesurer la page (trace sans début de navigation, `NO_NAVSTART`) ; à réessayer en phase 7 avec PageSpeed Insights.
 - **CSP et page en cache** : une CSP à nonce oblige à rendre chaque page à la volée, ce qui casse le cache. Proposition : `script-src 'self'` + empreintes SHA-256 des scripts en ligne connus (script de tête), et vérification en phase 7 du traitement des scripts en ligne que Next ajoute pour l’hydratation ; s’ils ne peuvent pas être couverts par empreinte, je documenterai le compromis retenu et sa raison. Pas de `style=""` dans le HTML rendu (le moteur passe par le CSSOM, non soumis à la CSP).
 - CSRF : Server Actions (contrôle d’origine intégré) et contrôle d’origine explicite sur les routes `/api/*` qui modifient des données ; Better Auth vérifie aussi l’origine.
 - Requêtes paramétrées partout (Drizzle) ; aucune concaténation SQL.

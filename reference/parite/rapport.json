@@ -1,0 +1,602 @@
+{
+  "site": "http://127.0.0.1:3100",
+  "navigateur": "Chrome 155.0.8059.39",
+  "heureFigee": "2026-10-11T09:00:00Z",
+  "ecartsJustifies": [
+    "Apostrophe typographique dans le message WhatsApp général (« J’aimerais ») : correction permise par le brief.",
+    "Mentions légales : les lignes « [… à renseigner] » (responsable, e-mail, hébergeur) sont masquées tant que la valeur manque (brief §5 : une donnée absente cache son bloc)."
+  ],
+  "formats": {
+    "360x640": {
+      "js": {
+        "erreursConsole": {
+          "maquette": [],
+          "site": []
+        },
+        "geometrie": {
+          "maquette": {
+            "scrolly": true,
+            "hauteurPage": 21748,
+            "enTete": 64,
+            "heroHautDoc": 141.890625,
+            "course": 1472,
+            "debordement": 0
+          },
+          "site": {
+            "scrolly": true,
+            "hauteurPage": 21748,
+            "enTete": 64,
+            "heroHautDoc": 141.890625,
+            "course": 1472,
+            "debordement": 0
+          }
+        },
+        "dom": {
+          "lignes": 1627,
+          "ecarts": 0,
+          "html": "identique"
+        },
+        "geometrieElements": {
+          "elements": 1111,
+          "ecarts": 0,
+          "premiers": []
+        },
+        "textes": {
+          "regions": 15,
+          "ecarts": 0,
+          "differences": {}
+        },
+        "messageCeremonie": {
+          "maquette": "https://wa.me/237693645565?text=Bonjour%20Hope%20%26%20Peace%20Farm%2C%20je%20pr%C3%A9pare%20des%20fun%C3%A9railles%20le%2019%20d%C3%A9cembre%202026%20%C3%A0%20Bazou%2C%20chefferie%2C%20pr%C3%A8s%20du%20march%C3%A9%2C%20pour%20100%20%C3%A0%20200%20invit%C3%A9s.%20Je%20souhaite%20un%20devis.%20Nom%C2%A0%3A%20Exemple%20Test%2C%20j%E2%80%99habite%20%C3%A0%20Douala.",
+          "site": "https://wa.me/237693645565?text=Bonjour%20Hope%20%26%20Peace%20Farm%2C%20je%20pr%C3%A9pare%20des%20fun%C3%A9railles%20le%2019%20d%C3%A9cembre%202026%20%C3%A0%20Bazou%2C%20chefferie%2C%20pr%C3%A8s%20du%20march%C3%A9%2C%20pour%20100%20%C3%A0%20200%20invit%C3%A9s.%20Je%20souhaite%20un%20devis.%20Nom%C2%A0%3A%20Exemple%20Test%2C%20j%E2%80%99habite%20%C3%A0%20Douala.",
+          "identique": true
+        },
+        "captures": {
+          "total": 49,
+          "identiques": 49,
+          "differentes": []
+        }
+      },
+      "sans-js": {
+        "erreursConsole": {
+          "maquette": [],
+          "site": []
+        },
+        "geometrie": {
+          "maquette": {
+            "scrolly": false,
+            "hauteurPage": 19940,
+            "enTete": 64,
+            "heroHautDoc": 121.59375,
+            "course": 1,
+            "debordement": 0
+          },
+          "site": {
+            "scrolly": false,
+            "hauteurPage": 19940,
+            "enTete": 64,
+            "heroHautDoc": 121.59375,
+            "course": 1,
+            "debordement": 0
+          }
+        },
+        "dom": {
+          "lignes": 1623,
+          "ecarts": 0,
+          "html": "identique"
+        },
+        "geometrieElements": {
+          "elements": 1111,
+          "ecarts": 0,
+          "premiers": []
+        },
+        "textes": {
+          "regions": 15,
+          "ecarts": 0,
+          "differences": {}
+        },
+        "captures": {
+          "total": 39,
+          "identiques": 39,
+          "differentes": []
+        }
+      },
+      "reduit": {
+        "erreursConsole": {
+          "maquette": [],
+          "site": []
+        },
+        "geometrie": {
+          "maquette": {
+            "scrolly": false,
+            "hauteurPage": 21034,
+            "enTete": 64,
+            "heroHautDoc": 141.890625,
+            "course": 1,
+            "debordement": 0
+          },
+          "site": {
+            "scrolly": false,
+            "hauteurPage": 21034,
+            "enTete": 64,
+            "heroHautDoc": 141.890625,
+            "course": 1,
+            "debordement": 0
+          }
+        },
+        "dom": {
+          "lignes": 1627,
+          "ecarts": 0,
+          "html": "identique"
+        },
+        "geometrieElements": {
+          "elements": 1111,
+          "ecarts": 0,
+          "premiers": []
+        },
+        "textes": {
+          "regions": 15,
+          "ecarts": 0,
+          "differences": {}
+        },
+        "captures": {
+          "total": 41,
+          "identiques": 41,
+          "differentes": []
+        }
+      }
+    },
+    "393x780": {
+      "js": {
+        "erreursConsole": {
+          "maquette": [],
+          "site": []
+        },
+        "geometrie": {
+          "maquette": {
+            "scrolly": true,
+            "hauteurPage": 21201,
+            "enTete": 64,
+            "heroHautDoc": 141.890625,
+            "course": 1794,
+            "debordement": 0
+          },
+          "site": {
+            "scrolly": true,
+            "hauteurPage": 21201,
+            "enTete": 64,
+            "heroHautDoc": 141.890625,
+            "course": 1794,
+            "debordement": 0
+          }
+        },
+        "dom": {
+          "lignes": 1627,
+          "ecarts": 0,
+          "html": "identique"
+        },
+        "geometrieElements": {
+          "elements": 1111,
+          "ecarts": 0,
+          "premiers": []
+        },
+        "textes": {
+          "regions": 15,
+          "ecarts": 0,
+          "differences": {}
+        },
+        "messageCeremonie": {
+          "maquette": "https://wa.me/237693645565?text=Bonjour%20Hope%20%26%20Peace%20Farm%2C%20je%20pr%C3%A9pare%20des%20fun%C3%A9railles%20le%2019%20d%C3%A9cembre%202026%20%C3%A0%20Bazou%2C%20chefferie%2C%20pr%C3%A8s%20du%20march%C3%A9%2C%20pour%20100%20%C3%A0%20200%20invit%C3%A9s.%20Je%20souhaite%20un%20devis.%20Nom%C2%A0%3A%20Exemple%20Test%2C%20j%E2%80%99habite%20%C3%A0%20Douala.",
+          "site": "https://wa.me/237693645565?text=Bonjour%20Hope%20%26%20Peace%20Farm%2C%20je%20pr%C3%A9pare%20des%20fun%C3%A9railles%20le%2019%20d%C3%A9cembre%202026%20%C3%A0%20Bazou%2C%20chefferie%2C%20pr%C3%A8s%20du%20march%C3%A9%2C%20pour%20100%20%C3%A0%20200%20invit%C3%A9s.%20Je%20souhaite%20un%20devis.%20Nom%C2%A0%3A%20Exemple%20Test%2C%20j%E2%80%99habite%20%C3%A0%20Douala.",
+          "identique": true
+        },
+        "captures": {
+          "total": 41,
+          "identiques": 39,
+          "differentes": [
+            {
+              "nom": "00-accueil-66",
+              "differents": 6750,
+              "ratio": 0.02202,
+              "dimensions": "393×780"
+            },
+            {
+              "nom": "00-accueil-97",
+              "differents": 8188,
+              "ratio": 0.026711,
+              "dimensions": "393×780"
+            }
+          ]
+        }
+      },
+      "sans-js": {
+        "erreursConsole": {
+          "maquette": [],
+          "site": []
+        },
+        "geometrie": {
+          "maquette": {
+            "scrolly": false,
+            "hauteurPage": 18913,
+            "enTete": 64,
+            "heroHautDoc": 121.59375,
+            "course": 1,
+            "debordement": 0
+          },
+          "site": {
+            "scrolly": false,
+            "hauteurPage": 18913,
+            "enTete": 64,
+            "heroHautDoc": 121.59375,
+            "course": 1,
+            "debordement": 0
+          }
+        },
+        "dom": {
+          "lignes": 1623,
+          "ecarts": 0,
+          "html": "identique"
+        },
+        "geometrieElements": {
+          "elements": 1111,
+          "ecarts": 0,
+          "premiers": []
+        },
+        "textes": {
+          "regions": 15,
+          "ecarts": 0,
+          "differences": {}
+        },
+        "captures": {
+          "total": 32,
+          "identiques": 32,
+          "differentes": []
+        }
+      },
+      "reduit": {
+        "erreursConsole": {
+          "maquette": [],
+          "site": []
+        },
+        "geometrie": {
+          "maquette": {
+            "scrolly": false,
+            "hauteurPage": 20012,
+            "enTete": 64,
+            "heroHautDoc": 141.890625,
+            "course": 1,
+            "debordement": 0
+          },
+          "site": {
+            "scrolly": false,
+            "hauteurPage": 20012,
+            "enTete": 64,
+            "heroHautDoc": 141.890625,
+            "course": 1,
+            "debordement": 0
+          }
+        },
+        "dom": {
+          "lignes": 1627,
+          "ecarts": 0,
+          "html": "identique"
+        },
+        "geometrieElements": {
+          "elements": 1111,
+          "ecarts": 0,
+          "premiers": []
+        },
+        "textes": {
+          "regions": 15,
+          "ecarts": 0,
+          "differences": {}
+        },
+        "captures": {
+          "total": 33,
+          "identiques": 32,
+          "differentes": [
+            {
+              "nom": "page-entiere",
+              "differents": 2,
+              "ratio": 0,
+              "dimensions": "393×20012"
+            }
+          ]
+        }
+      }
+    },
+    "768x1024": {
+      "js": {
+        "erreursConsole": {
+          "maquette": [],
+          "site": []
+        },
+        "geometrie": {
+          "maquette": {
+            "scrolly": true,
+            "hauteurPage": 19141,
+            "enTete": 64,
+            "heroHautDoc": 121.59375,
+            "course": 2355,
+            "debordement": 0
+          },
+          "site": {
+            "scrolly": true,
+            "hauteurPage": 19141,
+            "enTete": 64,
+            "heroHautDoc": 121.59375,
+            "course": 2355,
+            "debordement": 0
+          }
+        },
+        "dom": {
+          "lignes": 1627,
+          "ecarts": 0,
+          "html": "identique"
+        },
+        "geometrieElements": {
+          "elements": 1111,
+          "ecarts": 0,
+          "premiers": []
+        },
+        "textes": {
+          "regions": 15,
+          "ecarts": 0,
+          "differences": {}
+        },
+        "messageCeremonie": {
+          "maquette": "https://wa.me/237693645565?text=Bonjour%20Hope%20%26%20Peace%20Farm%2C%20je%20pr%C3%A9pare%20des%20fun%C3%A9railles%20le%2019%20d%C3%A9cembre%202026%20%C3%A0%20Bazou%2C%20chefferie%2C%20pr%C3%A8s%20du%20march%C3%A9%2C%20pour%20100%20%C3%A0%20200%20invit%C3%A9s.%20Je%20souhaite%20un%20devis.%20Nom%C2%A0%3A%20Exemple%20Test%2C%20j%E2%80%99habite%20%C3%A0%20Douala.",
+          "site": "https://wa.me/237693645565?text=Bonjour%20Hope%20%26%20Peace%20Farm%2C%20je%20pr%C3%A9pare%20des%20fun%C3%A9railles%20le%2019%20d%C3%A9cembre%202026%20%C3%A0%20Bazou%2C%20chefferie%2C%20pr%C3%A8s%20du%20march%C3%A9%2C%20pour%20100%20%C3%A0%20200%20invit%C3%A9s.%20Je%20souhaite%20un%20devis.%20Nom%C2%A0%3A%20Exemple%20Test%2C%20j%E2%80%99habite%20%C3%A0%20Douala.",
+          "identique": true
+        },
+        "captures": {
+          "total": 31,
+          "identiques": 30,
+          "differentes": [
+            {
+              "nom": "00-accueil-97",
+              "differents": 55,
+              "ratio": 0.00007,
+              "dimensions": "768×1024"
+            }
+          ]
+        }
+      },
+      "sans-js": {
+        "erreursConsole": {
+          "maquette": [],
+          "site": []
+        },
+        "geometrie": {
+          "maquette": {
+            "scrolly": false,
+            "hauteurPage": 16166,
+            "enTete": 64,
+            "heroHautDoc": 101.296875,
+            "course": 1,
+            "debordement": 0
+          },
+          "site": {
+            "scrolly": false,
+            "hauteurPage": 16166,
+            "enTete": 64,
+            "heroHautDoc": 101.296875,
+            "course": 1,
+            "debordement": 0
+          }
+        },
+        "dom": {
+          "lignes": 1623,
+          "ecarts": 0,
+          "html": "identique"
+        },
+        "geometrieElements": {
+          "elements": 1111,
+          "ecarts": 0,
+          "premiers": []
+        },
+        "textes": {
+          "regions": 15,
+          "ecarts": 0,
+          "differences": {}
+        },
+        "captures": {
+          "total": 22,
+          "identiques": 22,
+          "differentes": []
+        }
+      },
+      "reduit": {
+        "erreursConsole": {
+          "maquette": [],
+          "site": []
+        },
+        "geometrie": {
+          "maquette": {
+            "scrolly": false,
+            "hauteurPage": 17109,
+            "enTete": 64,
+            "heroHautDoc": 121.59375,
+            "course": 1,
+            "debordement": 0
+          },
+          "site": {
+            "scrolly": false,
+            "hauteurPage": 17109,
+            "enTete": 64,
+            "heroHautDoc": 121.59375,
+            "course": 1,
+            "debordement": 0
+          }
+        },
+        "dom": {
+          "lignes": 1627,
+          "ecarts": 0,
+          "html": "identique"
+        },
+        "geometrieElements": {
+          "elements": 1111,
+          "ecarts": 0,
+          "premiers": []
+        },
+        "textes": {
+          "regions": 15,
+          "ecarts": 0,
+          "differences": {}
+        },
+        "captures": {
+          "total": 23,
+          "identiques": 23,
+          "differentes": []
+        }
+      }
+    },
+    "1280x800": {
+      "js": {
+        "erreursConsole": {
+          "maquette": [],
+          "site": []
+        },
+        "geometrie": {
+          "maquette": {
+            "scrolly": true,
+            "hauteurPage": 14707,
+            "enTete": 72,
+            "heroHautDoc": 109.296875,
+            "course": 1680,
+            "debordement": 0
+          },
+          "site": {
+            "scrolly": true,
+            "hauteurPage": 14707,
+            "enTete": 72,
+            "heroHautDoc": 109.296875,
+            "course": 1680,
+            "debordement": 0
+          }
+        },
+        "dom": {
+          "lignes": 1627,
+          "ecarts": 0,
+          "html": "identique"
+        },
+        "geometrieElements": {
+          "elements": 1111,
+          "ecarts": 0,
+          "premiers": []
+        },
+        "textes": {
+          "regions": 15,
+          "ecarts": 0,
+          "differences": {}
+        },
+        "messageCeremonie": {
+          "maquette": "https://wa.me/237693645565?text=Bonjour%20Hope%20%26%20Peace%20Farm%2C%20je%20pr%C3%A9pare%20des%20fun%C3%A9railles%20le%2019%20d%C3%A9cembre%202026%20%C3%A0%20Bazou%2C%20chefferie%2C%20pr%C3%A8s%20du%20march%C3%A9%2C%20pour%20100%20%C3%A0%20200%20invit%C3%A9s.%20Je%20souhaite%20un%20devis.%20Nom%C2%A0%3A%20Exemple%20Test%2C%20j%E2%80%99habite%20%C3%A0%20Douala.",
+          "site": "https://wa.me/237693645565?text=Bonjour%20Hope%20%26%20Peace%20Farm%2C%20je%20pr%C3%A9pare%20des%20fun%C3%A9railles%20le%2019%20d%C3%A9cembre%202026%20%C3%A0%20Bazou%2C%20chefferie%2C%20pr%C3%A8s%20du%20march%C3%A9%2C%20pour%20100%20%C3%A0%20200%20invit%C3%A9s.%20Je%20souhaite%20un%20devis.%20Nom%C2%A0%3A%20Exemple%20Test%2C%20j%E2%80%99habite%20%C3%A0%20Douala.",
+          "identique": true
+        },
+        "captures": {
+          "total": 31,
+          "identiques": 30,
+          "differentes": [
+            {
+              "nom": "00-accueil-97",
+              "differents": 32,
+              "ratio": 0.000031,
+              "dimensions": "1280×800"
+            }
+          ]
+        }
+      },
+      "sans-js": {
+        "erreursConsole": {
+          "maquette": [],
+          "site": []
+        },
+        "geometrie": {
+          "maquette": {
+            "scrolly": false,
+            "hauteurPage": 12739,
+            "enTete": 72,
+            "heroHautDoc": 109.296875,
+            "course": 1,
+            "debordement": 0
+          },
+          "site": {
+            "scrolly": false,
+            "hauteurPage": 12739,
+            "enTete": 72,
+            "heroHautDoc": 109.296875,
+            "course": 1,
+            "debordement": 0
+          }
+        },
+        "dom": {
+          "lignes": 1623,
+          "ecarts": 0,
+          "html": "identique"
+        },
+        "geometrieElements": {
+          "elements": 1111,
+          "ecarts": 0,
+          "premiers": []
+        },
+        "textes": {
+          "regions": 15,
+          "ecarts": 0,
+          "differences": {}
+        },
+        "captures": {
+          "total": 23,
+          "identiques": 23,
+          "differentes": []
+        }
+      },
+      "reduit": {
+        "erreursConsole": {
+          "maquette": [],
+          "site": []
+        },
+        "geometrie": {
+          "maquette": {
+            "scrolly": false,
+            "hauteurPage": 13356,
+            "enTete": 72,
+            "heroHautDoc": 109.296875,
+            "course": 1,
+            "debordement": 0
+          },
+          "site": {
+            "scrolly": false,
+            "hauteurPage": 13356,
+            "enTete": 72,
+            "heroHautDoc": 109.296875,
+            "course": 1,
+            "debordement": 0
+          }
+        },
+        "dom": {
+          "lignes": 1627,
+          "ecarts": 0,
+          "html": "identique"
+        },
+        "geometrieElements": {
+          "elements": 1111,
+          "ecarts": 0,
+          "premiers": []
+        },
+        "textes": {
+          "regions": 15,
+          "ecarts": 0,
+          "differences": {}
+        },
+        "captures": {
+          "total": 24,
+          "identiques": 24,
+          "differentes": []
+        }
+      }
+    }
+  },
+  "duree": "971 s"
+}

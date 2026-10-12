@@ -60,6 +60,29 @@ if (polices.length !== 3) throw new Error(`3 polices attendues, ${polices.length
 if (/base64/.test(css)) throw new Error("Il reste du base64 dans le CSS");
 ecrire("styles.css", css.replace(/^\n/, ""));
 
+// CSS de l'application (app/maquette.css) : celui de la maquette, à deux changements près.
+// Les trois polices sont déclarées par next/font/local (app/polices.ts), qui expose leurs
+// familles dans --police-titre et --police-texte (avec les mêmes polices de repli).
+function remplacerUneFois(texte, avant, apres) {
+  const n = texte.split(avant).length - 1;
+  if (n !== 1) throw new Error(`CSS de l'application : « ${String(avant).slice(0, 60)} » trouvé ${n} fois`);
+  return texte.replace(avant, apres);
+}
+let cssApp = css.replace(/^\n/, "");
+const policesCss = cssApp.match(/@font-face\s*\{[^}]*url\("polices\/[^}]*\}\n/g) ?? [];
+if (policesCss.length !== 3) throw new Error(`CSS de l'application : ${policesCss.length} @font-face de polices au lieu de 3`);
+policesCss.forEach((bloc, i) => {
+  cssApp = remplacerUneFois(cssApp, bloc, i === 0 ? "/* Polices : déclarées par next/font/local (app/polices.ts), mêmes fichiers WOFF2. */\n" : "");
+});
+cssApp = remplacerUneFois(cssApp, '--font-display: "Bricolage Grotesque", "Display Fallback", Arial, sans-serif;', "--font-display: var(--police-titre);");
+cssApp = remplacerUneFois(cssApp, '--font-text: "Figtree", "Text Fallback", system-ui, sans-serif;', "--font-text: var(--police-texte);");
+writeFileSync(
+  join(racine, "app/maquette.css"),
+  "/* Fichier généré par scripts/extraire-maquette.mjs depuis le CSS de la maquette : ne pas modifier\n" +
+    "   à la main. Les ajouts propres au site vont dans app/site.css. */\n\n" +
+    cssApp,
+);
+
 // ---------- 2. Scripts et JSON-LD ----------
 const scripts = [...html.matchAll(/<script(\s[^>]*)?>([\s\S]*?)<\/script>/g)];
 const jsonld = scripts.filter((s) => /application\/ld\+json/.test(s[1] ?? ""));
@@ -91,6 +114,17 @@ for (const m of icones) {
   const corps = m[0].replace(/^<symbol id="[^"]+" (viewBox="[^"]+")>/, `<svg ${xmlns} $1 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">`).replace(/<\/symbol>$/, "</svg>");
   ecrire(`icones/${id}.svg`, corps + "\n");
 }
+
+// Contenu exact du <svg class="sprite"> de la maquette, pour l'application (components/site/sprite.tsx).
+const moduleSprite = [
+  "// Fichier généré par scripts/extraire-maquette.mjs : ne pas modifier à la main.",
+  "// Contenu exact du <svg class=\"sprite\"> de la maquette : dégradés et calques du logo (#lg-*),",
+  "// symbole #logo et 24 icônes (#i-*).",
+  "",
+  `export const SPRITE = ${JSON.stringify(sprite[1])};`,
+  "",
+].join("\n");
+writeFileSync(join(racine, "lib/site/sprite.ts"), moduleSprite);
 
 const favicon = unique(/<link rel="icon" href="data:image\/svg\+xml;base64,([A-Za-z0-9+/=]+)"/g, "Favicon");
 ecrire("favicon.svg", Buffer.from(favicon[1], "base64"));

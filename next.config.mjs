@@ -2,13 +2,17 @@
 // et impose `output: "standalone"` ; on le pose aussi ici pour que les essais
 // locaux tournent dans les mêmes conditions que la production.
 
-/** En-têtes de sécurité de base ; la politique CSP complète arrive en phase 7. */
+/**
+ * En-têtes de sécurité de base ; la politique CSP complète arrive en phase 7.
+ * Pas de Cross-Origin-Opener-Policy (retiré en phase 2) : avec « same-origin », Lighthouse
+ * perd le début de la navigation (NO_NAVSTART) et ne peut plus mesurer la page ; il n’est pas
+ * demandé par le brief, et les liens sortants portent déjà rel="noopener noreferrer".
+ */
 const entetesSecurite = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "X-Frame-Options", value: "DENY" },
   { key: "Content-Security-Policy", value: "frame-ancestors 'none'" },
-  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
   {
     key: "Permissions-Policy",
     value: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), browsing-topics=()",

@@ -18,10 +18,14 @@
     "db:migrer": "node --env-file-if-exists=.env scripts/migrer.mjs",
     "deploiement:verifier": "node scripts/verifier-deploiement.mjs",
     "site:mesures": "node scripts/mesures-site.mjs",
+    "site:parite": "node scripts/parite-site.mjs",
+    "site:demarrage": "node scripts/demarrage-moteur.mjs",
     "maquette:extraire": "node scripts/extraire-maquette.mjs",
     "maquette:captures": "node scripts/captures-maquette.mjs",
     "maquette:mesures": "node scripts/mesures-maquette.mjs",
-    "maquette:diagnostic": "node scripts/diagnostic-maquette.mjs"
+    "maquette:diagnostic": "node scripts/diagnostic-maquette.mjs",
+    "moteur:construire": "node scripts/construire-moteur.mjs",
+    "test:e2e": "vitest run --config vitest.e2e.config.mts"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",

@@ -23,6 +23,8 @@ uploads/
 # Le manifeste des captures (empreintes SHA-256) et mesures.json restent versionnés.
 reference/captures/**/*.png
 reference/mesures/*.html
+# Captures de parité maquette / site (npm run site:parite) : seul le rapport est versionné.
+reference/parite/**/*.png
 test-results/
 playwright-report/
 blob-report/

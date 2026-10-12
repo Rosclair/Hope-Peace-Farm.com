@@ -1,7 +1,10 @@
 // Polices auto-hébergées, extraites de la maquette (reference/extrait/polices,
-// copies identiques : mêmes empreintes SHA-256). Les polices de repli ajustées
-// de la maquette (« Display Fallback », « Text Fallback ») seront reprises telles
-// quelles avec son CSS en phase 2 : pas d’ajustement automatique ici.
+// copies identiques : mêmes empreintes SHA-256). next/font/local les déclare et
+// les précharge ; leurs familles sont exposées dans --police-titre et
+// --police-texte, que app/maquette.css reprend dans --font-display et --font-text.
+// Les polices de repli sont celles de la maquette (« Display Fallback », « Text
+// Fallback », déclarées dans maquette.css avec leurs métriques ajustées) : pas
+// d’ajustement automatique ici. next/font les insère telles quelles, d’où les guillemets.
 
 import localFont from "next/font/local";
 
@@ -10,7 +13,7 @@ export const policeTitre = localFont({
   variable: "--police-titre",
   display: "swap",
   adjustFontFallback: false,
-  fallback: ["Arial", "sans-serif"],
+  fallback: ["'Display Fallback'", "Arial", "sans-serif"],
 });
 
 export const policeTexte = localFont({
@@ -21,5 +24,5 @@ export const policeTexte = localFont({
   variable: "--police-texte",
   display: "swap",
   adjustFontFallback: false,
-  fallback: ["system-ui", "sans-serif"],
+  fallback: ["'Text Fallback'", "system-ui", "sans-serif"],
 });

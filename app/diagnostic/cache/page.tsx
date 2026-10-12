@@ -5,6 +5,7 @@
 
 import type { Metadata } from "next";
 import { cacheLife, cacheTag } from "next/cache";
+import "./diagnostic.css";
 
 export const metadata: Metadata = { title: "Diagnostic du cache", robots: { index: false, follow: false } };
 

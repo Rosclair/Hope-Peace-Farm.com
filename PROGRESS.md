@@ -1,18 +1,95 @@
 # Suivi du projet
 
-**État : phase 1 prête et vérifiée en local ; le déploiement chez Hostinger attend les accès ou son exécution par vous ([guide](docs/deploiement-hostinger.md)). Questions ouvertes : [docs/risques-et-questions.md §5](docs/risques-et-questions.md#5-questions-3).**
+**État : phase 2 terminée et vérifiée en local (12/10/2026) ; en attente du « GO phase 3 ». Déploiement : par vous ([guide](docs/deploiement-hostinger.md)) ; je pousse sur GitHub dès que j’ai l’adresse du dépôt. Questions ouvertes : 2 et 3 de [docs/risques-et-questions.md §5](docs/risques-et-questions.md#5-questions-3).**
 
 | Phase | Contenu | État |
 | --- | --- | --- |
 | 0 | Cadrage, extraction, captures et mesures de référence | terminée (11/10/2026) |
-| 1 | Squelette déployé sur Hostinger | squelette prêt et vérifié en local (11/10/2026) ; déploiement en attente |
-| 2 | Portage fidèle de la page, tests de parité | — |
+| 1 | Squelette déployé sur Hostinger | squelette prêt et vérifié en local (11/10/2026) ; déploiement fait par vous, en attente |
+| 2 | Portage fidèle de la page, tests de parité | terminée (12/10/2026), vérifiée en local |
 | 3 | Contenus en base, publication, retour arrière | — |
 | 4 | Formulaires, demandes, e-mail, WhatsApp | — |
 | 5 | Back-office : connexion, tableau de bord, demandes, contenus, publication | — |
 | 6 | Back-office : listes, photos, campagnes, statistiques, journal | — |
 | 7 | SEO, performance, accessibilité, sécurité, recette | — |
 | 8 | Mise en production, README, guide du propriétaire | — |
+
+## Phase 2 — fait (portage fidèle, vérifié en local)
+
+- **Page publique** (`app/page.tsx`) : toutes les sections de la maquette en composants serveur (`components/site/` : cadre, accueil, cérémonies, offres, ferme, demande), mêmes balises, classes, ancres et attributs `data-*` ; rendue statiquement (`○ /`, revalidée chaque jour pour le © de l’année).
+- **Contenu** : document typé `ContenuPage` (`lib/contenu/types.ts`) et contenu initial = maquette mot pour mot (`lib/contenu/initial.ts`) ; textes avec repères `{groupe.cle}` (prix, délais, conditions, dates des Fêtes, numéros), `**gras**` et `[lien](#ancre)` ; prix, dates et numéros mis en forme comme la maquette (espaces insécables). Prêt pour la phase 3 (base, Zod, publication). Correspondance mise à jour : [docs/correspondance-sections.md](docs/correspondance-sections.md).
+- **CSS** : celui de la maquette, généré (`app/maquette.css`), à deux changements près (polices déclarées par `next/font/local`, même repli ajusté). **Sprite SVG** (logo 13 calques, 24 icônes) généré à l’identique (`lib/site/sprite.ts`). Script de tête inchangé.
+- **Moteur** (`lib/moteur/`) : `principal.js` porté en TypeScript, sans React ni dépendance, en deux temps (voir décisions) ; messages WhatsApp dans `lib/whatsapp/messages.ts`.
+- **Outils** : `npm run site:parite` (parité maquette / site : DOM, géométrie, textes, captures), `npm run site:demarrage` (délai de démarrage du moteur en conditions mobiles), `npm run moteur:construire` (script en ligne), `npm run test:e2e` (Playwright piloté par Vitest, sans nouvelle dépendance) ; `site:mesures` fiabilisé (un Chrome par passage, nouveaux essais).
+- **Documents** : [architecture](docs/architecture.md) §3 à §6 et §13, [correspondance](docs/correspondance-sections.md), [risques](docs/risques-et-questions.md) R4, R6, R17 et accès, [guide de déploiement](docs/deploiement-hostinger.md) §1 (répartition GitHub / Hostinger).
+
+## Phase 2 — décisions
+
+- **Réponse à la question 1 (12/10/2026)** : vous déployez vous-même chez Hostinger ; je pousse seulement sur GitHub.
+- **Comportements dans le moteur natif, pas en composants React clients** : formulaires rendus côté serveur (balisage identique à la maquette), comportements portés tels quels ; un seul composant client (`Comportements`, rendu `null`). Fidélité maximale et JavaScript minimal.
+- **Moteur en deux temps** (après mesure, voir ci-dessous) : ce qui ne touche qu’aux classes, attributs et variables CSS (Fêtes, menu, section courante, barre fixe, détails, landing, en-tête, apparitions) est compilé en un script en ligne en fin de `<body>`, comme celui de la maquette, qui démarre juste après la première image ; les formulaires (qui écrivent textes et listes) démarrent après l’hydratation. React 19 ne compare pas les attributs à l’hydratation en production et garde l’état des cases (vérifié dans son code). En développement, tout démarre après l’hydratation (sinon React signale les attributs).
+- **Nœuds de texte fusionnés** : là où le site produisait plusieurs nœuds de texte voisins (repères, espaces), Chrome décalait le texte de 0,02 à 0,04 px ; ils sont fusionnés, la géométrie est maintenant identique au centième de pixel.
+- **En-tête `Cross-Origin-Opener-Policy` retiré** (ajouté en phase 1) : il empêchait Lighthouse de mesurer la page (`NO_NAVSTART` presque à chaque passage ; sans lui, 3 passages valides sur 3). Pas dans la liste du brief ; à réessayer en phase 7 (R17).
+- **Année du ©** : fonction `"use cache"` + `cacheLife("days")` (Next 16 interdit `new Date()` hors cache au pré-rendu) ; revalidation exacte au 1er janvier avec les tâches de la phase 3.
+- **Classes des Fêtes posées par le serveur** : reportées à la phase 3, avec la revalidation aux dates de bascule (posées au build sans revalidation, elles resteraient fausses après la date limite). Comme dans la maquette, le script de tête les pose.
+
+## Phase 2 — écarts avec la maquette (justifiés)
+
+| Écart | Raison |
+| --- | --- |
+| « J’aimerais » (apostrophe typographique) dans le message WhatsApp général (menu, accueil, pied de page, barre fixe) | correction permise par le brief |
+| Résumé des erreurs des formulaires : espace insécable avant « : » et « ? » (espace simple dans la maquette) | correction permise par le brief |
+| Mentions légales : lignes « [… à renseigner] » (responsable, e-mail, hébergeur) masquées tant que la valeur manque | brief §5 : une donnée absente cache son bloc |
+| Pas d’`og:image`, de `twitter:card` ni d’`image` dans le JSON-LD | l’image citée par la maquette n’existe pas (R9) ; créée en phase 7 |
+| Section 7 de `principal.js` (rappel en console des mentions à renseigner) non reprise | les lignes vides sont masquées, il n’y a plus rien à rappeler |
+| Polices en fichiers préchargés (`Link: preload`) au lieu du base64 en ligne | `next/font/local` demandé par le brief ; mêmes fichiers, même repli |
+| Next ajoute un `<div hidden>` vide en tête de `<body>` et ses scripts de données | invisibles ; exclus de la comparaison du DOM |
+
+## Phase 2 — contrôles exécutés (serveur standalone local)
+
+| Contrôle | Résultat |
+| --- | --- |
+| `npm run typecheck` | 0 erreur |
+| `npm test` | **59 tests** réussis (5 fichiers), dont : messages WhatsApp et remerciements **identiques à ceux que composent les fonctions de la maquette elles-mêmes** (extraites de `principal.js` et exécutées, 10 cas) ; mise en forme et repères ; contenu initial (aucun repère inconnu, ni « […] », ni apostrophe droite, insécables avant « : ; ? ! ») ; sprite identique à la maquette ; CSS = maquette hors polices ; script en ligne à jour avec ses sources |
+| `npm run test:e2e` | **20 tests** réussis, 4 passages de suite : script de tête et démarrage sans erreur ni avertissement ; polices chargées ; **aucune ressource tierce** ; landing, menu et barre fixe **même si le JavaScript de Next est bloqué** ; menu (inert, Échap, focus, fermeture au lien) ; ancres (#devis, #essai, #confidentialite) et **retour arrière sans rechargement** ; Fêtes aux 3 dates (lien et bandeau) ; 3 formulaires (erreurs, bornes de dates, étapes, messages, condoléances, copie, modification, brouillon après rechargement, compteur) ; barre fixe (masquée, visible, pendant la saisie) ; **axe-core : 0 violation** à 393 et 1 280 px ; page sans JavaScript |
+| `npm run site:parite`, 4 formats × 3 modes | **DOM identique** (1 627 lignes : balises, attributs, textes), **géométrie identique au 1/100 px** (1 111 éléments), **texte affiché identique** (15 régions), 0 erreur console, message WhatsApp de cérémonie identique |
+| Captures pixel par pixel (accueil à 0, 14, 38, 66 et 97 %, chaque section écran par écran, page entière, menu, formulaire) | **384 sur 389 identiques au pixel près** : sans JS 116/116, mouvement réduit 120/121, avec JS 148/152 |
+| Les 5 autres | accueil épinglé à 66 et 97 % sur 393 px (6 750 et 8 188 px, soit 2,2 et 2,7 %) et à 97 % sur 768 et 1 280 px (55 et 32 px) : anticrénelage du texte de la carte de suivi et du fil des étapes (calques composités) ; page entière en mouvement réduit à 393 px : 2 px (logo, dernière ligne d’une tuile de 256 px). Géométrie et variables CSS identiques ; rejouée deux fois, la maquette est stable et le site alterne entre deux états, dont l’un **identique au pixel près** : la rastérisation dépend du moment où Next finit l’hydratation. Invisible à l’œil (captures agrandies relues) |
+| Mode développement (`next dev`) | moteur démarré après l’hydratation, landing et formulaires actifs, console vide |
+| Maquette | empreinte SHA-256 inchangée ; `npm run maquette:extraire` régénère à l’identique `reference/extrait/` |
+
+Rapport détaillé : `reference/parite/rapport.json` (captures et images d’écart régénérables, non versionnées).
+
+## Phase 2 — mesures (local)
+
+**Démarrage du moteur** (`npm run site:demarrage`, médianes de 5 passages, processeur ralenti ×4) :
+
+| Réseau | Page | FCP | Moteur démarré |
+| --- | --- | --- | --- |
+| 4G lente (150 ms, 1,6 Mbit/s) | maquette | 1 092 ms | 1 726 ms |
+| | site, moteur après l’hydratation (1ʳᵉ version) | 1 332 ms | 2 550 ms |
+| | site, moteur en ligne (retenu) | 1 328 ms | **1 469 ms** |
+| 3G (300 ms, 750 kbit/s) | maquette | 1 492 ms | 2 231 ms |
+| | site, moteur après l’hydratation (1ʳᵉ version) | 2 380 ms | 4 207 ms |
+| | site, moteur en ligne (retenu) | 2 344 ms | **2 620 ms** |
+
+(Lancé avant la première image, le moteur retardait le premier affichage d’environ 400 ms : il démarre donc juste après.)
+
+**Lighthouse 13.5** (`reference/mesures/site-phase2-local.json`, 3 passages valides chacun) :
+
+| | Performance | Accessibilité | Bonnes pratiques | SEO | FCP | LCP | TBT | CLS |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Mobile | **92** (88–93) | 100 | 100 | 66 | 1,37 s | 2,86–2,99 s | 166–236 ms | 0 |
+| Ordinateur | 100 | 100 | 100 | 66 | 0,34 s | 0,61 s | 5–8 ms | 0 |
+
+- Maquette, mêmes conditions : mobile 85–87, TBT ≈ 520 ms, LCP 1,4 s. Le site bloque moins le fil principal, mais son LCP (`p.hero__lead`, du texte, comme la maquette) attend : 2 CSS bloquants (gain estimé 250 ms) et 80 Ko de HTML en gzip. Objectif 95 : travail de la phase 7 (pistes dans R4).
+- SEO 66 attendu : seul échec `is-crawlable` (`noindex` volontaire tant que `SITE_INDEXABLE` ne vaut pas 1).
+- **Poids** : HTML 311 Ko bruts, **79 Ko servis (gzip)**, 45 Ko s’il était servi en brotli ; les données RSC (copie de l’arbre pour l’hydratation) en font ≈ 59 %. **JavaScript client** : 6 fichiers, 469 Ko décompressés, **119,5 Ko en brotli** (socle Next/React ≈ 115,8 Ko en phase 1 + formulaires) ; moteur en ligne : 13 Ko bruts, 4,6 Ko en brotli (script de la maquette : 31 Ko, 9 Ko). CSS : 2 fichiers, 12,6 Ko transférés.
+
+## Phase 2 — reste à faire
+
+- Envoi sur GitHub : il me faut l’adresse d’un dépôt privé vide.
+- Une fois le site en ligne : `npm run site:parite -- --site=<adresse>` et PageSpeed Insights.
 
 ## Phase 1 — fait (squelette, vérifié en local)
 
@@ -35,7 +112,7 @@ Le déploiement chez Hostinger n’a pas pu être fait : aucun accès (question 
 - **Migrations au démarrage** : Hostinger lance lui-même le serveur Next, sans commande préalable possible. `register()` est attendu avant la première requête (documentation Next 16.4) ; une base injoignable n’empêche pas le site de répondre.
 - **Une seule horloge pour la file d’e-mails** : celle de la base (voir R15, défaut trouvé et corrigé pendant les contrôles).
 - **Diagnostic** : jetons de 32 caractères au moins, comparés en temps constant ; le jeton peut passer dans l’URL pour `GET /api/sante` seulement (contrôle depuis un téléphone) ; à changer après la phase 1.
-- **En-têtes** : `nosniff`, `Referrer-Policy`, `X-Frame-Options` + `frame-ancestors 'none'`, `COOP`, `Permissions-Policy` dès maintenant ; CSP complète en phase 7, HSTS sur le vrai domaine seulement.
+- **En-têtes** : `nosniff`, `Referrer-Policy`, `X-Frame-Options` + `frame-ancestors 'none'`, `COOP` (retiré en phase 2, voir R17), `Permissions-Policy` dès maintenant ; CSP complète en phase 7, HSTS sur le vrai domaine seulement.
 - **`AGENTS.md`** : Next 16.4 en écrit un (en anglais) à chaque `next dev` ; désactivé (`agentRules: false`), son conseil repris en français dans `CLAUDE.md`.
 - **Environnement local** : base `hpf_dev` et utilisateur `hpf_dev` à droits limités (comme chez Hostinger) dans le MySQL 8.4 de Laragon ; la base `hopeandpeacefarm` déjà présente (14 tables en anglais, autre projet) n’a pas été touchée. Mailpit dédié (ports 1026/8026) pour les e-mails. Scripts npm exécutés par Bash (`npm_config_script_shell`) car `cmd.exe` coupe le chemin au `&` ; rien dans `.npmrc`, pour ne pas toucher la compilation chez Hostinger.
 
@@ -158,12 +235,13 @@ Conditions : Lighthouse 13.5.0, Chrome 155 sans interface, Windows 10, maquette 
 
 ## Reste à faire
 
-- Terminer la phase 1 en ligne : voir « Phase 1 — reste à faire » ci-dessus.
-- Phase 2 (portage fidèle de la page) dès le GO : elle peut commencer avant la fin du déploiement, qui ne la bloque pas.
+- Terminer la phase 1 en ligne (par vous) : voir « Phase 1 — reste à faire » ci-dessus.
+- Phase 3 (contenus en base, publication et retour arrière) dès le « GO phase 3 ».
 
 ## Blocages
 
-- **Déploiement** : accès Hostinger et GitHub, ou exécution du guide par vous (question 1).
+- **GitHub** : adresse d’un dépôt privé vide à me donner pour pousser le code (aucun dépôt distant configuré ; l’outil `gh` n’est pas installé, je ne crée rien sur votre compte).
+- **Déploiement** : fait par vous (réponse à la question 1).
 - **Domaine** `hopeandpeacefarm.com` non enregistré (question 2) : sans lui, pas de boîte e-mail chez Hostinger, donc pas d’essai SMTP réel ni de SPF/DKIM.
 - Question 3 (hébergement hors du Cameroun) : ne bloque pas le travail technique.
 - Réseau du poste très lent (6 à 40 Ko/s, coupures) : levé pour la phase 1, toutes les dépendances sont en cache.
