@@ -2,7 +2,13 @@
 // formulaires. Préparés à l’approche du formulaire, ou tout de suite si l’adresse
 // y mène ou si l’on touche un lien vers la demande : le premier affichage reste léger.
 // Messages et remerciements : lib/whatsapp/messages.ts (partagé avec les tests).
+// Phase 4 : la demande est envoyée à /api/demandes, qui répond par le message suivi
+// de sa référence. Sans réseau ou en cas d’erreur, le navigateur compose lui-même le
+// message (sans référence), garde la saisie et propose « Réessayer » ; la même clé
+// d’envoi évite un doublon si la première tentative était arrivée. WhatsApp ne
+// s’ouvre jamais tout seul.
 
+import { normaliserNumero } from "@/lib/demandes/numero";
 import { composerMessage, lienWa, texteRemerciement, type Reponses, type TypeDemande } from "@/lib/whatsapp/messages";
 import { $, $$, type Contexte } from "./outils";
 
@@ -14,7 +20,36 @@ const OBLIGATOIRE: Record<TypeDemande, string> = {
   pro: "Ce champ est nécessaire pour préparer votre livraison d’essai.",
 };
 
+const NUMERO_INVALIDE =
+  "Indiquez un numéro WhatsApp valide, par exemple 6\u00a093\u00a064\u00a055\u00a065, ou avec l’indicatif hors du Cameroun.";
+const ACCORD = "Cochez cette case\u00a0: nous vous répondons sur WhatsApp.";
+/** Délai au-delà duquel l’envoi est abandonné au profit du repli. */
+const DELAI_ENVOI_MS = 20_000;
+
 const propre = (v: unknown) => String(v || "").replace(/\s+/g, " ").trim();
+
+/** Clé d’envoi aléatoire (crypto.randomUUID manque avant Safari 15.4). */
+function nouvelleCle(): string {
+  if (typeof crypto.randomUUID === "function") return crypto.randomUUID();
+  return Array.from(crypto.getRandomValues(new Uint8Array(16)), (o) => o.toString(16).padStart(2, "0")).join("");
+}
+
+/** Source de la visite : lien de campagne (?src=), paramètres utm_*, domaine d’origine. */
+function sourceVisite(): Record<string, string> {
+  const source: Record<string, string> = {};
+  const p = new URLSearchParams(location.search);
+  for (const cle of ["src", "utm_source", "utm_medium", "utm_campaign"]) {
+    const v = p.get(cle);
+    if (v) source[cle] = v;
+  }
+  try {
+    const origine = document.referrer ? new URL(document.referrer).hostname : "";
+    if (origine && origine !== location.hostname) source.referent = origine;
+  } catch {
+    /* adresse d’origine illisible */
+  }
+  return source;
+}
 
 export function demande(ctx: Contexte): void {
   const carte = $(".request__card");
@@ -95,6 +130,9 @@ function formulaire(ctx: Contexte, type: TypeDemande, form: HTMLFormElement): vo
   const succes = $(".done", form);
   if (!etapeNum || !jauge || !resume || !succes) return;
   let index = 0;
+  const prepareLe = performance.now();
+  const source = sourceVisite();
+  let cle = nouvelleCle();
 
   resume.tabIndex = -1;
   $$(".field", form).forEach((champ, i) => {
@@ -144,17 +182,19 @@ function formulaire(ctx: Contexte, type: TypeDemande, form: HTMLFormElement): vo
   );
 
   /* Libellé repris dans le résumé des erreurs (« Où habitez-vous ? », espace insécable) */
-  const libelle = (champ: Element) => propre($(".field__label", champ)?.textContent).replace(/\s*\?$/, " ?");
+  const libelle = (champ: Element) => propre(($(".field__label", champ) ?? $(".check span", champ))?.textContent).replace(/\s*\?$/, " ?");
 
-  /** Le champ de saisie d’un bloc (ni case à cocher, ni bouton radio pour les puces). */
+  /** Le champ de saisie d’un bloc (pas la case « date pas encore fixée ») ; la case seule pour l’accord. */
   const controle = (champ: Element) =>
-    $<HTMLInputElement | HTMLTextAreaElement>('input:not([type="checkbox"]), textarea', champ);
+    $<HTMLInputElement | HTMLTextAreaElement>('input:not([type="checkbox"]), textarea', champ) ??
+    $<HTMLInputElement>('input[type="checkbox"]', champ);
 
   const verifier = (champ: HTMLElement): string => {
     const d = valeurs();
     const nom = champ.dataset.field;
     const radios = $$<HTMLInputElement>('input[type="radio"]', champ);
     if (radios.length) return radios.some((r) => r.checked) ? "" : OBLIGATOIRE[type];
+    if (nom === "consentement") return $<HTMLInputElement>('input[type="checkbox"]', champ)?.checked ? "" : ACCORD;
 
     const saisie = controle(champ);
     if (!saisie) return "";
@@ -163,6 +203,7 @@ function formulaire(ctx: Contexte, type: TypeDemande, form: HTMLFormElement): vo
     if (type === "ceremonie" && nom === "date" && d.date_inconnue) return "";
     if (!valeur) return saisie.required || nom === "lieu" ? OBLIGATOIRE[type] : "";
     if (nom === "nombre" && !/^[1-9][0-9]{0,3}$/.test(valeur)) return "Indiquez un nombre de poulets, par exemple 10.";
+    if (nom === "whatsapp" && !normaliserNumero(valeur)) return NUMERO_INVALIDE;
     if (saisie.type === "date") {
       if (valeur < ctx.aujourdhui) return "Choisissez une date à partir d’aujourd’hui.";
       if (valeur > ctx.dateMax) return "Choisissez une date dans les douze prochains mois.";
@@ -172,7 +213,8 @@ function formulaire(ctx: Contexte, type: TypeDemande, form: HTMLFormElement): vo
 
   const afficher = (champ: HTMLElement, message: string) => {
     const erreur = $(".field__error", champ);
-    const controles = $$<HTMLInputElement | HTMLTextAreaElement>('input:not([type="checkbox"]), textarea', champ);
+    let controles = $$<HTMLInputElement | HTMLTextAreaElement>('input:not([type="checkbox"]), textarea', champ);
+    if (!controles.length) controles = $$<HTMLInputElement>('input[type="checkbox"]', champ);
     champ.toggleAttribute("data-invalid", Boolean(message));
     if (erreur) {
       erreur.textContent = message;
@@ -255,9 +297,14 @@ function formulaire(ctx: Contexte, type: TypeDemande, form: HTMLFormElement): vo
     if (focus && etape) $(".rstep__title", etape)?.focus();
   };
 
-  const terminer = () => {
+  const envoi = $<HTMLButtonElement>('button[type="submit"]', form);
+  const reessai = $<HTMLButtonElement>("[data-retry]", succes);
+  const alerte = $("[data-done-erreur]", succes);
+  let enCours = false;
+
+  /** Vue de succès de la maquette ; `repli` : la demande n’a pas été enregistrée. */
+  const terminer = (message: string, lienWhatsapp: string, repli: boolean) => {
     const d = valeurs();
-    const message = composerMessage(type, d);
     const texte = $("[data-done-text]", succes);
     if (texte) texte.textContent = texteRemerciement(type, d);
     const condoleances = $("[data-done-extra]", succes);
@@ -265,18 +312,56 @@ function formulaire(ctx: Contexte, type: TypeDemande, form: HTMLFormElement): vo
     const citation = $("[data-done-message]", succes);
     if (citation) citation.textContent = message;
     const lien = $<HTMLAnchorElement>("[data-done-wa]", succes);
-    if (lien) lien.href = lienWa(ctx.wa, message);
+    if (lien) lien.href = lienWhatsapp;
     const secours = $<HTMLTextAreaElement>(".done__fallback", succes);
     if (secours) {
       secours.value = message;
       secours.hidden = true;
     }
+    if (alerte) alerte.hidden = !repli;
     $$(".rform__intro, .progress, .errors, .rstep", form).forEach((el) => {
       el.hidden = true;
     });
     succes.hidden = false;
     $(".done__title", succes)?.focus();
   };
+
+  const occupe = (oui: boolean) =>
+    [envoi, reessai].forEach((b) => {
+      if (!b) return;
+      if (oui) b.setAttribute("aria-busy", "true");
+      else b.removeAttribute("aria-busy");
+    });
+
+  /** Envoie la demande ; en cas d’échec, compose le message ici, sans référence. */
+  const envoyer = async () => {
+    if (enCours) return;
+    enCours = true;
+    occupe(true);
+    const arret = new AbortController();
+    const minuteur = setTimeout(() => arret.abort(), DELAI_ENVOI_MS);
+    try {
+      const reponse = await fetch(form.action, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...valeurs(), ...source, formulaire: type, duree: Math.round(performance.now() - prepareLe), cle }),
+        credentials: "same-origin",
+        signal: arret.signal,
+      });
+      if (!reponse.ok) throw new Error(String(reponse.status));
+      const r = (await reponse.json()) as { message?: unknown; lien?: unknown };
+      if (typeof r.message !== "string" || typeof r.lien !== "string") throw new Error("réponse");
+      terminer(r.message, r.lien, false);
+    } catch {
+      const message = composerMessage(type, valeurs());
+      terminer(message, lienWa(ctx.wa, message), true);
+    } finally {
+      clearTimeout(minuteur);
+      enCours = false;
+      occupe(false);
+    }
+  };
+  reessai?.addEventListener("click", () => void envoyer());
 
   $$("[data-next]", form).forEach((bouton) =>
     bouton.addEventListener("click", () => {
@@ -291,10 +376,12 @@ function formulaire(ctx: Contexte, type: TypeDemande, form: HTMLFormElement): vo
     const etape = etapes[index];
     if (!etape || !validerEtape(etape)) return;
     if (index < etapes.length - 1) allerA(index + 1);
-    else terminer();
+    else void envoyer();
   });
 
   $("[data-edit]", succes)?.addEventListener("click", () => {
+    // La demande modifiée est une nouvelle demande.
+    cle = nouvelleCle();
     succes.hidden = true;
     $$(".rform__intro, .progress, .rstep", form).forEach((el) => {
       el.hidden = false;

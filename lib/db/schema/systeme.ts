@@ -2,8 +2,9 @@
 // tâches planifiées, démarrages du serveur. Dates en UTC (session forcée à
 // +00:00 dans client.ts), précision à la milliseconde.
 
-import { index, int, mysqlEnum, mysqlTable, text, varchar } from "drizzle-orm/mysql-core";
+import { bigint, index, int, mysqlEnum, mysqlTable, text, varchar } from "drizzle-orm/mysql-core";
 import { horodatage, identifiant, maintenant } from "./colonnes";
+import { demande } from "./demandes";
 
 export const TYPES_EMAIL = ["nouvelle_demande", "alerte_securite", "invitation", "test"] as const;
 export const STATUTS_EMAIL = ["en_attente", "envoye", "echec"] as const;
@@ -18,6 +19,8 @@ export const emailSortant = mysqlTable(
     sujet: varchar("sujet", { length: 200 }).notNull(),
     texte: text("texte").notNull(),
     html: text("html"),
+    /** Demande concernée : l’e-mail est supprimé avec elle (purge, droit à l’effacement). */
+    demandeId: bigint("demande_id", { mode: "number", unsigned: true }).references(() => demande.id, { onDelete: "cascade" }),
     statut: mysqlEnum("statut", STATUTS_EMAIL).notNull().default("en_attente"),
     tentatives: int("tentatives", { unsigned: true }).notNull().default(0),
     prochaineTentativeLe: horodatage("prochaine_tentative_le").notNull().default(maintenant),

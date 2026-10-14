@@ -8,6 +8,8 @@ import { and, desc, eq, lt, sql } from "drizzle-orm";
 import { avecVerrou, db } from "@/lib/db/client";
 import { demarrageServeur, emailSortant, tacheExecution, type DECLENCHEURS_TACHE } from "@/lib/db/schema";
 import { codeErreur, journal } from "@/lib/journal";
+import { purgerLimites } from "@/lib/demandes/antispam";
+import { purgerDemandes } from "@/lib/demandes/purge";
 import { traiterFileEmails } from "@/lib/mail/file";
 
 export type Declencheur = (typeof DECLENCHEURS_TACHE)[number];
@@ -41,6 +43,15 @@ export const TACHES: readonly Tache[] = [
         .delete(emailSortant)
         .where(and(eq(emailSortant.type, "test"), lt(emailSortant.creeLe, ilYa(30))));
       return `${taches.affectedRows} exécution(s), ${demarrages.affectedRows} démarrage(s), ${tests.affectedRows} e-mail(s) de test supprimés`;
+    },
+  },
+  {
+    nom: "purge-demandes",
+    intervalleMinutes: JOUR,
+    executer: async () => {
+      const demandes = await purgerDemandes();
+      const limites = await purgerLimites();
+      return `${demandes} demande(s) au-delà de la durée de conservation, ${limites} compteur(s) anti-spam supprimés`;
     },
   },
 ];

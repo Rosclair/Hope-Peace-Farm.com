@@ -67,6 +67,9 @@ Préparer un fichier `deploiement.env` **hors du dépôt** (il est ignoré par G
 | `UPLOAD_DIR` | `/home/<utilisateur>/domains/<domaine>/televersements` (voir ci-dessous) |
 | `CRON_SECRET`, `DIAGNOSTIC_SECRET` | deux secrets différents, générés par `node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))"` |
 | `TACHES_MINUTEUR_MINUTES` | `0` |
+| `DEMANDES_SECRET` | un troisième secret, même commande (vide : dérivé de `CRON_SECRET`) |
+| `IP_ENTETE`, `IP_PROXYS` | `x-forwarded-for` et `1`, à confirmer à l’étape 6 (encadré ci-dessous) |
+| `DEMANDES_CONSERVATION_MOIS` | `12` |
 
 `<utilisateur>` est l’identifiant du compte (`u123456789`), visible dans hPanel (Comptes FTP ou Accès SSH). Si vous ne le trouvez pas, déployez une première fois sans `UPLOAD_DIR` : le diagnostic affiche le dossier de l’application (`/home/u…/domains/…/hbuilds/…`), d’où l’on déduit le chemin.
 
@@ -102,6 +105,10 @@ node --env-file=deploiement.env scripts/verifier-deploiement.mjs https://<adress
 Le script contrôle la page, les en-têtes, la police, robots.txt, la base, les migrations, `UPLOAD_DIR`, sharp, le SMTP, les en-têtes IP et le cache, et classe chaque point en OK, ÉCHEC ou À VOIR. Ajouter `--email` dès que le SMTP est configuré, puis vérifier la réception (et le dossier indésirables).
 
 Sans le script, le rapport brut s’ouvre dans un navigateur : `https://<adresse-du-site>/api/sante?jeton=<DIAGNOSTIC_SECRET>`.
+
+**Adresse du visiteur (phase 4, limite de 10 demandes par heure et par adresse).** Ouvrir le rapport brut depuis un téléphone en 4G (Wi-Fi coupé), puis depuis un ordinateur : la rubrique des en-têtes IP montre `x-forwarded-for` avec des adresses tronquées. Si la **dernière** adresse de la liste change d’un appareil à l’autre et correspond au début de l’adresse publique de l’appareil, `IP_PROXYS=1` est juste. Si elle reste la même (adresse du proxy, souvent `127.0.x.x` ou `10.x.x.x`), essayer `IP_PROXYS=2` ; si aucune ne convient, mettre `IP_PROXYS=0` : la limite par adresse est alors désactivée (restent le champ piège, le délai minimal et la limite de 3 demandes par jour et par numéro). Un visiteur bloqué par erreur n’est jamais perdu : avec JavaScript, son message WhatsApp reste prêt ; sans JavaScript, la page lui propose WhatsApp.
+
+**Formulaires (phase 4).** Envoyer une demande depuis le site (avec un vrai numéro WhatsApp) : la vue « Votre message est prêt » doit montrer « (Réf. HP-…) » à la fin du message, et l’e-mail « Nouvelle demande … — HP-… » doit arriver à `NOTIFICATION_EMAIL` dans la minute. Sans SMTP configuré, la demande est quand même enregistrée (e-mail non mis en file).
 
 ## 7. Cron
 

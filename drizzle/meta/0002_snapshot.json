@@ -1,0 +1,842 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "0f3df67b-149d-4889-9dce-cfc18e88b300",
+  "prevId": "7d76eaa6-0ddf-4ecc-acf4-6061be890dc8",
+  "tables": {
+    "contenu_brouillon": {
+      "name": "contenu_brouillon",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "tinyint unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "donnees": {
+          "name": "donnees",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "a_confirmer": {
+          "name": "a_confirmer",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "revision": {
+          "name": "revision",
+          "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 1
+        },
+        "modifie_le": {
+          "name": "modifie_le",
+          "type": "datetime(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP(3)"
+        },
+        "modifie_par": {
+          "name": "modifie_par",
+          "type": "varchar(120)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "contenu_brouillon_id": {
+          "name": "contenu_brouillon_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "etat_publication": {
+      "name": "etat_publication",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "tinyint unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "version_en_ligne": {
+          "name": "version_en_ligne",
+          "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "modifie_le": {
+          "name": "modifie_le",
+          "type": "datetime(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP(3)"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "etat_publication_id": {
+          "name": "etat_publication_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "version_contenu": {
+      "name": "version_contenu",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigint unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "numero": {
+          "name": "numero",
+          "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "donnees": {
+          "name": "donnees",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "a_confirmer": {
+          "name": "a_confirmer",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "empreinte": {
+          "name": "empreinte",
+          "type": "char(64)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "publie_le": {
+          "name": "publie_le",
+          "type": "datetime(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP(3)"
+        },
+        "publie_par": {
+          "name": "publie_par",
+          "type": "varchar(120)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "restauree_depuis": {
+          "name": "restauree_depuis",
+          "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "note": {
+          "name": "note",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "version_contenu_id": {
+          "name": "version_contenu_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "version_contenu_numero": {
+          "name": "version_contenu_numero",
+          "columns": [
+            "numero"
+          ]
+        }
+      },
+      "checkConstraint": {}
+    },
+    "demarrage_serveur": {
+      "name": "demarrage_serveur",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigint unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "build": {
+          "name": "build",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "version_node": {
+          "name": "version_node",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "demarre_le": {
+          "name": "demarre_le",
+          "type": "datetime(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP(3)"
+        }
+      },
+      "indexes": {
+        "demarrage_serveur_demarre": {
+          "name": "demarrage_serveur_demarre",
+          "columns": [
+            "demarre_le"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "demarrage_serveur_id": {
+          "name": "demarrage_serveur_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "email_sortant": {
+      "name": "email_sortant",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigint unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "type": {
+          "name": "type",
+          "type": "enum('nouvelle_demande','alerte_securite','invitation','test')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "destinataire": {
+          "name": "destinataire",
+          "type": "varchar(254)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "sujet": {
+          "name": "sujet",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "texte": {
+          "name": "texte",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "html": {
+          "name": "html",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "demande_id": {
+          "name": "demande_id",
+          "type": "bigint unsigned",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "statut": {
+          "name": "statut",
+          "type": "enum('en_attente','envoye','echec')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'en_attente'"
+        },
+        "tentatives": {
+          "name": "tentatives",
+          "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "prochaine_tentative_le": {
+          "name": "prochaine_tentative_le",
+          "type": "datetime(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP(3)"
+        },
+        "derniere_erreur": {
+          "name": "derniere_erreur",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "datetime(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP(3)"
+        },
+        "envoye_le": {
+          "name": "envoye_le",
+          "type": "datetime(3)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "email_sortant_statut_prochaine": {
+          "name": "email_sortant_statut_prochaine",
+          "columns": [
+            "statut",
+            "prochaine_tentative_le"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "email_sortant_demande_id_demande_id_fk": {
+          "name": "email_sortant_demande_id_demande_id_fk",
+          "tableFrom": "email_sortant",
+          "tableTo": "demande",
+          "columnsFrom": [
+            "demande_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "email_sortant_id": {
+          "name": "email_sortant_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "tache_execution": {
+      "name": "tache_execution",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigint unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "tache": {
+          "name": "tache",
+          "type": "varchar(40)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "declencheur": {
+          "name": "declencheur",
+          "type": "enum('cron','minuteur','manuel')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "statut": {
+          "name": "statut",
+          "type": "enum('en_cours','ok','echec')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'en_cours'"
+        },
+        "debut_le": {
+          "name": "debut_le",
+          "type": "datetime(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP(3)"
+        },
+        "fin_le": {
+          "name": "fin_le",
+          "type": "datetime(3)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "detail": {
+          "name": "detail",
+          "type": "varchar(500)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "tache_execution_tache_debut": {
+          "name": "tache_execution_tache_debut",
+          "columns": [
+            "tache",
+            "debut_le"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "tache_execution_id": {
+          "name": "tache_execution_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "demande": {
+      "name": "demande",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigint unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "reference": {
+          "name": "reference",
+          "type": "char(16)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "type": {
+          "name": "type",
+          "type": "enum('ceremonie','poulets','pro')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "statut": {
+          "name": "statut",
+          "type": "enum('nouvelle','contactee','devis_envoye','acompte_recu','en_preparation','livree','perdue')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'nouvelle'"
+        },
+        "nom": {
+          "name": "nom",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "whatsapp_e164": {
+          "name": "whatsapp_e164",
+          "type": "varchar(16)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "reponses": {
+          "name": "reponses",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "message": {
+          "name": "message",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "consentement_contact_le": {
+          "name": "consentement_contact_le",
+          "type": "datetime(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "consentement_version": {
+          "name": "consentement_version",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "annonces": {
+          "name": "annonces",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "source_code": {
+          "name": "source_code",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "utm_source": {
+          "name": "utm_source",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "utm_medium": {
+          "name": "utm_medium",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "utm_campaign": {
+          "name": "utm_campaign",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "referent_domaine": {
+          "name": "referent_domaine",
+          "type": "varchar(253)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "mode_envoi": {
+          "name": "mode_envoi",
+          "type": "enum('js','sans_js')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "cle_envoi": {
+          "name": "cle_envoi",
+          "type": "varchar(40)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "statut_change_le": {
+          "name": "statut_change_le",
+          "type": "datetime(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP(3)"
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "datetime(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP(3)"
+        },
+        "maj_le": {
+          "name": "maj_le",
+          "type": "datetime(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP(3)"
+        }
+      },
+      "indexes": {
+        "demande_statut": {
+          "name": "demande_statut",
+          "columns": [
+            "statut"
+          ],
+          "isUnique": false
+        },
+        "demande_type": {
+          "name": "demande_type",
+          "columns": [
+            "type"
+          ],
+          "isUnique": false
+        },
+        "demande_cree": {
+          "name": "demande_cree",
+          "columns": [
+            "cree_le"
+          ],
+          "isUnique": false
+        },
+        "demande_whatsapp": {
+          "name": "demande_whatsapp",
+          "columns": [
+            "whatsapp_e164"
+          ],
+          "isUnique": false
+        },
+        "demande_source": {
+          "name": "demande_source",
+          "columns": [
+            "source_code"
+          ],
+          "isUnique": false
+        },
+        "demande_maj": {
+          "name": "demande_maj",
+          "columns": [
+            "maj_le"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "demande_id": {
+          "name": "demande_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "demande_reference": {
+          "name": "demande_reference",
+          "columns": [
+            "reference"
+          ]
+        },
+        "demande_cle_envoi": {
+          "name": "demande_cle_envoi",
+          "columns": [
+            "cle_envoi"
+          ]
+        }
+      },
+      "checkConstraint": {}
+    },
+    "demande_evenement": {
+      "name": "demande_evenement",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigint unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "demande_id": {
+          "name": "demande_id",
+          "type": "bigint unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "type": {
+          "name": "type",
+          "type": "enum('creation','statut','note','contact_whatsapp','correction')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "de_statut": {
+          "name": "de_statut",
+          "type": "enum('nouvelle','contactee','devis_envoye','acompte_recu','en_preparation','livree','perdue')",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "vers_statut": {
+          "name": "vers_statut",
+          "type": "enum('nouvelle','contactee','devis_envoye','acompte_recu','en_preparation','livree','perdue')",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "texte": {
+          "name": "texte",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "datetime(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP(3)"
+        }
+      },
+      "indexes": {
+        "demande_evenement_demande": {
+          "name": "demande_evenement_demande",
+          "columns": [
+            "demande_id",
+            "cree_le"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "demande_evenement_demande_id_demande_id_fk": {
+          "name": "demande_evenement_demande_id_demande_id_fk",
+          "tableFrom": "demande_evenement",
+          "tableTo": "demande",
+          "columnsFrom": [
+            "demande_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "demande_evenement_id": {
+          "name": "demande_evenement_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "limite_debit": {
+      "name": "limite_debit",
+      "columns": {
+        "cle": {
+          "name": "cle",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "fenetre_debut": {
+          "name": "fenetre_debut",
+          "type": "datetime(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "compteur": {
+          "name": "compteur",
+          "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {
+        "limite_debit_fenetre": {
+          "name": "limite_debit_fenetre",
+          "columns": [
+            "fenetre_debut"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "limite_debit_pk": {
+          "name": "limite_debit_pk",
+          "columns": [
+            "cle",
+            "fenetre_debut"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    }
+  },
+  "views": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "tables": {},
+    "indexes": {}
+  }
+}

@@ -3,6 +3,7 @@
 // variable manquante pour l’e-mail n’empêche pas la page publique de s’afficher.
 // Les erreurs ne citent que des noms de variables, jamais leurs valeurs.
 
+import { createHmac } from "node:crypto";
 import path from "node:path";
 import { z } from "zod";
 
@@ -76,6 +77,16 @@ const schemaTaches = z.object({
   TACHES_MINUTEUR_MINUTES: z.preprocess(sansVide, z.coerce.number().int().min(0).max(1440).default(0)),
 });
 
+const schemaDemandes = z.object({
+  /** Secret des empreintes d’IP et des liens de confirmation ; sinon dérivé de CRON_SECRET. */
+  DEMANDES_SECRET: z.preprocess(sansVide, z.string().min(32, "32 caractères au moins").optional()),
+  /** En-tête qui porte l’adresse du visiteur, et nombre de proxys de confiance devant le serveur. */
+  IP_ENTETE: z.preprocess(sansVide, z.string().trim().toLowerCase().regex(/^[a-z0-9-]+$/).default("x-forwarded-for")),
+  IP_PROXYS: z.preprocess(sansVide, z.coerce.number().int().min(0).max(5).default(1)),
+  /** Durée de conservation des demandes, en mois après leur dernière mise à jour. */
+  DEMANDES_CONSERVATION_MOIS: z.preprocess(sansVide, z.coerce.number().int().min(1).max(120).default(12)),
+});
+
 export function configSite(source = process.env) {
   return lire("site", schemaSite, source);
 }
@@ -94,6 +105,25 @@ export function configSecrets(source = process.env) {
 
 export function configTaches(source = process.env) {
   return lire("taches", schemaTaches, source);
+}
+
+export function configDemandes(source = process.env) {
+  const c = lire("demandes", schemaDemandes, source);
+  return {
+    entete: c.IP_ENTETE,
+    proxys: c.IP_PROXYS,
+    conservationMois: c.DEMANDES_CONSERVATION_MOIS,
+    /**
+     * Secret propre aux demandes. Sans DEMANDES_SECRET, il est dérivé de CRON_SECRET
+     * (HMAC à étiquette distincte) : un déploiement sans la nouvelle variable continue
+     * de recevoir les demandes.
+     */
+    secret: () => {
+      if (c.DEMANDES_SECRET) return c.DEMANDES_SECRET;
+      const { CRON_SECRET } = configSecrets(source);
+      return createHmac("sha256", CRON_SECRET).update("hpf-demandes").digest("base64url");
+    },
+  };
 }
 
 /**
@@ -119,4 +149,5 @@ export const VARIABLES_ATTENDUES = {
   televersement: ["UPLOAD_DIR"],
   secrets: ["CRON_SECRET", "DIAGNOSTIC_SECRET"],
   taches: ["TACHES_MINUTEUR_MINUTES"],
+  demandes: ["DEMANDES_SECRET", "IP_ENTETE", "IP_PROXYS", "DEMANDES_CONSERVATION_MOIS"],
 } as const;

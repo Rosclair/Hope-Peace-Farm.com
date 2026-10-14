@@ -2,8 +2,10 @@
 // invalide, champ obligatoire vide, « […] » à remplacer, repère inconnu, marque
 // incomplète, lien vers une ancre qui n’existe pas. Non bloquants : valeurs encore
 // marquées « à confirmer » (la première publication reprend la maquette, R10).
+// Phase 4 : texte de confidentialité qui dit que rien n’est enregistré (bloquant).
 // Phase 6 : photos sans texte alternatif et avis sans accord écrit (bloquants).
 
+import { AFFIRMATIONS_PERIMEES } from "./confidentialite";
 import { analyser, REPERES, textePlat, type Morceau } from "./reperes";
 import { schemaContenu } from "./schema";
 import type { ContenuPage } from "./types";
@@ -65,6 +67,9 @@ function controlerTexte(contenu: ContenuPage, chemin: string, texte: string): Pr
     }
   };
   visiter(morceaux);
+  if (AFFIRMATIONS_PERIMEES.some((a) => a.test(texte))) {
+    bloquant("Ce texte dit que rien n’est enregistré : c’est faux, les demandes des formulaires sont enregistrées.");
+  }
   if (problemes.length) return problemes;
   // Ce qui reste après rendu ne doit plus contenir de marque.
   const rendu = textePlat(contenu, texte);

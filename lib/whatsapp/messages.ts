@@ -86,3 +86,8 @@ export function texteRemerciement(type: TypeDemande, d: Reponses): string {
 export function lienWa(numero: string, message: string): string {
   return `https://wa.me/${numero.replace(/[^0-9A-Za-z]/g, "")}?text=${encodeURIComponent(message)}`;
 }
+
+/** Message d’une demande enregistrée : celui de la maquette, suivi de « (Réf. …) » (brief §3). */
+export function messageAvecReference(message: string, reference: string | null): string {
+  return reference ? `${message} (Réf. ${reference})` : message;
+}

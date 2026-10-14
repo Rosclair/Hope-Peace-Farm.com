@@ -15,6 +15,7 @@ import { configSite } from "@/lib/config";
 import { contenuPublie } from "@/lib/contenu/lecture";
 import { MOTEUR_IMMEDIAT } from "@/lib/site/moteur-immediat";
 import "./maquette.css";
+import "./site.css";
 
 /** Année du © du pied de page, à l’heure de Douala (UTC+1). */
 async function anneeDouala(): Promise<number> {

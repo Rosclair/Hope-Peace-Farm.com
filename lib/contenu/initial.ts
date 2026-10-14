@@ -2,6 +2,8 @@
 // (reference/hope-and-peace-farm-apercu-2.html). À la première publication
 // (phase 3), la page rendue avec ce contenu est identique à la maquette ;
 // le contrôle de parité (npm run site:parite) le vérifie.
+// Seule exception (phase 4) : les textes de confidentialité, réécrits parce que
+// les demandes sont désormais enregistrées (docs/confidentialite-projet.md).
 //
 // Dans ce fichier, « ~ » note une espace insécable (U+00A0) : la maquette en
 // met partout où elle écrit &nbsp;. Les repères {groupe.cle} sont remplacés au
@@ -539,7 +541,7 @@ export const CONTENU_INITIAL: ContenuPage = insecables<ContenuPage>({
       },
     },
     confidentialite:
-      "Rien n’est enregistré sur ce site~: votre message part seulement quand vous appuyez sur «~Envoyer~» dans WhatsApp.",
+      "Votre demande est enregistrée pour que nous puissions vous répondre sur WhatsApp, puis effacée au bout de 12~mois. Elle n’est jamais vendue.",
   },
   pied: {
     signature: "Nourrir l’avenir avec confiance",
@@ -555,10 +557,11 @@ export const CONTENU_INITIAL: ContenuPage = insecables<ContenuPage>({
   },
   confidentialite: {
     paragraphes: [
-      "Ce site n’enregistre aucune donnée personnelle. Les formulaires préparent un message dans votre navigateur~; rien ne nous est envoyé tant que vous n’avez pas appuyé sur «~Envoyer~» dans WhatsApp.",
-      "Les informations de votre message servent uniquement à traiter votre demande et à vous tenir informé de votre commande. Elles ne sont jamais vendues. Elles sont transmises seulement à la personne qui livre votre commande. La conversation elle-même passe par WhatsApp, selon ses propres règles.",
-      "Vous pouvez demander à consulter, corriger ou supprimer vos informations en écrivant au {coordonnees.whatsapp}.",
-      "Aucun cookie, aucun traceur. Votre saisie est gardée dans votre navigateur le temps de la visite, pour ne rien perdre si vous parcourez la page.",
+      "Quand vous envoyez un formulaire, nous enregistrons votre demande~: vos réponses, votre nom, votre numéro WhatsApp, la date de votre accord pour être contacté et, si vous l’avez cochée, votre inscription à nos annonces. Nous notons aussi d’où vient votre visite (lien d’une campagne, site d’origine), jamais votre adresse IP.",
+      "Ces informations servent uniquement à préparer votre devis ou votre commande, à vous répondre sur WhatsApp et à organiser la livraison. Une copie de votre demande nous parvient par e-mail. Elles ne sont jamais vendues~; elles sont transmises seulement à la personne qui livre votre commande. La conversation elle-même passe par WhatsApp, selon ses propres règles.",
+      "Votre demande est effacée 12~mois après sa dernière mise à jour. Les annonces s’arrêtent dès que vous nous le demandez.",
+      "Vous pouvez consulter, corriger ou faire supprimer vos informations, et retirer votre accord, en écrivant au {coordonnees.whatsapp}. Indiquez si possible la référence de votre demande (HP-…).",
+      "Aucun cookie, aucun traceur publicitaire. Votre saisie est gardée dans votre navigateur le temps de la visite, pour ne rien perdre si vous parcourez la page.",
       "Référence~: loi n°~2024/017 du 23~décembre 2024 relative à la protection des données à caractère personnel.",
     ],
   },

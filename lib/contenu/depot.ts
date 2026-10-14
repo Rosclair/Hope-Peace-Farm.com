@@ -9,6 +9,7 @@ import { desc, eq, sql } from "drizzle-orm";
 import { avecVerrou, db } from "@/lib/db/client";
 import { contenuBrouillon, etatPublication, versionContenu } from "@/lib/db/schema";
 import { journal } from "@/lib/journal";
+import { remplacerConfidentialiteMaquette } from "./confidentialite";
 import { controlerPublication, type Probleme } from "./controles";
 import { empreinteContenu } from "./empreinte";
 import { A_CONFIRMER_INITIAL, CONTENU_INITIAL } from "./initial";
@@ -291,6 +292,59 @@ export async function initialiserSiVide(par = "initialisation"): Promise<"cree" 
       return "cree" as const;
     }),
   );
+}
+
+/**
+ * Phase 4 : remplace dans le brouillon les textes de confidentialité de la maquette
+ * (« rien n’est enregistré ») par le texte réécrit. Si le brouillon ne contenait
+ * aucune autre modification en attente, la correction est aussitôt publiée ; sinon
+ * elle reste dans le brouillon (la publication suivante l’emportera) et c’est signalé.
+ * Sans effet si les textes ont déjà été changés. Appelée au démarrage du serveur.
+ */
+export async function mettreAJourConfidentialite(
+  par = "mise à jour (phase 4)",
+): Promise<"a_jour" | "publiee" | "brouillon_seul"> {
+  const resultat = await sousVerrou(() =>
+    db().transaction(async (tx) => {
+      const [brouillon] = await tx.select().from(contenuBrouillon).where(eq(contenuBrouillon.id, ID_UNIQUE)).for("update");
+      if (!brouillon) return "a_jour" as const;
+      const actuel = schemaContenu.safeParse(brouillon.donnees);
+      if (!actuel.success) return "a_jour" as const;
+      const nouveau = remplacerConfidentialiteMaquette(actuel.data);
+      if (!nouveau) return "a_jour" as const;
+
+      const [etat] = await tx.select().from(etatPublication).where(eq(etatPublication.id, ID_UNIQUE)).for("update");
+      const [enLigne] = etat
+        ? await tx.select({ empreinte: versionContenu.empreinte }).from(versionContenu).where(eq(versionContenu.numero, etat.versionEnLigne))
+        : [];
+      const sansAttente = enLigne?.empreinte === empreinteContenu(actuel.data);
+
+      await tx
+        .update(contenuBrouillon)
+        .set({ donnees: nouveau, revision: sql`${contenuBrouillon.revision} + 1`, modifieLe: sql`CURRENT_TIMESTAMP(3)`, modifiePar: par })
+        .where(eq(contenuBrouillon.id, ID_UNIQUE));
+      if (!etat || !sansAttente) return "brouillon_seul" as const;
+
+      const aConfirmer = listeChemins(brouillon.aConfirmer);
+      const controle = controlerPublication(nouveau, aConfirmer);
+      if (!controle.publiable || !controle.contenu) return "brouillon_seul" as const;
+      const numero = await prochainNumero(tx);
+      await tx.insert(versionContenu).values({
+        numero,
+        donnees: controle.contenu,
+        aConfirmer,
+        empreinte: empreinteContenu(controle.contenu),
+        publiePar: par,
+        note: "Texte de confidentialité : les demandes sont enregistrées",
+      });
+      await definirEnLigne(tx, numero, true);
+      return "publiee" as const;
+    }),
+  );
+  if (resultat === "brouillon_seul") {
+    journal.avertissement("texte de confidentialité corrigé dans le brouillon seulement : publication à faire");
+  } else if (resultat === "publiee") journal.info("texte de confidentialité mis à jour et publié");
+  return resultat;
 }
 
 // ---------------------------------------------------------------------------

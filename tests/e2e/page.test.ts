@@ -7,7 +7,7 @@ import { afterAll, describe, expect, it } from "vitest";
 import { dateDouala, etatFetes } from "@/lib/contenu/fetes";
 import { CONTENU_INITIAL } from "@/lib/contenu/initial";
 import { composerMessage, lienWa, texteRemerciement } from "@/lib/whatsapp/messages";
-import { fermer, lancer, ouvrir, SITE } from "./outils";
+import { attendreDelaiAntiSpam, avecReference, fermer, lancer, numeroNeuf, ouvrir, remplirContact, SITE } from "./outils";
 
 afterAll(fermer);
 
@@ -186,7 +186,18 @@ describe("formulaires", () => {
     expect(await f.locator("[data-step-now]").innerText()).toBe("2");
     await f.locator("#c-nom").fill("Exemple Test");
     await f.locator("#c-residence").fill("Douala");
+    // Phase 4 : numéro WhatsApp et accord obligatoires
     await f.locator('button[type="submit"]').click();
+    const erreurs = await f.locator(".errors").innerText();
+    expect(erreurs).toContain(`Numéro WhatsApp${NBSP}: Ce champ est nécessaire pour préparer votre devis.`);
+    expect(erreurs).toContain(`J’accepte d’être contacté sur WhatsApp au sujet de ma demande.${NBSP}: Cochez cette case${NBSP}: nous vous répondons sur WhatsApp.`);
+    await f.locator("#c-whatsapp").fill("12 34");
+    await f.locator('button[type="submit"]').click();
+    expect(await f.locator('.field[data-field="whatsapp"] .field__error').innerText()).toContain("Indiquez un numéro WhatsApp valide");
+    await remplirContact(f, "c", numeroNeuf().replace(/(\d)(\d\d)(\d\d)(\d\d)(\d\d)/, "$1 $2 $3 $4 $5"));
+    await attendreDelaiAntiSpam(page);
+    await f.locator('button[type="submit"]').click();
+    await f.locator(".done").waitFor();
 
     const reponses = {
       ceremonie: "funerailles",
@@ -196,8 +207,9 @@ describe("formulaires", () => {
       nom: "Exemple Test",
       residence: "Douala",
     };
-    const attendu = composerMessage("ceremonie", reponses);
+    const attendu = avecReference(composerMessage("ceremonie", reponses), await f.locator("[data-done-message]").innerText());
     expect(await f.locator("[data-done-message]").innerText()).toBe(attendu);
+    expect(await f.locator("[data-done-erreur]").isVisible()).toBe(false);
     expect(await f.locator("[data-done-wa]").getAttribute("href")).toBe(lienWa("237693645565", attendu));
     expect(await f.locator("[data-done-text]").innerText()).toBe(texteRemerciement("ceremonie", reponses));
     expect(await f.locator("[data-done-extra]").isVisible()).toBe(true);
@@ -245,8 +257,12 @@ describe("formulaires", () => {
     expect(await g.locator("#p-nombre").inputValue()).toBe("25");
     expect(await g.locator("#p-lieu").inputValue()).toBe("Douala, Bonapriso");
     await g.locator("[data-next]").click();
+    await remplirContact(g, "p", numeroNeuf("france"));
+    await attendreDelaiAntiSpam(page);
     await g.locator('button[type="submit"]').click();
-    const attendu = composerMessage("poulets", {
+    await g.locator(".done").waitFor();
+    const message = await g.locator("[data-done-message]").innerText();
+    const attendu = avecReference(composerMessage("poulets", {
       nombre: "25",
       preparation: "sauce",
       date: "2026-10-20",
@@ -254,14 +270,15 @@ describe("formulaires", () => {
       lieu: "Douala, Bonapriso",
       nom: "Awa",
       precisions: "",
-    });
-    expect(await g.locator("[data-done-message]").innerText()).toBe(attendu);
+    }), message);
+    expect(message).toBe(attendu);
     await contexte.close();
   });
 
-  it("Pro : message et remerciement de la maquette, case des annonces", async () => {
+  it("Pro : message et remerciement de la maquette, pas de case des annonces", async () => {
     const { contexte, page } = await ouvrir({ chemin: "/#essai" });
     const f = page.locator('form[data-form="pro"]');
+    expect(await f.locator('input[name="annonces"]').count()).toBe(0);
     await f.locator("#e-nom").fill("Chez Mama");
     await f.locator('label.chip:has(input[value="restaurant"])').click();
     await f.locator("#e-ville").fill("Bafoussam");
@@ -271,7 +288,10 @@ describe("formulaires", () => {
     await f.locator("#e-contact").fill("Mama, gérante");
     await f.locator("details.more summary").click();
     await f.locator("#e-precisions").fill("Livraison le lundi");
+    await remplirContact(f, "e", numeroNeuf("+237"));
+    await attendreDelaiAntiSpam(page);
     await f.locator('button[type="submit"]').click();
+    await f.locator(".done").waitFor();
     const reponses = {
       etablissement: "Chez Mama",
       type: "restaurant",
@@ -281,7 +301,8 @@ describe("formulaires", () => {
       contact: "Mama, gérante",
       precisions: "Livraison le lundi",
     };
-    expect(await f.locator("[data-done-message]").innerText()).toBe(composerMessage("pro", reponses));
+    const message = await f.locator("[data-done-message]").innerText();
+    expect(message).toBe(avecReference(composerMessage("pro", reponses), message));
     expect(await f.locator("[data-done-text]").innerText()).toBe(texteRemerciement("pro", reponses));
     await contexte.close();
   });
@@ -317,13 +338,22 @@ describe("accessibilité (axe-core, WCAG 2.2 A et AA)", () => {
 });
 
 describe("sans JavaScript", () => {
-  it("la page se lit, le menu s’ouvre et le message de repli du formulaire s’affiche", async () => {
+  it("la page se lit, le menu s’ouvre et le formulaire choisi s’affiche, ses deux étapes à la suite", async () => {
     const { contexte, page } = await ouvrir({ js: false });
     expect(await page.evaluate(() => document.documentElement.className)).toMatch(/\bno-js\b/);
     expect(await page.locator(".hero__title").innerText()).toContain("Vous êtes loin.");
     await page.click(".menu__toggle");
     expect(await page.locator(".menu__panel").isVisible()).toBe(true);
-    expect(await page.locator(".noscript").innerText()).toContain("Le formulaire a besoin de JavaScript.");
+    await page.click(".menu__toggle");
+    // Phase 4 : sans JavaScript, le formulaire s’envoie au serveur (tests/e2e/demandes.test.ts).
+    const f = page.locator('form[data-form="ceremonie"]');
+    expect(await f.isVisible()).toBe(true);
+    expect(await f.locator('.rstep[data-step="2"]').isVisible()).toBe(true);
+    expect(await f.locator("[data-next]").isVisible()).toBe(false);
+    expect(await page.locator('form[data-form="poulets"]').isVisible()).toBe(false);
+    await page.locator('label.tab:has(input[value="poulets"])').click();
+    expect(await page.locator('form[data-form="poulets"]').isVisible()).toBe(true);
+    expect(await f.isVisible()).toBe(false);
     await contexte.close();
   });
 });

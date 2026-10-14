@@ -45,7 +45,7 @@ Les textes peuvent citer une valeur par un repère `{groupe.cle}` (ex. `{prix.pr
 
 | Table | Colonnes | Remarques |
 | --- | --- | --- |
-| `demande` | `id`, `reference` unique (`HP-AAMMJJ-XXXXXX`), `type` (ceremonie, poulets, pro), `statut`, `nom`, `whatsapp_e164`, `reponses` JSON, `message` (texte envoyé, avec la référence), `consentement_contact_le`, `consentement_version`, `annonces` bool, `source_code`, `utm_source`, `utm_medium`, `utm_campaign`, `referent_domaine`, `mode_envoi` (js, sans_js), `statut_change_le`, `cree_le`, `maj_le` | index sur `statut`, `type`, `cree_le`, `whatsapp_e164`, `source_code` |
+| `demande` | `id`, `reference` unique (`HP-AAMMJJ-XXXXXX`), `type` (ceremonie, poulets, pro), `statut`, `nom`, `whatsapp_e164`, `reponses` JSON, `message` (texte envoyé, avec la référence), `consentement_contact_le`, `consentement_version`, `annonces` bool, `source_code`, `utm_source`, `utm_medium`, `utm_campaign`, `referent_domaine`, `mode_envoi` (js, sans_js), `cle_envoi` unique (tirée par le navigateur : « Réessayer » ne crée pas de doublon), `statut_change_le`, `cree_le`, `maj_le` | index sur `statut`, `type`, `cree_le`, `maj_le`, `whatsapp_e164`, `source_code` ; pour le formulaire Pro, `nom` = « contact (établissement) » |
 | `demande_evenement` | `id`, `demande_id`, `type` (creation, statut, note, contact_whatsapp, correction), `de_statut`, `vers_statut`, `texte`, `utilisateur_id`, `cree_le` | historique des statuts et notes internes |
 
 Statuts : `nouvelle`, `contactee`, `devis_envoye`, `acompte_recu`, `en_preparation`, `livree`, `perdue`.
@@ -55,6 +55,8 @@ Contenu de `reponses` selon le type (validé par Zod) :
 - cérémonie : `ceremonie`, `date` ou `dateInconnue`, `lieu`, `invites`, `residence`, `precisions` ;
 - poulets : `nombre`, `preparation`, `date`, `reception`, `lieu`, `precisions` ;
 - pro : `etablissement`, `typeEtablissement`, `ville`, `volume`, `preparation`, `contact`, `precisions`.
+
+*Phase 4* : tables créées par `drizzle/0002_demandes.sql` (avec `limite_debit` et le lien `email_sortant.demande_id`) ; schéma Zod des envois dans `lib/demandes/schema.ts` ; `reponses` ne contient ni le nom, ni le numéro, ni les choix (colonnes à part). Consentement : `consentement_version` = `2026-10-14`, texte dans `TEXTE_CONSENTEMENT`.
 
 Purge : suppression définitive (demande, événements, e-mails liés) quand `maj_le` dépasse la durée de conservation. Suppression à la demande d’un client : par numéro WhatsApp normalisé, toutes ses demandes.
 
@@ -68,7 +70,7 @@ Purge : suppression définitive (demande, événements, e-mails liés) quand `ma
 
 | Table | Colonnes |
 | --- | --- |
-| `email_sortant` | `id`, `type` (nouvelle_demande, alerte_securite, invitation, test), `destinataire`, `sujet`, `texte`, `html`, `demande_id` (suppression en cascade), `statut` (en_attente, envoye, echec), `tentatives`, `prochaine_tentative_le`, `derniere_erreur` (code SMTP, sans donnée personnelle), `cree_le`, `envoye_le` |
+| `email_sortant` | `id`, `type` (nouvelle_demande, alerte_securite, invitation, test), `destinataire`, `sujet`, `texte`, `html`, `demande_id` (suppression en cascade, phase 4), `statut` (en_attente, envoye, echec), `tentatives`, `prochaine_tentative_le`, `derniere_erreur` (code SMTP, sans donnée personnelle), `cree_le`, `envoye_le` |
 
 ## 6. Comptes et sécurité (Better Auth, noms de tables en français)
 

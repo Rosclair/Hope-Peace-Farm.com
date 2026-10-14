@@ -22,6 +22,8 @@
 | R16 | ~~**Cache HTML d’un an**~~ (*réglé en phase 3 : `s-maxage=30, stale-while-revalidate=270`, profil de cache du contenu*) : Next envoie `Cache-Control: s-maxage=31536000` sur la page statique. Un cache ou CDN devant l’application qui respecte `s-maxage` garderait l’ancienne page après « Publier ». | Moyenne | Le vérificateur relève les indices de cache intermédiaire sur Hostinger ; en-tête du HTML fixé en phase 3 (architecture §4). |
 | R17 | **En-tête `Cross-Origin-Opener-Policy: same-origin`** (ajouté en phase 1) : avec lui, Lighthouse 13.5 / Chrome 155 perd le début de la navigation (`NO_NAVSTART`) presque à chaque passage ; la page n’est plus mesurable (trouvé en phase 2). | Moyenne | Retiré (il n’est pas dans la liste du brief ; les liens sortants ont déjà `rel="noopener noreferrer"`). À réessayer en phase 7 sur PageSpeed Insights. |
 
+| R18 | **Adresse du visiteur derrière le proxy Hostinger** (phase 4) : la limite de 10 envois par heure lit la dernière adresse de `x-forwarded-for` (Next ne pose cet en-tête que s’il est absent, vérifié dans son code). Si le proxy d’Hostinger ne l’ajoute pas, tous les visiteurs partageraient l’adresse du proxy et la limite bloquerait le site entier au-delà de 10 demandes par heure. | Moyenne | Contrôle à faire en ligne (guide de déploiement §6) ; réglages `IP_ENTETE` et `IP_PROXYS` (0 désactive la limite par adresse). Un visiteur bloqué garde toujours son message WhatsApp. |
+
 ## 2. Données qui me manquent
 
 À fournir maintenant (phase 1) :

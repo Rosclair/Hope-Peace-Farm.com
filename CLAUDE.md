@@ -50,7 +50,7 @@ Architecture : [docs/architecture.md](docs/architecture.md) · données : [docs/
 ## Commandes
 
 - `npm run dev` · `npm run build` (puis copie des fichiers statiques dans la sortie standalone) · `npm run standalone` : serveur standalone, celui que Hostinger exécute.
-- `npm test` (Vitest) · `npm run typecheck` · `npm run test:e2e` (Playwright, contre `HPF_SITE_URL`, défaut `http://127.0.0.1:3100`).
+- `npm test` (Vitest) · `npm run typecheck` · `npm run test:e2e` (Playwright, contre `HPF_SITE_URL`, défaut `http://127.0.0.1:3100` ; demande le Mailpit dédié).
 - `npm run site:parite -- --site=<url>` : parité maquette / site (DOM, géométrie, textes, captures), rapport dans `reference/parite/` · `npm run site:demarrage` : délai de démarrage du moteur en conditions mobiles.
 - `npm run db:generer` : nouvelle migration depuis `lib/db/schema/` · `npm run db:migrer` : l’applique (aussi faite au démarrage du serveur) · `npm run db:initialiser` : contenu de la maquette si la base est vide (aussi au démarrage).
 - `npm run contenu -- <etat|historique|controler|publier|restaurer n|exporter f|importer f>` : contenu de la page en attendant le back-office.

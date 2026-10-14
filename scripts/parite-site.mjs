@@ -18,6 +18,7 @@
 //         [--sortie=reference/parite]
 // Le site doit tourner (npm run build puis npm run standalone, ou un déploiement).
 
+import { randomInt } from "node:crypto";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -307,6 +308,8 @@ async function ouvrir(url, format, mode, estMaquette, classesAjoutees = []) {
     locale: "fr-CM",
     timezoneId: "Africa/Douala",
     colorScheme: "light",
+    // Site : un visiteur distinct par contexte (limite de 10 envois par heure et par adresse).
+    ...(estMaquette ? {} : { extraHTTPHeaders: { "x-forwarded-for": `198.18.${randomInt(256)}.${randomInt(256)}` } }),
   });
   const page = await contexte.newPage();
   const erreurs = [];
@@ -472,7 +475,15 @@ try {
                 const f = p.locator('form[data-form="ceremonie"]');
                 await f.locator('input[name="nom"]').fill("Exemple Test");
                 await f.locator('input[name="residence"]').fill("Douala");
+                // Phase 4, site seulement : numéro WhatsApp et accord, délai de l’anti-spam,
+                // puis attente de la réponse du serveur.
+                if (await f.locator('input[name="whatsapp"]').count()) {
+                  await f.locator('input[name="whatsapp"]').fill(`6${String(randomInt(1e8)).padStart(8, "0")}`);
+                  await f.locator('input[name="consentement"]').check();
+                  await p.waitForTimeout(3200);
+                }
                 await f.locator('button[type="submit"]').click();
+                await f.locator(".done").waitFor();
                 await p.waitForTimeout(300);
                 await f.locator(".done").scrollIntoViewIfNeeded();
               },
@@ -497,7 +508,10 @@ try {
             maquette: await m.page.locator('form[data-form="ceremonie"] [data-done-wa]').getAttribute("href"),
             site: await s.page.locator('form[data-form="ceremonie"] [data-done-wa]').getAttribute("href"),
           };
-          info.messageCeremonie.identique = info.messageCeremonie.maquette === info.messageCeremonie.site;
+          // Phase 4 : le site ajoute « (Réf. HP-…) » au message de la maquette (brief §3).
+          const sansReference = (lien) => lien?.replace(/%20\(R%C3%A9f\.%20HP-\d{6}-[2-9A-HJ-NP-Z]{6}\)$/, "");
+          info.messageCeremonie.reference = /R%C3%A9f\.%20HP-/.test(info.messageCeremonie.site ?? "");
+          info.messageCeremonie.identique = info.messageCeremonie.maquette === sansReference(info.messageCeremonie.site);
         }
         info.captures = {
           total: captures.length,

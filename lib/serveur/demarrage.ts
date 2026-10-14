@@ -5,7 +5,7 @@
 
 import "server-only";
 import { configTaches, dossierTeleversement } from "@/lib/config";
-import { initialiserSiVide } from "@/lib/contenu/depot";
+import { initialiserSiVide, mettreAJourConfidentialite } from "@/lib/contenu/depot";
 import { db } from "@/lib/db/client";
 import { appliquerMigrations } from "@/lib/db/migrer";
 import { demarrageServeur } from "@/lib/db/schema";
@@ -28,6 +28,8 @@ export async function demarrerServeur(): Promise<void> {
     journal.info("migrations", { etat });
     // Contenu de la maquette, publié en version n° 1, si la base n’a encore aucun contenu.
     journal.info("contenu", { etat: await initialiserSiVide() });
+    // Phase 4 : le texte de la maquette disait que rien n’était enregistré.
+    journal.info("confidentialité", { etat: await mettreAJourConfidentialite() });
     await db().insert(demarrageServeur).values({ build, versionNode: process.version });
   } catch (e) {
     journal.erreur("base indisponible au démarrage", { erreur: codeErreur(e) });

@@ -1,0 +1,59 @@
+/* Ajouts de style du site (la maquette, app/maquette.css, est générée et ne se
+   modifie pas). Chargé après elle : à spécificité égale, ces règles l’emportent. */
+
+/* ---------- Phase 4 : formulaires enregistrés ---------- */
+
+/* Champ piège : invisible et hors du parcours au clavier ; seul un robot le remplit. */
+.piege {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.field--accord .check { margin-bottom: 0; }
+
+/* Envoi en cours */
+.rform button[type="submit"][aria-busy="true"] { opacity: .7; cursor: progress; }
+
+/* Repli : la demande n’a pas pu être enregistrée, le message WhatsApp reste prêt. */
+.done__alerte {
+  margin-top: var(--s4);
+  padding: var(--s4);
+  border: 2px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  background: var(--mist);
+  font-size: var(--fs-small);
+}
+.done__alerte .btn { margin-top: var(--s3); }
+
+/* Sans JavaScript, les formulaires s’envoient au serveur (écart voulu avec la
+   maquette, qui les masquait) : les deux étapes l’une sous l’autre, sans boutons
+   « Continuer » ni « Retour » ; les onglets choisissent le formulaire grâce à :has(),
+   sinon les trois formulaires sont empilés. */
+.no-js .tabs,
+.no-js .request__privacy { display: block; }
+.no-js .request__card .rform { display: block; }
+.no-js .request__card .rform + .rform { margin-top: var(--s7); padding-top: var(--s6); border-top: 1px solid var(--line); }
+.no-js .rstep { display: block; }
+.no-js .rstep + .rstep { margin-top: var(--s6); }
+.no-js .progress,
+.no-js [data-next],
+.no-js [data-prev] { display: none; }
+@supports selector(:has(*)) {
+  .no-js .request__card .rform { display: none; }
+  .no-js .request__card .rform + .rform { margin-top: 0; padding-top: 0; border-top: 0; }
+  .no-js .request__card:has(input[name="type-demande"][value="ceremonie"]:checked) .rform[data-form="ceremonie"],
+  .no-js .request__card:has(input[name="type-demande"][value="poulets"]:checked) .rform[data-form="poulets"],
+  .no-js .request__card:has(input[name="type-demande"][value="pro"]:checked) .rform[data-form="pro"] { display: block; }
+}
+@supports not selector(:has(*)) {
+  .no-js .tabs { display: none; }
+}
+
+/* Page de confirmation (/demande/confirmation) */
+.confirmation { min-height: 100vh; min-height: 100dvh; }
+.confirmation__liste { margin: var(--s3) 0 var(--s4); padding-left: var(--s5); }
+.confirmation__actions { margin-top: var(--s4); }

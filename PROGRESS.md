@@ -1,6 +1,6 @@
 # Suivi du projet
 
-**État : phase 3 terminée et vérifiée en local (12/10/2026) ; en attente du « GO phase 4 ». Code poussé sur GitHub (`origin` : Rosclair/Hope-Peace-Farm.com) ; déploiement par vous ([guide](docs/deploiement-hostinger.md)). Questions ouvertes : 2 et 3 de [docs/risques-et-questions.md §5](docs/risques-et-questions.md#5-questions-3).**
+**État : phase 4 terminée et vérifiée en local (14/10/2026) ; en attente du « GO phase 5 ». Texte de confidentialité réécrit, en ligne, **à valider** ([projet](docs/confidentialite-projet.md)). Code poussé sur GitHub ; déploiement par vous ([guide](docs/deploiement-hostinger.md), §4 et §6 complétés). Questions ouvertes : 2 et 3 de [docs/risques-et-questions.md §5](docs/risques-et-questions.md#5-questions-3).**
 
 | Phase | Contenu | État |
 | --- | --- | --- |
@@ -8,11 +8,69 @@
 | 1 | Squelette déployé sur Hostinger | squelette prêt et vérifié en local (11/10/2026) ; déploiement fait par vous, en attente |
 | 2 | Portage fidèle de la page, tests de parité | terminée (12/10/2026), vérifiée en local |
 | 3 | Contenus en base, publication, retour arrière | terminée (12/10/2026), vérifiée en local |
-| 4 | Formulaires, demandes, e-mail, WhatsApp | — |
+| 4 | Formulaires, demandes, e-mail, WhatsApp | terminée (14/10/2026), vérifiée en local |
 | 5 | Back-office : connexion, tableau de bord, demandes, contenus, publication | — |
 | 6 | Back-office : listes, photos, campagnes, statistiques, journal | — |
 | 7 | SEO, performance, accessibilité, sécurité, recette | — |
 | 8 | Mise en production, README, guide du propriétaire | — |
+
+## Phase 4 — fait (formulaires, demandes, e-mail, WhatsApp ; vérifié en local)
+
+- **Trois formulaires** : à la dernière étape, « Numéro WhatsApp » (obligatoire), case obligatoire « J’accepte d’être contacté sur WhatsApp au sujet de ma demande. », case des annonces inchangée (facultative, décochée ; absente du formulaire Pro, comme dans la maquette), champ piège invisible. Normalisation du numéro (`lib/demandes/numero.ts`, la même au navigateur et au serveur) : espaces, points, tirets, parenthèses retirés ; `00` → `+` ; 9 chiffres commençant par 6 ou 2 → `+237` ; `+` suivi de 8 à 15 chiffres (diaspora).
+- **Envoi** (`POST /api/demandes`) : tout revalidé par Zod (`lib/demandes/schema.ts`) ; référence `HP-AAMMJJ-XXXXXX` (date de Douala, 6 caractères sans 0/O/1/I) ; demande, historique (« création ») et e-mail au propriétaire enregistrés dans une même transaction ; e-mail envoyé juste après la réponse (`after()`), sinon retenté par la tâche « emails ». Vue de succès de la maquette, message de la maquette suivi de « (Réf. …) » ; « Ouvrir WhatsApp et envoyer » reste un lien : WhatsApp ne s’ouvre jamais tout seul.
+- **Repli** : sans réseau, erreur ou délai de 20 s dépassé, le navigateur compose le message lui-même (sans référence), garde la saisie et affiche « Réessayer » ; la même clé d’envoi évite un doublon si la première tentative était arrivée.
+- **Sans JavaScript** : les formulaires s’envoient (deux étapes à la suite, onglets en CSS `:has()`, sinon formulaires empilés) ; redirection vers `/demande/confirmation` (jeton signé 30 min, aucune donnée personnelle dans l’adresse, `noindex`, jamais en cache) avec le message et le bouton WhatsApp ; en cas d’erreur, la page dit quels champs corriger.
+- **Anti-spam** sans service tiers : champ piège et délai minimal de 3 s (succès factice, rien d’enregistré) ; origine contrôlée ; limites en base de 10 envois par heure et par adresse, 3 demandes par jour et par numéro, sur des empreintes HMAC à sel quotidien (jamais l’adresse ni le numéro en clair).
+- **Source de la visite** gardée avec la demande : `?src=`, `utm_*`, domaine d’origine (sans JS : lus dans l’adresse de la page).
+- **Conservation** : tâche quotidienne `purge-demandes` (12 mois après la dernière mise à jour, réglable par `DEMANDES_CONSERVATION_MOIS`, historique et e-mails compris ; compteurs anti-spam de plus de 2 jours).
+- **Confidentialité** : texte réécrit ([projet à valider](docs/confidentialite-projet.md)). Sur une installation existante, il est **publié automatiquement au démarrage** si le brouillon n’a pas d’autre modification en attente (sinon corrigé dans le brouillon seulement, avec un avertissement au journal). Nouveau contrôle bloquant : un texte « rien n’est enregistré » ne peut plus être publié.
+- **Base** : migration `drizzle/0002_demandes.sql` (`demande`, `demande_evenement`, `limite_debit`, lien `email_sortant.demande_id` avec suppression en cascade).
+- **Configuration** (`.env.example`) : `DEMANDES_SECRET` (vide : dérivé de `CRON_SECRET`, un déploiement sans la nouvelle variable continue de fonctionner), `IP_ENTETE`, `IP_PROXYS`, `DEMANDES_CONSERVATION_MOIS`.
+- **Documents** : [architecture](docs/architecture.md) §6 et §8, [modèle de données](docs/modele-donnees.md) §3 et §5, [guide de déploiement](docs/deploiement-hostinger.md) §4 et §6, [risques](docs/risques-et-questions.md) R18, [confidentialité](docs/confidentialite-projet.md), CLAUDE.md.
+
+## Phase 4 — décisions
+
+- **Limite par adresse à 10 par heure** (l’architecture proposait 5) : plusieurs clients peuvent partager une adresse (réseau mobile, cybercafé). Un visiteur bloqué n’est jamais perdu : son message WhatsApp reste prêt.
+- **Adresse du visiteur** : dernière adresse de `x-forwarded-for` (celle qu’ajoute le proxy) ; les précédentes peuvent être forgées. Vérifié dans le code de Next : il ne pose cet en-tête que s’il manque. À confirmer en ligne (R18) ; `IP_PROXYS=0` désactive la limite par adresse si l’en-tête n’est pas fiable.
+- **Ajout prudent à la normalisation** : « 237 » suivi de 9 chiffres (indicatif tapé sans « + ») est lu comme `+237…` ; un numéro `+237` doit avoir 9 chiffres commençant par 6 ou 2.
+- **Sans SMTP configuré**, la demande est enregistrée quand même (aucun e-mail mis en file) : on ne perd jamais une demande pour un réglage manquant.
+- **Robot détecté** (piège, envoi trop rapide) : réponse de succès ordinaire, sans référence ; rien n’est enregistré.
+- **Texte de confidentialité publié sans attendre votre validation** : l’ancien devenait faux dès le premier enregistrement ; le nouveau est vrai et prudent. À valider ou modifier.
+- **Mesure maison** (vues, clics, entonnoir, `sendBeacon`) : prévue avec les statistiques en phase 6, comme dans le découpage du brief §7. Seule la source de la visite est déjà gardée avec chaque demande.
+- **Tests de bout en bout** : chaque contexte de navigateur se présente avec une adresse distincte (`x-forwarded-for`, plage réservée aux essais) ; aucun contournement de la limite dans le code.
+
+## Phase 4 — écarts avec la maquette (justifiés)
+
+| Écart | Raison |
+| --- | --- |
+| Champs « Numéro WhatsApp » et accord, champ piège (invisible), `action="/api/demandes"` sur les formulaires | brief §3 |
+| Bloc `<noscript>` « Le formulaire a besoin de JavaScript » retiré ; formulaires visibles et utilisables sans JavaScript | brief §3 (amélioration progressive), R7 |
+| Phrase sous les formulaires et bloc « Confidentialité » réécrits | l’ancien texte (« rien n’est enregistré ») serait faux ; brief §3 |
+| Message WhatsApp suivi de « (Réf. HP-…) » | brief §3 ; sans la référence, identique à la maquette (contrôle de parité) |
+| Alerte « Votre demande n’a pas pu nous parvenir… » et bouton « Réessayer » dans la vue de succès (masqués sauf échec) | brief §3 |
+| Sections au-dessus du formulaire : 3 pixels d’écart au plus sur les captures | la page fait 22 px de plus (nouveaux champs) : la barre de lecture de l’en-tête avance un peu moins vite |
+
+## Phase 4 — contrôles exécutés
+
+| Contrôle | Résultat |
+| --- | --- |
+| `npm run typecheck` | 0 erreur |
+| `npm test` | **122 tests** réussis (8 fichiers ; 49 nouveaux) : normalisation (13 numéros acceptés, 12 refusés), référence (forme, alphabet, date de Douala à minuit, 200 tirages distincts), validation des 3 formulaires (15 cas refusés avec le bon champ), **message composé côté serveur identique à celui du navigateur**, « (Réf. …) », lien de confirmation (échéance, falsification, autre secret), empreintes (stables dans la journée, changent le lendemain, jamais la valeur), adresse derrière 0 à 5 proxys, origine, e-mail (contenu, HTML échappé, aucune ressource distante), confidentialité (contenu initial publiable, ancien texte bloqué puis remplacé) |
+| `npm run test:base` (`hpf_test`) | **17 tests** réussis (9 nouveaux) : transaction demande + événement + e-mail, **clé d’envoi : pas de doublon, même avec deux envois simultanés**, limites (3 par numéro, 10 par adresse, aucune valeur en clair), purge à 13 mois avec historique et e-mails en cascade, mise à jour du texte de confidentialité (publiée une seule fois ; brouillon seulement s’il y a d’autres modifications) |
+| `npm run test:e2e` (serveur standalone sur `hpf_test`, Mailpit dédié), 3 passages | **32 tests** réussis à chaque passage, dont 8 nouveaux : avec JS, demande en base avec sa source et **e-mail reçu** (« Nouvelle demande Poulets — HP-… ») ; **sans réseau** : message composé par le navigateur, saisie gardée, puis « Réessayer » enregistre ; **réponse perdue** : « Réessayer » retrouve la même demande, sans doublon ; piège : rien d’enregistré ; autre origine : 403 ; **sans JS** : Cérémonie, Poulets (onglet choisi en CSS, livraison) et Pro enregistrés, page de confirmation avec référence et bouton WhatsApp, numéro absent de l’adresse ; champs manquants nommés. Les 3 tests de formulaires existants vérifient en plus le numéro, l’accord et la référence. **axe-core : 0 violation** sur la page, la vue de repli et la page de confirmation |
+| Essais manuels (curl, Node) | JSON → 201 et `no-store` ; formulaire classique → 303 ; origine étrangère → 403 ; e-mails partis juste après la réponse (statut « envoyé », 1 tentative) |
+| `npm run site:parite` (4 formats × 3 modes) | écarts DOM **seulement dans la section « Votre demande »** (91 à 95 lignes : champs ajoutés, `<noscript>` retiré) ; textes : **seule la phrase de confidentialité** diffère ; **message de cérémonie identique à la maquette, référence à part** ; 0 erreur console. Captures : écarts dans la section du formulaire et en dessous (page plus haute), 3 pixels au plus au-dessus (barre de lecture) ; accueil épinglé à 66 et 97 % : anticrénelage déjà expliqué en phase 2 |
+| Maquette | empreinte SHA-256 inchangée |
+
+## Phase 4 — mesures (local)
+
+Lighthouse 13.5, serveur standalone (`reference/mesures/site-phase4-local.json`) : mobile **92** (92, 92, 91), ordinateur 100 ; accessibilité et bonnes pratiques 100 ; SEO 66 (`noindex` volontaire) ; FCP 1,36 s, LCP 2,95–3,06 s, TBT 172–186 ms, CLS 0. **JavaScript client** : 6 fichiers, 471 Ko décompressés, **120,3 Ko en brotli** (+0,8 Ko : envoi, repli, normalisation du numéro). CSS : toujours 2 fichiers (`app/site.css` fusionné avec celui de la maquette).
+
+## Phase 4 — reste à faire
+
+- **Vous** : valider ou corriger le [texte de confidentialité](docs/confidentialite-projet.md) (§5 : durée, hébergement hors du Cameroun, responsable du traitement, livreur).
+- Une fois en ligne : ajouter `DEMANDES_SECRET`, vérifier l’en-tête IP (guide §6, R18), envoyer une vraie demande et vérifier la réception de l’e-mail.
+- Phase 5 : liste et fiche des demandes, statuts, notes, export CSV, suppression des données d’un client.
 
 ## Phase 3 — fait (contenus en base, publication, retour arrière ; vérifié en local)
 

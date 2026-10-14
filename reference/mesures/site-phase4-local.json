@@ -1,0 +1,201 @@
+{
+  "url": "http://127.0.0.1:3100",
+  "date": "2026-10-14T13:24:28.689Z",
+  "poids": {
+    "html": {
+      "encodage": "gzip",
+      "transfere": null,
+      "decompresse": 321540,
+      "brotli": 45691
+    },
+    "jsFichiers": [
+      {
+        "src": "/_next/static/chunks/1oh31c_q_ahuk.js",
+        "encodage": "gzip",
+        "transfere": null,
+        "decompresse": 186444,
+        "brotli": 41953
+      },
+      {
+        "src": "/_next/static/chunks/1wcpbh66blfe-.js",
+        "encodage": "gzip",
+        "transfere": null,
+        "decompresse": 229850,
+        "brotli": 61474
+      },
+      {
+        "src": "/_next/static/chunks/turbopack-2c3mg3r-05n1w.js",
+        "encodage": "gzip",
+        "transfere": null,
+        "decompresse": 11255,
+        "brotli": 3923
+      },
+      {
+        "src": "/_next/static/chunks/1tq6ppe__m8m-.js",
+        "encodage": "gzip",
+        "transfere": null,
+        "decompresse": 14090,
+        "brotli": 3224
+      },
+      {
+        "src": "/_next/static/chunks/447-1u2cspkf2.js",
+        "encodage": "gzip",
+        "transfere": null,
+        "decompresse": 12483,
+        "brotli": 4494
+      },
+      {
+        "src": "/_next/static/chunks/3cfn99dbrcvvp.js",
+        "encodage": "gzip",
+        "transfere": null,
+        "decompresse": 16898,
+        "brotli": 5213
+      }
+    ],
+    "jsTotalDecompresse": 471020,
+    "jsTotalTransfere": null,
+    "jsTotalBrotli": 120281,
+    "jsEnLigneDecompresse": 204601,
+    "jsNomoduleIgnores": [
+      "/_next/static/chunks/0cz1d0mv5g_q7.js"
+    ]
+  },
+  "lighthouse": {
+    "mobile": {
+      "medianePerformance": 92,
+      "passages": [
+        {
+          "performance": 92,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 66,
+          "fcpMs": 1363,
+          "lcpMs": 2954,
+          "tbtMs": 172,
+          "cls": 0,
+          "mainThreadMs": {
+            "other": 1225,
+            "styleLayout": 738,
+            "scriptEvaluation": 554,
+            "paintCompositeRender": 233,
+            "scriptParseCompile": 112,
+            "parseHTML": 66
+          },
+          "echecs": [
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        },
+        {
+          "performance": 92,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 66,
+          "fcpMs": 1361,
+          "lcpMs": 2960,
+          "tbtMs": 179,
+          "cls": 0,
+          "mainThreadMs": {
+            "other": 1292,
+            "styleLayout": 772,
+            "scriptEvaluation": 573,
+            "paintCompositeRender": 252,
+            "scriptParseCompile": 112,
+            "parseHTML": 60
+          },
+          "echecs": [
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        },
+        {
+          "performance": 91,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 66,
+          "fcpMs": 1410,
+          "lcpMs": 3057,
+          "tbtMs": 186,
+          "cls": 0,
+          "mainThreadMs": {
+            "other": 1010,
+            "styleLayout": 825,
+            "scriptEvaluation": 537,
+            "paintCompositeRender": 206,
+            "scriptParseCompile": 113,
+            "parseHTML": 60
+          },
+          "echecs": [
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        }
+      ]
+    },
+    "ordinateur": {
+      "medianePerformance": 100,
+      "passages": [
+        {
+          "performance": 100,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 66,
+          "fcpMs": 337,
+          "lcpMs": 612,
+          "tbtMs": 6,
+          "cls": 0,
+          "mainThreadMs": {
+            "other": 329,
+            "styleLayout": 229,
+            "scriptEvaluation": 144,
+            "paintCompositeRender": 68,
+            "scriptParseCompile": 28,
+            "parseHTML": 16
+          },
+          "echecs": [
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        },
+        {
+          "performance": 100,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 66,
+          "fcpMs": 334,
+          "lcpMs": 608,
+          "tbtMs": 5,
+          "cls": 0,
+          "mainThreadMs": {
+            "other": 292,
+            "styleLayout": 214,
+            "scriptEvaluation": 134,
+            "paintCompositeRender": 56,
+            "scriptParseCompile": 28,
+            "parseHTML": 16
+          },
+          "echecs": [
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        },
+        {
+          "performance": 100,
+          "accessibilite": 100,
+          "bonnesPratiques": 100,
+          "seo": 66,
+          "fcpMs": 392,
+          "lcpMs": 721,
+          "tbtMs": 4,
+          "cls": 0.0006,
+          "mainThreadMs": {
+            "other": 324,
+            "styleLayout": 228,
+            "scriptEvaluation": 128,
+            "paintCompositeRender": 59,
+            "scriptParseCompile": 32,
+            "parseHTML": 31
+          },
+          "echecs": [
+            "is-crawlable : L'indexation de la page est bloquée"
+          ]
+        }
+      ]
+    }
+  }
+}

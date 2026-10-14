@@ -2,11 +2,13 @@
 // formulaires en deux étapes, rendus côté serveur. Le moteur (lib/moteur/demande.ts)
 // y attache onglets, étapes, validation, brouillon, compteur et vue de succès, comme
 // la maquette. Libellés, aides et messages restent dans le code (mesure et tests).
-// Phase 4 : numéro WhatsApp, consentement, envoi au serveur et envoi sans JavaScript.
+// Phase 4 : numéro WhatsApp, consentement et champ piège à la dernière étape ; les
+// formulaires s’envoient à /api/demandes, par le moteur ou, sans JavaScript, tels quels.
 
 import type { ReactNode } from "react";
 import { lienTelephone, telephoneAffiche } from "@/lib/contenu/format";
 import type { ContenuPage } from "@/lib/contenu/types";
+import { TEXTE_CONSENTEMENT, type TypeDemande } from "@/lib/demandes/schema";
 import { MESSAGE_COMMANDE, lienWa } from "@/lib/whatsapp/messages";
 import { Icone } from "./icone";
 import { rendu } from "./riche";
@@ -53,6 +55,54 @@ function Annonces() {
       <input type="checkbox" name="annonces" value="1" />
       <span>J’accepte de recevoir les annonces de Hope &amp; Peace Farm (facultatif&nbsp;; deux messages par mois au plus).</span>
     </label>
+  );
+}
+
+/**
+ * Fin de la dernière étape, commune aux trois formulaires : numéro WhatsApp, accord
+ * obligatoire, annonces (facultatif, décoché ; absent du formulaire Pro, comme dans la
+ * maquette), champ piège et type de formulaire.
+ */
+function Contact({ prefixe, type }: { prefixe: string; type: TypeDemande }) {
+  return (
+    <>
+      <div className="field" data-field="whatsapp">
+        <label className="field__label" htmlFor={`${prefixe}-whatsapp`}>
+          Numéro WhatsApp
+        </label>
+        <p className="field__hint" id={`${prefixe}-whatsapp-aide`}>
+          Hors du Cameroun, avec l’indicatif (par exemple +33&nbsp;6&nbsp;12&nbsp;34&nbsp;56&nbsp;78)
+        </p>
+        <input
+          className="input"
+          id={`${prefixe}-whatsapp`}
+          name="whatsapp"
+          type="tel"
+          inputMode="tel"
+          maxLength={25}
+          autoComplete="tel"
+          enterKeyHint="next"
+          aria-describedby={`${prefixe}-whatsapp-aide`}
+          required
+        />
+        <Erreur />
+      </div>
+      <div className="field field--accord" data-field="consentement">
+        <label className="check">
+          <input type="checkbox" name="consentement" value="1" required />
+          <span>{TEXTE_CONSENTEMENT}</span>
+        </label>
+        <Erreur />
+      </div>
+      {type !== "pro" && <Annonces />}
+      <div className="piege" aria-hidden="true">
+        <label>
+          Ne pas remplir ce champ
+          <input type="text" name="site_web" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
+      <input type="hidden" name="formulaire" value={type} />
+    </>
   );
 }
 
@@ -107,6 +157,15 @@ function Succes({ telephone, condoleances = false }: { telephone: string; condol
         navigateur de Facebook ou d’Instagram, ouvrez le menu puis «&nbsp;Ouvrir dans le navigateur&nbsp;».
       </p>
       <textarea className="input input--area done__fallback" readOnly hidden aria-label="Message à copier"></textarea>
+      <div className="done__alerte" role="status" data-done-erreur="" hidden>
+        <p>
+          Votre demande n’a pas pu nous parvenir par le site (pas de réseau, ou serveur indisponible). Votre message est prêt
+          quand même&nbsp;: envoyez-le sur WhatsApp, ou réessayez.
+        </p>
+        <button className="btn btn--secondary" type="button" data-retry="">
+          Réessayer
+        </button>
+      </div>
       <button className="btn btn--text" type="button" data-edit="">
         Modifier ma demande
       </button>
@@ -127,7 +186,7 @@ function Intro({ c, type }: { c: ContenuPage; type: keyof ContenuPage["demande"]
 
 function FormulaireCeremonie({ c, telephone }: { c: ContenuPage; telephone: string }) {
   return (
-    <form className="rform is-current" data-form="ceremonie" method="post" noValidate>
+    <form className="rform is-current" data-form="ceremonie" method="post" action="/api/demandes" noValidate>
       <Intro c={c} type="ceremonie" />
       <Progression />
 
@@ -245,7 +304,7 @@ function FormulaireCeremonie({ c, telephone }: { c: ContenuPage; telephone: stri
             aria-describedby="c-precisions-aide"
           ></textarea>
         </details>
-        <Annonces />
+        <Contact prefixe="c" type="ceremonie" />
         <Navigation envoyer="Demander mon devis cérémonie" />
       </div>
 
@@ -256,7 +315,7 @@ function FormulaireCeremonie({ c, telephone }: { c: ContenuPage; telephone: stri
 
 function FormulairePoulets({ c, telephone }: { c: ContenuPage; telephone: string }) {
   return (
-    <form className="rform" data-form="poulets" method="post" noValidate>
+    <form className="rform" data-form="poulets" method="post" action="/api/demandes" noValidate>
       <Intro c={c} type="poulets" />
       <Progression />
 
@@ -364,7 +423,7 @@ function FormulairePoulets({ c, telephone }: { c: ContenuPage; telephone: string
           </label>
           <textarea className="input input--area" id="p-precisions" name="precisions" maxLength={300} rows={3}></textarea>
         </details>
-        <Annonces />
+        <Contact prefixe="p" type="poulets" />
         <Navigation envoyer="Envoyer ma demande sur WhatsApp" />
       </div>
 
@@ -375,7 +434,7 @@ function FormulairePoulets({ c, telephone }: { c: ContenuPage; telephone: string
 
 function FormulairePro({ c, telephone }: { c: ContenuPage; telephone: string }) {
   return (
-    <form className="rform" data-form="pro" method="post" noValidate>
+    <form className="rform" data-form="pro" method="post" action="/api/demandes" noValidate>
       <Intro c={c} type="pro" />
       <Progression />
 
@@ -495,6 +554,7 @@ function FormulairePro({ c, telephone }: { c: ContenuPage; telephone: string }) 
             aria-describedby="e-precisions-aide"
           ></textarea>
         </details>
+        <Contact prefixe="e" type="pro" />
         <Navigation envoyer="Demander une livraison d’essai" />
       </div>
 
@@ -545,13 +605,6 @@ export function Demande({ c }: { c: ContenuPage }) {
         </header>
 
         <div className="request__card" data-reveal="">
-          <noscript>
-            <p className="noscript">
-              Le formulaire a besoin de JavaScript. Écrivez-nous directement sur WhatsApp au <strong>{telephone}</strong>&nbsp;: indiquez
-              la quantité, la préparation, la date et le lieu.
-            </p>
-          </noscript>
-
           <fieldset className="tabs">
             <legend className="tabs__legend">Votre demande concerne</legend>
             <div className="tabs__row">

@@ -122,10 +122,18 @@ Formulaires rendus côté serveur (`components/site/demande.tsx`), comportements
 ### Anti-spam sans service tiers
 
 - champ piège (rempli ⇒ réponse de succès factice, rien n’est enregistré) ;
-- délai minimal entre l’ouverture du formulaire et l’envoi (3 s, mesuré par le script ; non applicable sans JS, la page étant en cache) ;
-- limites de débit en base : par empreinte d’IP (HMAC-SHA-256 avec un sel qui tourne chaque jour, jamais l’IP en clair) et par numéro normalisé (empreinte aussi), par exemple 5 demandes/heure/IP et 3/jour/numéro ;
-- contrôle de l’origine : `Origin` (ou `Sec-Fetch-Site`) doit être le domaine du site.
-- **(à vérifier en phase 1 : quel en-tête porte l’IP réelle du visiteur derrière le proxy Hostinger.)**
+- délai minimal entre la préparation du formulaire et l’envoi (3 s, mesuré par le script ; non applicable sans JS, la page étant en cache) ; trop rapide ⇒ même réponse factice que le piège ;
+- limites de débit en base (`limite_debit`) : **10 envois par heure et par adresse IP**, **3 demandes par jour et par numéro** ; clés = empreintes HMAC-SHA-256 (sel du jour dérivé de `DEMANDES_SECRET`, jamais stocké), jamais l’IP ni le numéro en clair ; dépassement ⇒ 429, le navigateur affiche quand même le message WhatsApp ;
+- contrôle de l’origine : `Origin` doit être celle de `SITE_URL` (ou l’hôte de la requête) ; sans `Origin`, `Sec-Fetch-Site` doit valoir `same-origin` ; sans aucun des deux, la requête passe (limites appliquées).
+- *Phase 4* : l’adresse est lue dans `IP_ENTETE` (défaut `x-forwarded-for`), à la position fixée par `IP_PROXYS` (défaut 1 : dernière adresse ajoutée, celle que pose le proxy ; les précédentes peuvent être forgées). Next ne pose `x-forwarded-for` que s’il manque (vérifié dans son code). Contrôle en ligne : guide de déploiement §6, risque R18.
+
+### Réalisation (phase 4)
+
+- `lib/demandes/` : `numero.ts` (normalisation, partagée avec le navigateur), `schema.ts` (Zod, noms de champs du balisage), `reference.ts`, `antispam.ts`, `enregistrer.ts` (transaction demande + événement + e-mail ; clé d’envoi idempotente), `email.ts`, `jeton.ts` (lien de confirmation signé, 30 min), `purge.ts`.
+- `app/api/demandes/route.ts` : JSON (moteur) → `{ reference, message, lien }` (201, ou 200 si la clé existait) ; formulaire classique → 303 vers `/demande/confirmation?d=…` ; erreurs → JSON `{ erreur, champs? }` ou 303 vers `/demande/confirmation?erreur=…&champs=…` (la page dit quels champs corriger).
+- Moteur : « Réessayer » réutilise la clé d’envoi ; « Modifier ma demande » en tire une nouvelle. Délai d’abandon : 20 s.
+- Texte de confidentialité : celui de la maquette devenait faux ; texte réécrit (`docs/confidentialite-projet.md`), publié automatiquement au démarrage sur une installation existante si le brouillon n’a pas d’autre modification (`mettreAJourConfidentialite`) ; un contrôle bloquant refuse qu’un texte « rien n’est enregistré » soit republié.
+- Styles ajoutés dans `app/site.css` (piège, alerte de repli, formulaires sans JS, page de confirmation).
 
 ## 7. E-mails
 
@@ -142,6 +150,8 @@ Déclencheurs, du plus fiable au plus simple :
 
 1. tâche cron hPanel (`curl` vers l’URL) si elle est disponible pour l’application Node.js, ou depuis un autre site du même compte ;
 2. en dernier recours, minuteur interne lancé depuis `instrumentation.ts` (`TACHES_MINUTEUR_MINUTES`, désactivé par défaut). La documentation Hostinger indique que le processus est **arrêté après une période sans trafic** : le minuteur ne tourne donc que pendant les visites et ne remplace pas un cron. **(à vérifier sur le serveur : `docs/deploiement-hostinger.md` §7.)**
+
+Phase 4 : tâche `purge-demandes` (une fois par jour : demandes au-delà de `DEMANDES_CONSERVATION_MOIS`, avec historique et e-mails ; compteurs anti-spam de plus de deux jours).
 
 Phase 1 : tâches `emails` (file d’envoi, à chaque passage) et `purge-technique` (une fois par jour : exécutions de tâches > 30 jours, démarrages > 90 jours, e-mails de test > 30 jours). Chaque exécution est inscrite dans `tache_execution` avec son déclencheur (`cron`, `minuteur`, `manuel`).
 
@@ -195,7 +205,7 @@ Phase 1 : tâches `emails` (file d’envoi, à chaque passage) et `purge-techniq
 - Données enregistrées par demande : type, réponses du formulaire, nom, numéro WhatsApp, consentement (date, texte exact accepté, version), choix « annonces », source de la visite, statut et notes internes. Pas d’IP, pas d’agent du navigateur.
 - Conservation réglable (12 mois par défaut, après la dernière mise à jour), purge automatique quotidienne ; journal d’audit sans valeurs personnelles en clair.
 - Droits : accès, correction (fiche de la demande) et suppression (« Supprimer les données de ce client », par numéro, avec confirmation ; la suppression est journalisée sans la donnée supprimée).
-- Texte de confidentialité réécrit, à valider (projet dans `docs/confidentialite-projet.md` en phase 4).
+- Texte de confidentialité réécrit, à valider : [confidentialite-projet.md](confidentialite-projet.md) (phase 4, en ligne en attendant).
 
 ## 15. Qualité et tests
 
