@@ -112,7 +112,7 @@ Sans le script, le rapport brut s’ouvre dans un navigateur : `https://<adresse
 **Back-office (phase 5).** Après le déploiement, créer le premier compte Propriétaire depuis le terminal SSH de Hostinger (hPanel → Avancé → Accès SSH), dans le dossier de l’application, avec les variables du site :
 
 ```sh
-npm run admin:creer -- <votre-email> "<Prénom Nom>"
+npm run admin:creer -- votre@adresse.com "Prénom Nom"
 ```
 
 Le mot de passe provisoire s’affiche une seule fois. Sans accès SSH : lancer la même commande depuis ce poste avec les variables de la base de production (`node --env-file=deploiement.env --import ./scripts/lib/chargeur-ts.mjs scripts/admin-creer.mjs <email> "<Prénom Nom>"`), si la base accepte les connexions distantes (hPanel → Bases de données → MySQL distant ; refermer ensuite). Puis ouvrir `https://<adresse-du-site>/admin` : mot de passe provisoire, activation du second facteur (QR code à scanner, 10 codes de secours à noter), puis Sécurité → changer le mot de passe. Vérifier que `/admin` sans session renvoie bien vers `https://<adresse-du-site>/admin/connexion` (et non vers une adresse interne en `localhost`) : la redirection est faite par le serveur à partir de l’adresse de la requête.

@@ -14,10 +14,18 @@ import { randomBytes } from "node:crypto";
 
 const args = process.argv.slice(2);
 const reinitialiser = args.includes("--reinitialiser");
-const [email, nom] = args.filter((a) => !a.startsWith("--"));
+// Le nom peut arriver en plusieurs morceaux (PowerShell retire parfois les guillemets).
+const [email, ...morceaux] = args.filter((a) => !a.startsWith("--"));
+const nom = morceaux.join(" ").trim();
 
-if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || (!reinitialiser && !nom?.trim())) {
-  console.error('Usage : npm run admin:creer -- <email> "<Prénom Nom>" [--reinitialiser]');
+const USAGE = 'Usage : npm run admin:creer -- prenom@domaine.com "Prénom Nom" [--reinitialiser]';
+if (!email || (!reinitialiser && !nom)) {
+  console.error(USAGE);
+  process.exit(2);
+}
+if (!/^[^\s@<>]+@[^\s@<>]+\.[a-z]{2,}$/i.test(email)) {
+  console.error(`Adresse e-mail invalide : « ${email} ». Il faut une adresse complète, avec son extension (ex. info@hopeandpeacefarm.com).`);
+  console.error(USAGE);
   process.exit(2);
 }
 
