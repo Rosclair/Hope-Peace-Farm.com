@@ -30,6 +30,3 @@ export function expediteur(): string {
   return configSmtp().expediteur;
 }
 
-export function adresseNotification(): string {
-  return configSmtp().notification;
-}

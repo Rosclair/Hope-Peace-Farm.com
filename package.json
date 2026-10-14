@@ -19,6 +19,7 @@
     "db:migrer": "node --env-file-if-exists=.env scripts/migrer.mjs",
     "db:initialiser": "node --env-file-if-exists=.env --import ./scripts/lib/chargeur-ts.mjs scripts/contenu.mjs initialiser",
     "contenu": "node --env-file-if-exists=.env --import ./scripts/lib/chargeur-ts.mjs scripts/contenu.mjs",
+    "admin:creer": "node --env-file-if-exists=.env --import ./scripts/lib/chargeur-ts.mjs scripts/admin-creer.mjs",
     "deploiement:verifier": "node scripts/verifier-deploiement.mjs",
     "site:mesures": "node scripts/mesures-site.mjs",
     "site:parite": "node scripts/parite-site.mjs",
@@ -44,6 +45,7 @@
     "vitest": "5.0.3"
   },
   "dependencies": {
+    "better-auth": "1.7.7",
     "drizzle-orm": "0.45.4",
     "mysql2": "3.24.5",
     "next": "16.4.0",
@@ -52,6 +54,7 @@
     "react-dom": "19.3.0",
     "server-only": "0.0.1",
     "sharp": "0.35.5",
+    "uqr": "0.1.3",
     "zod": "4.6.6"
   }
 }

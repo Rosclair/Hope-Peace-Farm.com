@@ -1,35 +1,18 @@
-import type { Metadata, Viewport } from "next";
+// Élément <html> de la page publique, commun au site et à l’aperçu du brouillon
+// (/admin/apercu) : classes des Fêtes posées par le serveur, réglages lus par le
+// script de tête et le moteur (data-wa, data-fetes-*), comme la maquette.
+
 import type { ReactNode } from "react";
-import { configSite } from "@/lib/config";
+import { policeTexte, policeTitre } from "@/app/polices";
 import { classesFetes } from "@/lib/contenu/fetes";
-import { contenuPublie } from "@/lib/contenu/lecture";
+import type { ContenuPage } from "@/lib/contenu/types";
 import { SCRIPT_TETE } from "@/lib/site/script-tete";
-import { policeTexte, policeTitre } from "./polices";
 
-const site = configSite();
-
-export const metadata: Metadata = {
-  metadataBase: new URL(site.SITE_URL),
-  title: "Hope & Peace Farm",
-  // Rien n’est indexé tant que SITE_INDEXABLE ne vaut pas 1 (mise en production, phase 8).
-  robots: site.SITE_INDEXABLE ? undefined : { index: false, follow: false },
-};
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  viewportFit: "cover",
-  themeColor: "#104A21",
-  colorScheme: "light",
-};
-
-export default async function Racine({ children }: { children: ReactNode }) {
-  const c = await contenuPublie();
+export async function DocumentSite({ c, children }: { c: ContenuPage; children: ReactNode }) {
   // Classes des Fêtes posées aussi par le serveur : juste sans JavaScript (le script de tête les complète).
   const fetes = await classesFetes(c.fetes.actif, c.fetes.dateLimitePrixGaranti, c.fetes.dateFin);
   return (
     // suppressHydrationWarning : le script de tête change les classes avant l’hydratation.
-    // data-wa et data-fetes-* : réglages lus par le script de tête et le moteur, comme la maquette.
     <html
       lang="fr"
       className={`no-js ${policeTitre.variable} ${policeTexte.variable}${fetes ? ` ${fetes}` : ""}`}

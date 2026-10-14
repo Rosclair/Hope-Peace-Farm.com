@@ -68,6 +68,7 @@ Préparer un fichier `deploiement.env` **hors du dépôt** (il est ignoré par G
 | `CRON_SECRET`, `DIAGNOSTIC_SECRET` | deux secrets différents, générés par `node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))"` |
 | `TACHES_MINUTEUR_MINUTES` | `0` |
 | `DEMANDES_SECRET` | un troisième secret, même commande (vide : dérivé de `CRON_SECRET`) |
+| `AUTH_SECRET` | un quatrième secret, même commande (phase 5, **obligatoire** pour le back-office). **Ne jamais le changer** ensuite : les seconds facteurs (TOTP) des comptes deviendraient illisibles |
 | `IP_ENTETE`, `IP_PROXYS` | `x-forwarded-for` et `1`, à confirmer à l’étape 6 (encadré ci-dessous) |
 | `DEMANDES_CONSERVATION_MOIS` | `12` |
 
@@ -107,6 +108,14 @@ Le script contrôle la page, les en-têtes, la police, robots.txt, la base, les 
 Sans le script, le rapport brut s’ouvre dans un navigateur : `https://<adresse-du-site>/api/sante?jeton=<DIAGNOSTIC_SECRET>`.
 
 **Adresse du visiteur (phase 4, limite de 10 demandes par heure et par adresse).** Ouvrir le rapport brut depuis un téléphone en 4G (Wi-Fi coupé), puis depuis un ordinateur : la rubrique des en-têtes IP montre `x-forwarded-for` avec des adresses tronquées. Si la **dernière** adresse de la liste change d’un appareil à l’autre et correspond au début de l’adresse publique de l’appareil, `IP_PROXYS=1` est juste. Si elle reste la même (adresse du proxy, souvent `127.0.x.x` ou `10.x.x.x`), essayer `IP_PROXYS=2` ; si aucune ne convient, mettre `IP_PROXYS=0` : la limite par adresse est alors désactivée (restent le champ piège, le délai minimal et la limite de 3 demandes par jour et par numéro). Un visiteur bloqué par erreur n’est jamais perdu : avec JavaScript, son message WhatsApp reste prêt ; sans JavaScript, la page lui propose WhatsApp.
+
+**Back-office (phase 5).** Après le déploiement, créer le premier compte Propriétaire depuis le terminal SSH de Hostinger (hPanel → Avancé → Accès SSH), dans le dossier de l’application, avec les variables du site :
+
+```sh
+npm run admin:creer -- <votre-email> "<Prénom Nom>"
+```
+
+Le mot de passe provisoire s’affiche une seule fois. Sans accès SSH : lancer la même commande depuis ce poste avec les variables de la base de production (`node --env-file=deploiement.env --import ./scripts/lib/chargeur-ts.mjs scripts/admin-creer.mjs <email> "<Prénom Nom>"`), si la base accepte les connexions distantes (hPanel → Bases de données → MySQL distant ; refermer ensuite). Puis ouvrir `https://<adresse-du-site>/admin` : mot de passe provisoire, activation du second facteur (QR code à scanner, 10 codes de secours à noter), puis Sécurité → changer le mot de passe. Vérifier que `/admin` sans session renvoie bien vers `https://<adresse-du-site>/admin/connexion` (et non vers une adresse interne en `localhost`) : la redirection est faite par le serveur à partir de l’adresse de la requête.
 
 **Formulaires (phase 4).** Envoyer une demande depuis le site (avec un vrai numéro WhatsApp) : la vue « Votre message est prêt » doit montrer « (Réf. HP-…) » à la fin du message, et l’e-mail « Nouvelle demande … — HP-… » doit arriver à `NOTIFICATION_EMAIL` dans la minute. Sans SMTP configuré, la demande est quand même enregistrée (e-mail non mis en file).
 

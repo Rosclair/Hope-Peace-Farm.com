@@ -183,6 +183,11 @@ describe.runIf(BASE_DE_TEST)("sans JavaScript", () => {
     await Promise.all([page.waitForURL(/\/demande\/confirmation\?d=/), f.locator('button[type="submit"]').click()]);
 
     expect(page.url()).not.toContain(numero.slice(-4));
+    // Visible sans JavaScript, pas seulement présent dans le HTML : un contenu arrivé en
+    // flux derrière <Suspense> resterait dans un bloc masqué (défaut corrigé en phase 5).
+    expect(await page.locator(".done__message").isVisible()).toBe(true);
+    expect(await page.locator(".done__actions a").isVisible()).toBe(true);
+    expect(await page.getByText("Chargement").count()).toBe(0);
     const [d] = await demandesDu(numero);
     expect(d).toMatchObject({ type: "ceremonie", modeEnvoi: "sans_js" });
     const attendu = `${composerMessage("ceremonie", {
@@ -243,6 +248,7 @@ describe.runIf(BASE_DE_TEST)("sans JavaScript", () => {
     const f = page.locator('form[data-form="ceremonie"]');
     await f.locator("#c-whatsapp").fill(numero);
     await Promise.all([page.waitForURL(/erreur=validation/), f.locator('button[type="submit"]').click()]);
+    expect(await page.locator(".confirmation__liste").isVisible()).toBe(true);
     const liste = await page.locator(".confirmation__liste").innerText();
     expect(liste).toContain("Type de cérémonie");
     expect(liste).toContain("Accord pour être contacté sur WhatsApp");

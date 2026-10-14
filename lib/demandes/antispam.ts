@@ -67,7 +67,7 @@ export function origineValide(entetes: Headers, siteUrl: string): boolean {
 }
 
 /** Incrémente le compteur d’une clé dans sa fenêtre et renvoie sa nouvelle valeur. */
-async function compter(cle: string, fenetreDebut: Date): Promise<number> {
+export async function compter(cle: string, fenetreDebut: Date): Promise<number> {
   await db()
     .insert(limiteDebit)
     .values({ cle, fenetreDebut, compteur: 1 })
@@ -80,7 +80,7 @@ async function compter(cle: string, fenetreDebut: Date): Promise<number> {
   return ligne?.compteur ?? 1;
 }
 
-const debutHeure = (t = Date.now()) => new Date(Math.floor(t / 36e5) * 36e5);
+export const debutHeure = (t = Date.now()) => new Date(Math.floor(t / 36e5) * 36e5);
 /** Début du jour de Douala (minuit à UTC+1), en UTC. */
 const debutJourDouala = (t = Date.now()) => new Date(Date.parse(`${isoDouala(0, t)}T00:00:00+01:00`));
 

@@ -1,10 +1,10 @@
-// Envoi d’un e-mail de test à NOTIFICATION_EMAIL, par la file d’envoi
+// Envoi d’un e-mail de test à l’adresse de notification (réglage du back-office, sinon NOTIFICATION_EMAIL), par la file d’envoi
 // (jeton DIAGNOSTIC_SECRET obligatoire).
 
 import { connection } from "next/server";
 import { codeErreur } from "@/lib/journal";
 import { envoyerEmail, mettreEnFile } from "@/lib/mail/file";
-import { adresseNotification } from "@/lib/mail/transport";
+import { adresseNotification } from "@/lib/reglages";
 import { accesAutorise, SANS_CACHE } from "@/lib/securite/acces";
 import { identifiantBuild } from "@/lib/serveur/build";
 
@@ -14,10 +14,12 @@ export async function POST(requete: Request) {
     return Response.json({ erreur: "non autorisé" }, { status: 401, headers: SANS_CACHE });
   }
   try {
+    const destinataire = await adresseNotification();
+    if (!destinataire) return Response.json({ erreur: "SMTP non configuré" }, { status: 500, headers: SANS_CACHE });
     const le = new Date().toLocaleString("fr-FR", { timeZone: "Africa/Douala", dateStyle: "full", timeStyle: "medium" });
     const id = await mettreEnFile({
       type: "test",
-      destinataire: adresseNotification(),
+      destinataire,
       sujet: "Hope & Peace Farm — e-mail de test",
       texte: [
         "Bonjour,",

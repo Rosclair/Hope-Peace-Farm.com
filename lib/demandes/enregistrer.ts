@@ -7,7 +7,7 @@
 
 import "server-only";
 import { eq } from "drizzle-orm";
-import { configSmtp } from "@/lib/config";
+import { adresseNotification } from "@/lib/reglages";
 import { db } from "@/lib/db/client";
 import { demande as tableDemande, demandeEvenement, emailSortant, type MODES_ENVOI } from "@/lib/db/schema";
 import { codeErreur, journal } from "@/lib/journal";
@@ -57,14 +57,6 @@ async function parCle(cle: string): Promise<ResultatEnregistrement | null> {
   return d ? { statut: "existante", reference: d.reference, message: d.message, emailId: null } : null;
 }
 
-/** Destinataire des notifications ; null si le SMTP n’est pas configuré (la demande est gardée quand même). */
-function destinataire(): string | null {
-  try {
-    return configSmtp().notification;
-  } catch {
-    return null;
-  }
-}
 
 export async function enregistrerDemande(args: {
   demande: DemandeValidee;
@@ -87,7 +79,8 @@ export async function enregistrerDemande(args: {
   }
 
   const base = messageDemande(d);
-  const pour = destinataire();
+  // Destinataire : réglage du back-office, sinon NOTIFICATION_EMAIL ; null sans SMTP (la demande est gardée quand même).
+  const pour = await adresseNotification();
 
   for (let essai = 0; essai < 3; essai++) {
     const reference = nouvelleReference();

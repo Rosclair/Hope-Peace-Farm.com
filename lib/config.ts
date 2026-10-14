@@ -87,6 +87,11 @@ const schemaDemandes = z.object({
   DEMANDES_CONSERVATION_MOIS: z.preprocess(sansVide, z.coerce.number().int().min(1).max(120).default(12)),
 });
 
+const schemaAuth = z.object({
+  /** Clé de Better Auth : signe les cookies et chiffre les secrets TOTP. Ne jamais la changer après la mise en service. */
+  AUTH_SECRET: secret,
+});
+
 export function configSite(source = process.env) {
   return lire("site", schemaSite, source);
 }
@@ -101,6 +106,10 @@ export function configSmtp(source = process.env) {
 
 export function configSecrets(source = process.env) {
   return lire("secrets", schemaSecrets, source);
+}
+
+export function configAuth(source = process.env) {
+  return lire("auth", schemaAuth, source);
 }
 
 export function configTaches(source = process.env) {
@@ -148,6 +157,7 @@ export const VARIABLES_ATTENDUES = {
   smtp: ["SMTP_HOST", "SMTP_PORT", "SMTP_SECURE", "SMTP_USER", "SMTP_PASSWORD", "MAIL_FROM", "NOTIFICATION_EMAIL"],
   televersement: ["UPLOAD_DIR"],
   secrets: ["CRON_SECRET", "DIAGNOSTIC_SECRET"],
+  auth: ["AUTH_SECRET"],
   taches: ["TACHES_MINUTEUR_MINUTES"],
   demandes: ["DEMANDES_SECRET", "IP_ENTETE", "IP_PROXYS", "DEMANDES_CONSERVATION_MOIS"],
 } as const;

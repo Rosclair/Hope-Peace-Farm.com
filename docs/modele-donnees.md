@@ -41,6 +41,8 @@ Les textes peuvent citer une valeur par un repère `{groupe.cle}` (ex. `{prix.pr
 | --- | --- | --- |
 | `reglage` | `cle` PK, `valeur` JSON, `modifie_le`, `modifie_par` | e-mail de notification (sensible, TOTP), durée de conservation des demandes (12 mois), durée de conservation de la mesure (90 jours), seuils anti-spam |
 
+*Phase 5* : clés `emailNotification` et `conservationMois` (validées par Zod, `lib/reglages.ts`) ; sans ligne, `NOTIFICATION_EMAIL` et `DEMANDES_CONSERVATION_MOIS` s’appliquent.
+
 ## 3. Demandes
 
 | Table | Colonnes | Remarques |
@@ -82,6 +84,8 @@ Purge : suppression définitive (demande, événements, e-mails liés) quand `ma
 | `deux_facteurs` | `utilisateur_id`, `secret` chiffré, `codes_secours` chiffrés (10, usage unique) |
 | `verification` | jetons temporaires (réinitialisation de mot de passe, invitation) |
 | `invitation` | `email`, `role`, `jeton_empreinte`, `expire_le`, `cree_par`, `acceptee_le` |
+
+*Phase 5* : tables créées par `drizzle/0003_back_office.sql` (`lib/db/schema/comptes.ts`) ; clés JavaScript attendues par Better Auth, colonnes en français ; identifiants UUID ; `session.empreinte_ip` (HMAC à sel quotidien, jamais l’adresse) et `session.appareil` (« Chrome · Android ») ; `compte.mot_de_passe` haché par scrypt ; `deux_facteurs` : `secret` et `codes_secours` chiffrés avec `AUTH_SECRET`, plus `verifie`, `echecs`, `verrouille_jusqua` (verrou propre à Better Auth, en plus de celui du back-office) ; `invitation.nom` ajouté.
 
 ## 7. Médias
 

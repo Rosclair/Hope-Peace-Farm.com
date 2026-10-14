@@ -33,6 +33,7 @@ Architecture : [docs/architecture.md](docs/architecture.md) · données : [docs/
 - Secrets uniquement dans `.env` (modèle : `.env.example`). Journaux sans donnée personnelle (référence de demande seulement).
 - Adresses IP jamais stockées en clair (empreinte HMAC avec sel tournant).
 - Validation Zod côté serveur pour toute entrée, même déjà validée côté client.
+- Back-office : chaque page et action appelle `exigerCompte` (`lib/auth/session.ts`) ; racines en `instant = false` (rendu entier, lisible sans JS) et redirections d’accès dans `proxy.ts`. Pas de `<Suspense>` autour d’un contenu qui doit se lire sans JS.
 - Toute suppression demande une confirmation ; toute modification du back-office s’inscrit au journal d’audit.
 - Numéro WhatsApp, e-mail de notification et numéros de paiement : ressaisie TOTP + e-mail d’alerte + journal.
 
@@ -53,7 +54,8 @@ Architecture : [docs/architecture.md](docs/architecture.md) · données : [docs/
 - `npm test` (Vitest) · `npm run typecheck` · `npm run test:e2e` (Playwright, contre `HPF_SITE_URL`, défaut `http://127.0.0.1:3100` ; demande le Mailpit dédié).
 - `npm run site:parite -- --site=<url>` : parité maquette / site (DOM, géométrie, textes, captures), rapport dans `reference/parite/` · `npm run site:demarrage` : délai de démarrage du moteur en conditions mobiles.
 - `npm run db:generer` : nouvelle migration depuis `lib/db/schema/` · `npm run db:migrer` : l’applique (aussi faite au démarrage du serveur) · `npm run db:initialiser` : contenu de la maquette si la base est vide (aussi au démarrage).
-- `npm run contenu -- <etat|historique|controler|publier|restaurer n|exporter f|importer f>` : contenu de la page en attendant le back-office.
+- `npm run contenu -- <etat|historique|controler|publier|restaurer n|exporter f|importer f>` : contenu de la page en ligne de commande (le back-office fait de même).
+- `npm run admin:creer -- <email> "<Prénom Nom>" [--reinitialiser]` : compte Propriétaire du back-office (mot de passe provisoire affiché une fois).
 - `npm run test:base` : tests d’intégration sur la base `hpf_test` (jamais une base dont le nom ne finit pas par `_test`) ; le serveur des tests de bout en bout tourne aussi sur `hpf_test` (`DB_NAME=hpf_test PORT=3100 npm run standalone`).
 - `npm run deploiement:verifier -- <url> [--email] [--taches] [--cache]` : contrôle d’un déploiement (jetons `HPF_DIAGNOSTIC_SECRET`, `HPF_CRON_SECRET`), voir `docs/deploiement-hostinger.md`.
 - `npm run site:mesures -- <url> [--passages=3] [--sortie=f.json]` : Lighthouse et poids du JS client du site.

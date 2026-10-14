@@ -1,6 +1,6 @@
 # Suivi du projet
 
-**État : phase 4 terminée et vérifiée en local (14/10/2026) ; en attente du « GO phase 5 ». Texte de confidentialité réécrit, en ligne, **à valider** ([projet](docs/confidentialite-projet.md)). Code poussé sur GitHub ; déploiement par vous ([guide](docs/deploiement-hostinger.md), §4 et §6 complétés). Questions ouvertes : 2 et 3 de [docs/risques-et-questions.md §5](docs/risques-et-questions.md#5-questions-3).**
+**État : phase 5 terminée et vérifiée en local (14/10/2026) ; en attente du « GO phase 6 ». À faire de votre côté au déploiement : `AUTH_SECRET` et premier compte ([guide](docs/deploiement-hostinger.md) §4 et §6). Texte de confidentialité toujours **à valider** ([projet](docs/confidentialite-projet.md)). Questions ouvertes : 2 et 3 de [docs/risques-et-questions.md §5](docs/risques-et-questions.md#5-questions-3).**
 
 | Phase | Contenu | État |
 | --- | --- | --- |
@@ -9,10 +9,71 @@
 | 2 | Portage fidèle de la page, tests de parité | terminée (12/10/2026), vérifiée en local |
 | 3 | Contenus en base, publication, retour arrière | terminée (12/10/2026), vérifiée en local |
 | 4 | Formulaires, demandes, e-mail, WhatsApp | terminée (14/10/2026), vérifiée en local |
-| 5 | Back-office : connexion, tableau de bord, demandes, contenus, publication | — |
+| 5 | Back-office : connexion, tableau de bord, demandes, contenus, publication | terminée (14/10/2026), vérifiée en local |
 | 6 | Back-office : listes, photos, campagnes, statistiques, journal | — |
 | 7 | SEO, performance, accessibilité, sécurité, recette | — |
 | 8 | Mise en production, README, guide du propriétaire | — |
+
+## Phase 5 — fait (back-office : connexion, tableau de bord, demandes, contenus, publication ; vérifié en local)
+
+- **Connexion** (`/admin/connexion`) : e-mail et mot de passe (scrypt, Better Auth 1.7.7), puis code TOTP à 6 chiffres ou code de secours. **TOTP obligatoire** : à la première connexion, page d’activation imposée (QR code SVG généré côté serveur par `uqr`, clé à saisir à la main, **10 codes de secours** affichés une fois, premier code pour confirmer). **Verrouillage** après 5 échecs consécutifs (mot de passe et code confondus) : 15 min, puis durée doublée à chaque nouvel échec, 24 h au plus ; plus 30 essais par heure et par empreinte d’adresse. Les messages ne disent pas si l’e-mail existe.
+- **Comptes** : pas d’inscription publique. Premier Propriétaire par `npm run admin:creer -- <email> "<Prénom Nom>"` (mot de passe provisoire tiré au hasard, affiché une fois ; `--reinitialiser` en secours : nouveau mot de passe, second facteur à refaire, sessions fermées). Membres suivants **par invitation** (Sécurité → Équipe : lien à usage unique valable 7 jours, envoyé par e-mail et affiché pour être transmis autrement ; seule l’empreinte du jeton est gardée). Désactivation d’un compte (ferme ses sessions ; jamais soi-même ni le dernier propriétaire).
+- **Rôles** vérifiés côté serveur dans chaque page et chaque action : Propriétaire (tout), Équipe (tableau de bord, demandes, sa propre sécurité).
+- **Sécurité** : sessions actives (appareil résumé « Chrome · Android », dates) et révocation, une par une ou toutes les autres ; changement de mot de passe (12 caractères au moins, ferme les autres sessions) ; nouveaux codes de secours.
+- **Tableau de bord** : nouvelles demandes, à relancer (plus de 24 h sans changement de statut), e-mails en échec, valeurs « à confirmer », brouillon non publié, dernières modifications.
+- **Demandes** : liste filtrable (statut, « à relancer », type, source, dates, recherche par référence, nom ou numéro), pagination ; fiche complète (réponses lisibles, message proposé, source, accord et sa date) ; **statuts avec historique** (les 7 du brief) ; **notes internes** ; **« Écrire sur WhatsApp »** (noté dans l’historique, message « Bonjour …, au sujet de votre demande HP-… ») ; **correction** du nom et du numéro ; **export CSV** (UTF-8 avec BOM, point-virgule, CRLF, formules neutralisées) ; **suppression des données d’un client** (toutes les demandes de son numéro, page de confirmation et case à cocher, journal sans la donnée).
+- **Contenus** : les 22 groupes du document de contenu (toutes les valeurs et tous les textes de la page). Champs **déduits du schéma Zod** (obligatoire, longueur maximale avec compteur, bornes, dates, choix), libellé et aide par champ, **rendu final** sous les textes à repères `{…}`, **badge et case « à confirmer »** par champ, erreurs rapportées au champ, verrou optimiste. **Numéro WhatsApp et numéros MTN / Orange : ressaisie du code TOTP, e-mail d’alerte, journal masqué.**
+- **Publier** : ce qui va changer (différences avec la version en ligne, valeurs sensibles masquées), contrôles bloquants avec liens vers les champs, avertissements « à confirmer », publication (page publique à jour dès la requête suivante), **aperçu du brouillon** (`/admin/apercu`, mêmes composants que le site, bandeau « Aperçu du brouillon »), historique et **retour arrière** confirmé.
+- **Réglages** : e-mail de notification (code TOTP, alerte à l’ancienne et à la nouvelle adresse et aux propriétaires, journal masqué) et durée de conservation des demandes (utilisée par la purge quotidienne).
+- **Journal d’audit** (table `journal_audit`) : connexions, échecs, verrouillages, déconnexions, contenus (avant et après des champs modifiés), publications, retours arrière, statuts, notes (sans leur texte), corrections (noms des champs seulement), exports, suppressions (nombre seulement), réglages, sessions, comptes. Valeurs sensibles masquées (`+237 6•• •• 55 65`, `i•••@gmail.com`), adresse remplacée par son empreinte. Page de consultation : phase 6.
+- **Base** : migration `drizzle/0003_back_office.sql` (`utilisateur`, `session`, `compte`, `verification`, `deux_facteurs`, `invitation`, `journal_audit`, `reglage`), appliquée au démarrage.
+- **Configuration** : `AUTH_SECRET` (obligatoire pour `/admin`, à ne jamais changer) ; `NOTIFICATION_EMAIL` et `DEMANDES_CONSERVATION_MOIS` deviennent des valeurs de départ, modifiables dans Réglages.
+- **Documents** : [architecture](docs/architecture.md) §9 « Réalisation (phase 5) », [modèle de données](docs/modele-donnees.md) §2 et §6, [guide de déploiement](docs/deploiement-hostinger.md) §4 et §6 (premier compte), `.env.example`, CLAUDE.md.
+
+## Phase 5 — décisions
+
+- **Better Auth appelé seulement côté serveur** (`auth.api.*` dans les actions) : aucune route `/api/auth` exposée, donc aucun moyen de contourner le verrouillage, la limite de débit ou le journal. Suivi d’adresse de Better Auth désactivé ; la session reçoit l’empreinte HMAC (même sel quotidien que les demandes) et un résumé de l’appareil à la place de l’agent.
+- **`AUTH_SECRET` obligatoire et distinct** (pas dérivé de `CRON_SECRET`, contrairement à `DEMANDES_SECRET`) : il chiffre les secrets TOTP ; un secret dérivé changerait avec `CRON_SECRET`, et tous les seconds facteurs deviendraient illisibles.
+- **Back-office rendu en entier à la requête** (`instant = false` sur ses racines) et **redirections d’accès dans `proxy.ts`** (303, requêtes GET) : avec `<Suspense>`, le contenu arrive en flux dans un bloc masqué que seul JavaScript insère, et un `redirect()` décidé pendant le rendu ne passe que par JavaScript (mesuré : page « Chargement… » sans JavaScript). Le proxy n’est qu’un premier filtre ; pages et actions revérifient tout.
+- **Nombre d’éléments des listes fixe dans l’éditeur** (FAQ, zones, étapes…) : ajout, retrait et ordre par glisser-déposer arrivent avec les listes en phase 6 (brief §7). Tous les textes et valeurs existants sont modifiables dès maintenant.
+- **« À confirmer »** : une case par champ de premier niveau (ex. `prix.vivant`, `livraison.zones`), comme les 14 marques de départ.
+- **Aperçu** réservé au propriétaire ; ses formulaires envoient de vraies demandes (c’est la même page que le site), d’où le bandeau.
+- **Formulaires du back-office** : actions serveur ; pas de remise à zéro automatique après une erreur (la saisie reste) ; tout fonctionne aussi sans JavaScript (vérifié pour la connexion complète).
+- **« Écrire sur WhatsApp »** passe par une action (note dans l’historique), puis redirige vers WhatsApp dans le même onglet (sur téléphone, l’application s’ouvre).
+- **Mots de passe** : 12 caractères au moins (une phrase de plusieurs mots est conseillée), sans règle de composition imposée.
+- **Dépendances ajoutées** (versions exactes) : `better-auth` 1.7.7 (exigée par la pile), `uqr` 0.1.3 (QR code SVG, pur JavaScript, sans dépendance ; servira aussi aux liens de campagne). `npm audit` signale 4 vulnérabilités « moderate » (à examiner en phase 7).
+
+## Phase 5 — défaut de la phase 4 trouvé et corrigé
+
+- **Page de confirmation sans JavaScript** (`/demande/confirmation`) : son résultat était rendu derrière `<Suspense>`, donc arrivé en flux dans un `<div hidden>` que seul JavaScript insère. **Un visiteur sans JavaScript voyait « Chargement… »** au lieu de sa référence et du bouton WhatsApp. Les tests de la phase 4 lisaient le texte du bloc masqué (`innerText`) et ne l’ont pas vu. Corrigé : rendu en entier à la requête, sous une racine à part `app/(confirmation)` (placé sous la racine du site, ce réglage empêchait la revalidation de la page d’accueil de prendre effet aussitôt : mesuré, 2 tests de publication en échec). Les tests vérifient maintenant que le message et le bouton sont **visibles** et qu’aucun « Chargement » ne reste.
+
+## Phase 5 — écarts avec la maquette
+
+Aucun sur la page publique : DOM, textes et console identiques au contrôle de la phase 4 (ci-dessous). Les fichiers de la page ont seulement changé de place (`app/(site)/`, `components/site/document.tsx`, `components/site/page.tsx`).
+
+## Phase 5 — contrôles exécutés
+
+| Contrôle | Résultat |
+| --- | --- |
+| `npm run typecheck` | 0 erreur |
+| `npm test` | **142 tests** réussis (9 fichiers ; 20 nouveaux) : export CSV (BOM, séparateur, CRLF, 7 formules neutralisées, guillemets), masquage (numéros camerounais et étrangers, e-mails, seuls les champs sensibles), durées de verrouillage, résumé de l’appareil (Samsung Internet, Safari iOS, Facebook…), **éditeur : une feuille par valeur de la maquette, règles reprises du schéma** (obligatoire, longueur, bornes, dates, choix), chemins, différences, réponses lisibles |
+| `npm run test:base` (`hpf_test`) | **17 tests** réussis (la purge lit maintenant la durée réglée) |
+| `npm run test:e2e` (standalone sur `hpf_test`, Mailpit dédié), 2 passages complets | **41 tests** réussis à chaque passage, dont **9 nouveaux** pour le back-office : sans session → connexion (avec et sans JavaScript, export refusé) ; **première connexion avec activation du TOTP** (code calculé par le test depuis la clé affichée, RFC 6238), mauvais code refusé, **code de secours**, **connexion complète sans JavaScript** ; **5 mots de passe faux ⇒ verrouillé, même avec le bon** (et journalisé) ; demande : statut avec historique, note (absente du journal), **export CSV** (octets du BOM, en-têtes, formule neutralisée) ; contenus : valeur invalide refusée au champ, enregistrement au brouillon sans toucher la page, aperçu, **publication ⇒ page publique à jour**, **retour arrière ⇒ ancienne page** ; **numéro WhatsApp refusé sans code TOTP, accepté avec, masqué au journal** ; rôle Équipe refusé sur Contenus ; révocation des autres sessions (l’autre appareil est déconnecté) ; **axe-core : 0 violation sur 9 pages** du back-office |
+| `npm run site:parite -- --sans-captures` (4 formats × 3 modes) | identique à la phase 4 : DOM 91 à 95 écarts, tous dans « Votre demande » (phase 4), 1 région de texte (confidentialité), **0 erreur console** |
+| Sans JavaScript (curl) | `/admin/contenus` sans session → **303** vers `/admin/connexion` ; `/admin/connexion`, `/admin/invitation/…`, `/demande/confirmation` : contenu complet dans le HTML, aucun bloc masqué |
+| Captures du back-office à 393 px (connexion, activation, tableau de bord, demandes, fiche, contenus, prix, publier) | relues à l’œil : lisibles, sans débordement ; deux retouches faites (nom du groupe au lieu de sa clé au tableau de bord, réponses lisibles dans la fiche) |
+| Maquette | empreinte SHA-256 inchangée |
+
+## Phase 5 — mesures (local)
+
+Lighthouse 13.5, serveur standalone, page publique (`reference/mesures/site-phase5-local.json`) : mobile **91** (91, 92, 90), ordinateur 100 ; accessibilité et bonnes pratiques 100 ; SEO 66 (`noindex` volontaire) ; FCP 1,37 s, LCP 2,94–3,05 s, TBT 165–209 ms, CLS 0. **JavaScript client de la page publique** : 7 fichiers, 471 Ko décompressés, **120,9 Ko en brotli** (+0,6 Ko : découpage des modules partagés avec l’aperçu ; aucun code du back-office). Dans le bruit de mesure de la phase 4 (92, 92, 91).
+
+## Phase 5 — reste à faire
+
+- **Vous**, au déploiement : ajouter `AUTH_SECRET` aux variables, créer votre compte (`npm run admin:creer`, guide §6), activer le second facteur, changer le mot de passe provisoire, puis vérifier les 14 valeurs « à confirmer » (Contenus) et publier.
+- Vérifier en ligne que les redirections de `/admin` pointent vers l’adresse publique (guide §6).
+- Phase 6 : listes (ajout, retrait, ordre par glisser-déposer : FAQ, zones, avis avec accord écrit, photos, promoteur), campagnes, statistiques, **page du journal d’audit** et sa conservation de 24 mois.
+- Phase 7 : `npm audit`, CSP complète (le back-office ne charge aucun script ni style externe).
 
 ## Phase 4 — fait (formulaires, demandes, e-mail, WhatsApp ; vérifié en local)
 
@@ -345,7 +406,7 @@ Conditions : Lighthouse 13.5.0, Chrome 155 sans interface, Windows 10, maquette 
 ## Reste à faire
 
 - Terminer la phase 1 en ligne (par vous) : voir « Phase 1 — reste à faire » ci-dessus.
-- Phase 4 (formulaires, demandes, e-mail, WhatsApp) dès le « GO phase 4 ».
+- Phase 6 (listes, photos, campagnes, statistiques, journal) dès le « GO phase 6 ».
 
 ## Blocages
 

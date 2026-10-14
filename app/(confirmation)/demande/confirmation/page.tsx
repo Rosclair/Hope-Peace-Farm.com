@@ -5,7 +5,6 @@
 // un jeton signé, valable 30 minutes, qui porte seulement la référence.
 
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { eq } from "drizzle-orm";
 import { Sprite } from "@/components/site/cadre";
 import { Icone } from "@/components/site/icone";
@@ -16,8 +15,15 @@ import { lireConfirmation } from "@/lib/demandes/jeton";
 import { db } from "@/lib/db/client";
 import { demande } from "@/lib/db/schema";
 import { lienWa, MESSAGE_COMMANDE, texteRemerciement, type TypeDemande } from "@/lib/whatsapp/messages";
-import "../../maquette.css";
-import "../../site.css";
+import "@/app/maquette.css";
+import "@/app/site.css";
+
+/**
+ * Rendu en entier à la requête, sans coquille statique : cette page sert les visiteurs
+ * sans JavaScript, qui ne verraient jamais un contenu arrivé en flux derrière <Suspense>
+ * (il reste dans un bloc masqué jusqu’à ce qu’un script l’insère).
+ */
+export const instant = false;
 
 export const metadata: Metadata = {
   title: "Votre demande — Hope & Peace Farm",
@@ -171,9 +177,7 @@ export default function PageConfirmation({ searchParams }: { searchParams: Promi
             </p>
           </header>
           <div className="request__card">
-            <Suspense fallback={<p>Chargement…</p>}>
-              <Resultat parametres={searchParams} />
-            </Suspense>
+            <Resultat parametres={searchParams} />
           </div>
         </div>
       </main>
