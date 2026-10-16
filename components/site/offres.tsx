@@ -8,6 +8,40 @@ import { MESSAGE_FETES, MESSAGE_VIDEO, lienWa } from "@/lib/whatsapp/messages";
 import { Icone } from "./icone";
 import { rendu } from "./riche";
 
+/** Valeur du champ « Préparation » du formulaire visée par une carte (aucune pour « Découpé » : sauce ou braise au choix). */
+function preparationDe(nom: string): string | undefined {
+  if (/vivant/i.test(nom)) return "vivant";
+  if (/cuire/i.test(nom)) return "pret";
+  return undefined;
+}
+
+/** Pictogramme d’une préparation (dessin au trait, décoratif). */
+function Picto({ nom }: { nom: string }) {
+  const trace = /vivant/i.test(nom) ? (
+    <>
+      <path d="M7 18c-2.2-1.1-3.5-3.4-3.5-6A6.5 6.5 0 0 1 10 5.5c1.3 0 2.5.4 3.5 1L15 4.5l.8 2.6 2.6.6-1.6 1.9c.5.9.8 1.9.8 3 0 3.6-2.9 5.4-6.5 5.4H7Z" />
+      <path d="M9.5 18v3M13 18v3M7.5 13.5c1.5 1 3.5 1 5 0" />
+      <circle cx="14.6" cy="9.4" r=".8" fill="currentColor" stroke="none" />
+    </>
+  ) : /cuire/i.test(nom) ? (
+    <>
+      <path d="M3 17.5h18M5 17.5a7 7 0 0 1 14 0" />
+      <path d="M12 10.5V8.5M10.5 8.5h3M8 14a4 4 0 0 1 2-2.2" />
+    </>
+  ) : (
+    <>
+      <path d="M3 7h11v8H5.5A2.5 2.5 0 0 1 3 12.5Z" />
+      <path d="M14 10h7" />
+      <circle cx="6.5" cy="10" r=".9" fill="currentColor" stroke="none" />
+    </>
+  );
+  return (
+    <svg className="dish__picto" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      {trace}
+    </svg>
+  );
+}
+
 export function Poulets({ c }: { c: ContenuPage }) {
   const { r } = rendu(c);
   const s = c.poulets;
@@ -89,12 +123,18 @@ export function Poulets({ c }: { c: ContenuPage }) {
           <ul className="menu-list" data-stagger="">
             {s.preparations.liste.map((p) => (
               <li className="dish" data-reveal="" key={p.nom}>
+                <Picto nom={p.nom} />
                 <span className="dish__name">{p.nom}</span>
                 <span className="dish__desc">{r(p.description)}</span>
                 <span className="dish__price">
                   <span className="dish__from">à partir de</span>
                   {r(` ${p.prix}`)}
                 </span>
+                <a className="dish__cta" href="#commande" data-demande="poulets" data-preparation={preparationDe(p.nom)}>
+                  Commander
+                  <span className="visually-hidden">{` : ${p.nom}`}</span>
+                  <Icone id="i-arrow" />
+                </a>
               </li>
             ))}
           </ul>

@@ -9,7 +9,8 @@
 // s’ouvre jamais tout seul.
 
 import { normaliserNumero } from "@/lib/demandes/numero";
-import { composerMessage, lienWa, texteRemerciement, type Reponses, type TypeDemande } from "@/lib/whatsapp/messages";
+import { fcfa } from "@/lib/contenu/format";
+import { composerMessage, dateMessage, lienWa, texteRemerciement, type Reponses, type TypeDemande } from "@/lib/whatsapp/messages";
 import { $, $$, type Contexte } from "./outils";
 
 const ANCRE_VERS_TYPE: Record<string, TypeDemande> = { "#devis": "ceremonie", "#commande": "poulets", "#essai": "pro" };
@@ -105,6 +106,15 @@ function preparer(ctx: Contexte, carte: HTMLElement): void {
 
   onglets.forEach((t) => t.addEventListener("change", () => choisir(t.value)));
   $$("[data-demande]").forEach((lien) => lien.addEventListener("click", () => choisir(lien.dataset.demande)));
+  /* Cartes des préparations : la préparation choisie est cochée d’avance */
+  $$("[data-preparation]").forEach((lien) =>
+    lien.addEventListener("click", () => {
+      const option = $<HTMLInputElement>(`input[name="preparation"][value="${lien.dataset.preparation}"]`, formulaires.poulets);
+      if (!option) return;
+      option.checked = true;
+      option.dispatchEvent(new Event("change", { bubbles: true }));
+    }),
+  );
 
   window.addEventListener("hashchange", () => {
     if (ANCRE_VERS_TYPE[location.hash]) choisir(ANCRE_VERS_TYPE[location.hash]);
@@ -120,6 +130,65 @@ function preparer(ctx: Contexte, carte: HTMLElement): void {
   (Object.entries(formulaires) as [TypeDemande, HTMLFormElement][]).forEach(([type, form]) =>
     formulaire(ctx, type, form),
   );
+}
+
+/* ---------- Récapitulatif en direct (audit UX) ----------
+   Reprend les réponses données, avec leur libellé, sous le formulaire ; pour les
+   poulets, une estimation « à partir de » (nombre × prix unitaire de la préparation).
+   Coordonnées et accord n’y figurent pas. */
+const HORS_RECAP = new Set(["whatsapp", "consentement"]);
+
+function recapitulatif(form: HTMLFormElement): () => void {
+  const recap = $("[data-recap]", form);
+  const liste = recap && $(".recap__liste", recap);
+  const blocPrix = recap && $("[data-recap-prix]", recap);
+  if (!recap || !liste || !blocPrix) return () => {};
+  let prix: Record<string, number> = {};
+  try {
+    prix = JSON.parse(recap.dataset.prix ?? "{}") as Record<string, number>;
+  } catch {
+    /* pas d’estimation */
+  }
+
+  const reponse = (champ: HTMLElement): string => {
+    const coche = $<HTMLInputElement>("input[type=radio]:checked", champ);
+    if (coche) return propre(coche.closest("label")?.textContent);
+    const saisie = $<HTMLInputElement | HTMLTextAreaElement>("input:not([type=radio]):not([type=checkbox]), textarea", champ);
+    if (!saisie) return "";
+    if (saisie.type === "date") {
+      if ($<HTMLInputElement>('input[name="date_inconnue"]', champ)?.checked) return "à confirmer";
+      return saisie.value ? dateMessage(saisie.value) : "";
+    }
+    const v = propre(saisie.value);
+    return v.length > 80 ? `${v.slice(0, 79)}…` : v;
+  };
+
+  return () => {
+    const lignes: [string, string][] = [];
+    $$("[data-field]", form).forEach((champ) => {
+      if (HORS_RECAP.has(champ.dataset.field ?? "")) return;
+      const valeur = reponse(champ);
+      const libelle = propre($(".field__label", champ)?.textContent);
+      if (valeur && libelle) lignes.push([libelle, valeur]);
+    });
+    liste.replaceChildren(
+      ...lignes.flatMap(([l, v]) => {
+        const dt = document.createElement("dt");
+        dt.textContent = l;
+        const dd = document.createElement("dd");
+        dd.textContent = v;
+        return [dt, dd];
+      }),
+    );
+    const n = parseInt($<HTMLInputElement>('input[name="nombre"]', form)?.value ?? "", 10);
+    const unitaire = prix[$<HTMLInputElement>('input[name="preparation"]:checked', form)?.value ?? ""];
+    const estimation = n > 0 && unitaire ? n * unitaire : 0;
+    blocPrix.textContent = estimation
+      ? `À partir de ${fcfa(estimation)} (${n} × ${fcfa(unitaire!)}), hors livraison. Le prix final est écrit sur votre devis.`
+      : "";
+    blocPrix.hidden = !estimation;
+    recap.hidden = lignes.length < 2;
+  };
 }
 
 function formulaire(ctx: Contexte, type: TypeDemande, form: HTMLFormElement): void {
@@ -169,6 +238,11 @@ function formulaire(ctx: Contexte, type: TypeDemande, form: HTMLFormElement): vo
   };
   form.addEventListener("input", garder);
   form.addEventListener("change", garder);
+
+  const majRecap = recapitulatif(form);
+  form.addEventListener("input", majRecap);
+  form.addEventListener("change", majRecap);
+  majRecap();
 
   /* Compteur − / + */
   $$<HTMLButtonElement>("[data-count]", form).forEach((bouton) =>
@@ -330,6 +404,7 @@ function formulaire(ctx: Contexte, type: TypeDemande, form: HTMLFormElement): vo
     $$(".rform__intro, .progress, .errors, .rstep", form).forEach((el) => {
       el.hidden = true;
     });
+    form.classList.add("is-envoye");
     succes.hidden = false;
     $(".done__title", succes)?.focus();
   };
@@ -391,6 +466,7 @@ function formulaire(ctx: Contexte, type: TypeDemande, form: HTMLFormElement): vo
     // La demande modifiée est une nouvelle demande.
     cle = nouvelleCle();
     succes.hidden = true;
+    form.classList.remove("is-envoye");
     $$(".rform__intro, .progress, .rstep", form).forEach((el) => {
       el.hidden = false;
     });

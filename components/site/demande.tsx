@@ -177,6 +177,24 @@ function Succes({ telephone, condoleances = false }: { telephone: string; condol
   );
 }
 
+/**
+ * Récapitulatif en direct (écart à la maquette, audit UX) : rempli par le moteur au fil
+ * de la saisie ; sans JavaScript il reste masqué. `prix` (formulaire Poulets) : prix
+ * unitaires par préparation, pour une estimation « à partir de ».
+ */
+function Recapitulatif({ prix }: { prix?: Record<string, number> }) {
+  return (
+    <aside className="recap" data-recap="" data-prix={prix ? JSON.stringify(prix) : undefined} aria-label="Récapitulatif de votre demande" hidden>
+      <p className="recap__titre">
+        <Icone id="i-receipt" />
+        Votre demande en un coup d’œil
+      </p>
+      <dl className="recap__liste"></dl>
+      <p className="recap__prix" data-recap-prix="" hidden></p>
+    </aside>
+  );
+}
+
 function Intro({ c, type }: { c: ContenuPage; type: keyof ContenuPage["demande"]["formulaires"] }) {
   const { r } = rendu(c);
   const f = c.demande.formulaires[type];
@@ -186,6 +204,11 @@ function Intro({ c, type }: { c: ContenuPage; type: keyof ContenuPage["demande"]
       <p>{r(f.texte)}</p>
     </div>
   );
+}
+
+/** Prix unitaires par valeur du champ « Préparation » du formulaire Poulets. */
+function prixPoulets(c: ContenuPage): Record<string, number> {
+  return { vivant: c.prix.vivant, pret: c.prix.pretACuire, sauce: c.prix.decoupe, braise: c.prix.decoupe };
 }
 
 function FormulaireCeremonie({ c, telephone }: { c: ContenuPage; telephone: string }) {
@@ -312,6 +335,7 @@ function FormulaireCeremonie({ c, telephone }: { c: ContenuPage; telephone: stri
         <Navigation envoyer="Demander mon devis cérémonie" />
       </div>
 
+      <Recapitulatif />
       <Succes telephone={telephone} condoleances />
     </form>
   );
@@ -431,6 +455,7 @@ function FormulairePoulets({ c, telephone }: { c: ContenuPage; telephone: string
         <Navigation envoyer="Envoyer ma demande sur WhatsApp" />
       </div>
 
+      <Recapitulatif prix={prixPoulets(c)} />
       <Succes telephone={telephone} />
     </form>
   );
@@ -562,6 +587,7 @@ function FormulairePro({ c, telephone }: { c: ContenuPage; telephone: string }) 
         <Navigation envoyer="Demander une livraison d’essai" />
       </div>
 
+      <Recapitulatif />
       <Succes telephone={telephone} />
     </form>
   );

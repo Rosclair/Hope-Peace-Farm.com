@@ -234,3 +234,156 @@
 
 /* 11. Zones tactiles du pied de page : 44 px au moins. */
 .contact a { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* ---------- Direction visuelle (audit design, 16/10/2026) ---------- */
+
+/* 4. Trois parcours, trois accents discrets (étiquette, pictogrammes, filets) ;
+   même structure partout. Cérémonies : or chaud et sobre ; Poulets : vert feuille ;
+   Professionnels : bleu-vert « fiche technique ». */
+:root { --accent: var(--forest); --accent-fond: #DDE8DA; }
+#ceremonies { --accent: #A86F0C; --accent-fond: #FBEFD2; }
+#poulets { --accent: #4F7F17; --accent-fond: #E3F0CC; }
+#professionnels { --accent: #2D6674; --accent-fond: #DAECEF; }
+
+/* 6. Étiquette de section en ruban, comme la banderole du logo (logo inchangé). */
+.label {
+  display: inline-flex;
+  padding: 6px 22px;
+  background: var(--accent-fond);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 50%, 100% 100%, 0 100%, 12px 50%);
+}
+.label .icon { width: 20px; height: 20px; color: var(--accent); }
+
+/* 6. Collines du logo en séparateur : la section blanche précédente déborde en
+   courbe douce sur les sections « brume ». */
+.section--mist { position: relative; }
+.section--mist:not(#questions)::before {
+  content: "";
+  position: absolute;
+  inset: -1px 0 auto;
+  height: clamp(18px, 3vw, 40px);
+  background: var(--white);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40' preserveAspectRatio='none'%3E%3Cpath d='M0 0H1440V12C1240 34 1010 40 760 22S300 4 0 20Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40' preserveAspectRatio='none'%3E%3Cpath d='M0 0H1440V12C1240 34 1010 40 760 22S300 4 0 20Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+/* … et la section suivante (blanche) remonte de même en bas, sauf avant la photo
+   de La ferme et le formulaire vert. */
+.section--mist:not(#livraison):not(#questions)::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px;
+  height: clamp(18px, 3vw, 40px);
+  background: var(--white);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40' preserveAspectRatio='none'%3E%3Cpath d='M0 40H1440V18C1180 4 930 0 680 16S260 38 0 24Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40' preserveAspectRatio='none'%3E%3Cpath d='M0 40H1440V18C1180 4 930 0 680 16S260 38 0 24Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+/* 2. Préparations : cartes comparables, pictogramme, prix en avant, accès direct. */
+.dish {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "picto name name"
+    "picto desc desc"
+    "price price cta";
+  align-items: center;
+  border: 1px solid transparent;
+}
+.dish:hover { border-color: var(--accent-fond); }
+.dish__picto {
+  grid-area: picto;
+  align-self: start;
+  width: 48px;
+  height: 48px;
+  padding: 10px;
+  border-radius: 50%;
+  background: var(--accent-fond);
+  color: var(--accent);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.dish__name { grid-area: name; }
+.dish__desc { grid-area: desc; }
+.dish__price { grid-area: price; justify-items: start; margin-top: var(--s4); }
+.dish__cta {
+  grid-area: cta;
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  align-self: end;
+  gap: var(--s2);
+  min-height: 44px;
+  color: var(--forest);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: .3em;
+}
+.dish__cta .icon { width: 18px; height: 18px; transition: transform var(--t-move) var(--ease); }
+.dish__cta:hover .icon { transform: translateX(3px); }
+@media (min-width: 56.25em) {
+  .dish {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "picto" "name" "desc" "price" "cta";
+    align-items: start;
+  }
+  .dish__picto { width: 56px; height: 56px; margin-bottom: var(--s3); }
+  .dish__cta { justify-self: start; margin-top: var(--s4); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dish__cta .icon { transition: none; }
+}
+
+/* 3. Respiration : blocs plus espacés, lignes plus aérées, encadrés repérables. */
+.block { margin-top: var(--s8); }
+.section__lead { line-height: 1.6; }
+.fetes p { line-height: 1.65; }
+.sizes {
+  padding: var(--s5);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  background: var(--white);
+}
+.note { border-left: 4px solid var(--sun); }
+@media (max-width: 47.99em) {
+  .intro > .btn { margin-top: var(--s6); }
+  .split { gap: var(--s6); }
+}
+
+/* 7. Récapitulatif en direct du formulaire, comme une bulle de message. */
+.recap {
+  margin-top: var(--s6);
+  padding: var(--s4) var(--s5);
+  border-radius: var(--r-sm) var(--r-sm) var(--r-sm) 4px;
+  background: #E7F6DF;
+  font-size: var(--fs-small);
+}
+.recap[hidden], .rform.is-envoye .recap { display: none; }
+.recap__titre {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  margin-bottom: var(--s3);
+  color: var(--forest);
+  font-weight: 700;
+}
+.recap__titre .icon { width: 18px; height: 18px; }
+.recap__liste { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--s1) var(--s4); }
+.recap__liste dt { color: var(--ink-soft); }
+.recap__liste dd { font-weight: 600; overflow-wrap: anywhere; }
+.recap__prix {
+  margin-top: var(--s3);
+  padding-top: var(--s3);
+  border-top: 1px solid rgba(16, 74, 33, .15);
+  color: var(--forest);
+}
+@media (max-width: 22.49em) {
+  .recap__liste { grid-template-columns: minmax(0, 1fr); }
+  .recap__liste dd { margin-bottom: var(--s2); }
+}

@@ -430,6 +430,15 @@ Conditions : Lighthouse 13.5.0, Chrome 155 sans interface, Windows 10, maquette 
   - En attente de vous : lien Google Maps de la ferme (`coordonnees.lienItineraire`, le lien « Itinéraire » s’affiche dès qu’il est renseigné) ; vrais témoignages et photos de livraisons (rien d’inventé).
   - Contrôles : `typecheck`, 142 tests, `build`, Playwright sur le serveur standalone (390×780 et 1 440×900) : en-tête masqué/réaffiché, bouton « Devis cérémonie » sur #ceremonies qui ouvre l’onglet cérémonie, compte à rebours, notification masquée sur le bloc puis plus jamais après fermeture, 0 lien de pied de page sous 44 px, aucune erreur de console ; captures relues. Non vérifié de bout en bout : l’affichage de la référence après un envoi réel (pas de demande créée en base de développement).
 
+- 16/10/2026, à votre demande : direction visuelle (audit design ; écarts volontaires à la maquette, logo inchangé, pas de mode sombre) :
+  - Préparations : cartes avec pictogramme au trait (vivant, prêt à cuire, découpé), prix en avant et lien « Commander » qui ouvre le formulaire Poulets avec la préparation cochée (aucune pour « Découpé » : sauce ou braise au choix).
+  - Trois parcours, trois accents (`--accent`) : or chaud pour Cérémonies, vert feuille pour Poulets, bleu-vert pour Professionnels ; étiquettes de section en ruban, inspirées de la banderole du logo.
+  - Collines du logo en séparateurs : courbes douces en haut et en bas des sections « brume » (masque SVG en ligne, aucune ressource externe).
+  - Respiration : blocs plus espacés (64 px), interlignes plus grands, encadrés « Calibres » et « Note » soulignés d’un filet.
+  - Formulaires : récapitulatif en direct (« Votre demande en un coup d’œil », réponses avec leur libellé, sans coordonnées) ; pour les poulets, estimation « à partir de » (nombre × prix unitaire de la préparation, hors livraison, « le prix final est écrit sur votre devis »). Masqué sans JS et après l’envoi.
+  - En attente de vous : photos réelles de la ferme et preuves (témoignages, livraisons).
+  - Contrôles : `typecheck`, 142 tests, `build`, Playwright à 390×780 et 1 440×900 (carte « Prêt à cuire » → onglet Poulets, « Prêt à cuire » coché ; 12 poulets → « À partir de 40 800 FCFA (12 × 3 400 FCFA) » ; aucune erreur de console) ; captures relues (Cérémonies, Poulets, Préparations, Professionnels, récapitulatif).
+
 ## Reste à faire
 
 - Terminer la phase 1 en ligne (par vous) : voir « Phase 1 — reste à faire » ci-dessus.
