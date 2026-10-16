@@ -24,6 +24,19 @@ export function Ferme({ c }: { c: ContenuPage }) {
           </p>
         </header>
 
+        <figure className="farm__photo" data-reveal="scale">
+          <img
+            src="/photos/ferme-1600.webp"
+            srcSet="/photos/ferme-800.webp 800w, /photos/ferme-1600.webp 1600w"
+            sizes="(min-width: 1200px) 1140px, 100vw"
+            width={1600}
+            height={1063}
+            alt="Poulets de chair blancs au repos dans l’herbe, à l’ombre"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+
         <div className="pledges" id="engagements">
           <div className="pledges__head" data-reveal="">
             <h3 className="pledges__title">{r(s.engagements.titre)}</h3>

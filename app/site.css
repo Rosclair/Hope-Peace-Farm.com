@@ -57,3 +57,40 @@
 .confirmation { min-height: 100vh; min-height: 100dvh; }
 .confirmation__liste { margin: var(--s3) 0 var(--s4); padding-left: var(--s5); }
 .confirmation__actions { margin-top: var(--s4); }
+
+/* ---------- Photos de la page ---------- */
+
+/* Héros : photo en fond, voile vert foncé (dégradé de la maquette) par-dessus. */
+.hero__photo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 40%;
+}
+.hero__sky::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(12, 64, 29, .82) 0%, rgba(12, 64, 29, .74) 45%, var(--forest) 100%);
+}
+
+/* La ferme : grande photo en bandeau entre l’introduction et les engagements. */
+.farm__photo {
+  margin: var(--s7) 0 0;
+  overflow: hidden;
+  border-radius: var(--r-md);
+  background: var(--mist);
+}
+.farm__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+@media (min-width: 48em) {
+  .farm__photo img { aspect-ratio: 21 / 9; object-position: 50% 45%; }
+}

@@ -27,7 +27,18 @@ export function Accueil({ c }: { c: ContenuPage }) {
   return (
     <section className="hero" id="accueil" aria-labelledby="titre-accueil">
       <div className="hero__stage">
-        <div className="hero__sky" aria-hidden="true"></div>
+        <div className="hero__sky" aria-hidden="true">
+          {/* Photo de la ferme sous un voile vert : le texte reste lisible. */}
+          <img
+            className="hero__photo"
+            src="/photos/heros-1600.webp"
+            srcSet="/photos/heros-800.webp 800w, /photos/heros-1600.webp 1600w"
+            sizes="100vw"
+            alt=""
+            fetchPriority="high"
+            decoding="async"
+          />
+        </div>
         <div className="hero__land" aria-hidden="true">
           <svg className="land land--back" viewBox="0 0 1440 240" preserveAspectRatio="none" focusable="false">
             <path d="M0 118C170 70 330 64 520 102S880 166 1080 110 1340 66 1440 84V240H0Z" />

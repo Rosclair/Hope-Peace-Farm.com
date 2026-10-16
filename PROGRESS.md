@@ -403,6 +403,13 @@ Conditions : Lighthouse 13.5.0, Chrome 155 sans interface, Windows 10, maquette 
 | Lighthouse (2 séries de 3 passages) et axe-core | voir ci-dessus |
 | Domaine `hopeandpeacefarm.com` | non enregistré (DNS : domaine inexistant ; registre Verisign RDAP : 404) |
 
+## Photos fournies (16/10/2026)
+
+- Héros : photo des poulets dans l’enclos en fond (`public/photos/heros-800|1600.webp`, 46 et 113 Ko, légèrement floutée), sous un voile vert reprenant le dégradé de la maquette (`app/site.css`) ; image décorative (`alt=""`), `fetchPriority="high"`.
+- La ferme : photo des poulets dans l’herbe en bandeau entre l’introduction et les engagements (`ferme-800|1600.webp`, 27 et 71 Ko), texte alternatif, chargement différé, 3:2 sur mobile et 21:9 sur ordinateur.
+- Écart volontaire à la maquette (qui n’a pas de photo) et à la règle « pas de photo de banque d’images » : demandé par vous. À remplacer par des photos de la ferme dès que possible.
+- Contrôles : `typecheck`, `build`, `npm test` (142/142), captures 390 et 1 440 px relues (texte lisible sur la photo).
+
 ## Reste à faire
 
 - Terminer la phase 1 en ligne (par vous) : voir « Phase 1 — reste à faire » ci-dessus.
