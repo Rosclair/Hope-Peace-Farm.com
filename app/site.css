@@ -109,3 +109,6 @@
       url("/photos/ferme-1600.webp") center / cover no-repeat;
   }
 }
+
+/* Pied de page : sans nom ni devise, le bloc de marque reste groupé en haut. */
+.footer__brand { align-content: start; }

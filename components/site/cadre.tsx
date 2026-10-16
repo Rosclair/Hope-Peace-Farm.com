@@ -46,9 +46,8 @@ export function EnTete({ c }: { c: ContenuPage }) {
   return (
     <header className="header">
       <div className="header__bar container">
-        <a className="brand" href="#accueil">
+        <a className="brand" href="#accueil" aria-label={`${NOM}, accueil`}>
           <Logo classe="brand__logo" />
-          <span>{NOM}</span>
         </a>
 
         <nav className="nav" aria-label="Menu principal">
@@ -134,8 +133,6 @@ export function PiedDePage({ c, annee }: { c: ContenuPage; annee: number }) {
       <div className="container footer__grid" data-stagger="">
         <div className="footer__brand" data-reveal="">
           <Logo classe="footer__logo" />
-          <p className="footer__name">{NOM}</p>
-          <p className="footer__signature">{c.pied.signature}</p>
           <p className="footer__about">{r(c.pied.apropos)}</p>
         </div>
 
