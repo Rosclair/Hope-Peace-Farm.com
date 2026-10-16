@@ -184,13 +184,36 @@ export function defilement(ctx: Contexte, majBarre: () => void): void {
 
   /* ---------- 9. En-tête : ombre et barre de lecture ---------- */
   let lectureMax = 1;
+  let finAccueil = 0;
   const mesurerLecture = () => {
     lectureMax = Math.max(1, racine.scrollHeight - window.innerHeight);
+    finAccueil = hero ? hero.offsetTop + hero.offsetHeight : 0;
   };
+
+  /* Écart à la maquette (audit UX) : sur mobile, l’en-tête se retire quand on
+     descend après l’accueil et revient dès qu’on remonte (translation seule ; le
+     style limite l’effet aux petits écrans). Jamais pendant la landing épinglée,
+     ni quand le menu est ouvert ou que le focus est dans l’en-tête. */
+  const menuMobile = $<HTMLDetailsElement>(".menu");
+  let yPrecedent = 0;
+  let masque = false;
+  const masquer = (oui: boolean) => {
+    if (oui === masque) return;
+    masque = oui;
+    entete.classList.toggle("is-masque", oui);
+  };
+  entete.addEventListener("focusin", () => masquer(false));
+  menuMobile?.addEventListener("toggle", () => masquer(false));
+
   const rendreEntete = () => {
     const y = window.scrollY || racine.scrollTop;
     entete.classList.toggle("is-scrolled", y > 4);
     entete.style.setProperty("--read", clamp(y / lectureMax, 0, 1).toFixed(4));
+    const delta = y - yPrecedent;
+    if (Math.abs(delta) < 8) return;
+    yPrecedent = y;
+    const bloque = menuMobile?.open || entete.contains(document.activeElement);
+    masquer(!bloque && delta > 0 && y > Math.max(finAccueil, window.innerHeight));
   };
 
   let enAttente = false;

@@ -27,7 +27,14 @@ function annonceFetes(ctx: Contexte): void {
   } catch {
     /* stockage indisponible : l’annonce s’affiche quand même */
   }
+  /* Inutile (et gênante) quand le bloc des Fêtes est déjà à l’écran : elle s’efface
+     le temps de sa lecture, sans compter comme fermée. */
+  let blocVu = false;
+  let delaiPasse = false;
+  let fermee = false;
+  const montrer = () => annonce.classList.toggle("banner--visible", delaiPasse && !blocVu && !fermee);
   const fermer = () => {
+    fermee = true;
     annonce.classList.remove("banner--visible");
     try {
       sessionStorage.setItem(CLE_ANNONCE, "1");
@@ -37,7 +44,31 @@ function annonceFetes(ctx: Contexte): void {
   };
   $("button.banner__close", annonce)?.addEventListener("click", fermer);
   $("a", annonce)?.addEventListener("click", fermer);
-  window.setTimeout(() => annonce.classList.add("banner--visible"), DELAI_ANNONCE);
+  const bloc = $("#fetes");
+  if (bloc && ctx.aIO) {
+    new IntersectionObserver((entrees) => {
+      blocVu = entrees.some((e) => e.isIntersecting);
+      montrer();
+    }).observe(bloc);
+  }
+  window.setTimeout(() => {
+    delaiPasse = true;
+    montrer();
+  }, DELAI_ANNONCE);
+}
+
+/* Compte à rebours du prix garanti (audit UX). Écrit du texte : lancé après
+   l’hydratation (index.ts), jamais par la partie immédiate. */
+export function compteFetes(ctx: Contexte): void {
+  const bloc = $("[data-fetes-compte]");
+  const texte = bloc && $("span", bloc);
+  const limite = ctx.racine.dataset.fetesDeadline;
+  if (!bloc || !texte || !limite || !ctx.racine.classList.contains("fetes-garanti")) return;
+  const jours = Math.round((Date.parse(limite) - Date.parse(ctx.aujourdhui)) / 86_400_000);
+  if (!(jours >= 1)) return;
+  texte.textContent =
+    jours === 1 ? "Prix garanti : dernier jour" : `Prix garanti : encore ${jours} jours`;
+  bloc.hidden = false;
 }
 
 /* ---------- 2. Menu mobile ---------- */
@@ -69,8 +100,13 @@ export function sectionCourante(ctx: Contexte): void {
     .map((id) => document.getElementById(id))
     .filter((s): s is HTMLElement => Boolean(s));
   const visibles = new Set<Element>();
+  /* Boutons de demande génériques (en-tête, menu) : ils visent le formulaire de la
+     section lue ; seul l’attribut change, le libellé suit en CSS (app/site.css). */
+  const contextuels = $$("[data-cta-contexte]");
   const marquer = () => {
     const courante = sections.find((s) => visibles.has(s));
+    const cible = courante?.id === "ceremonies" ? "ceremonie" : courante?.id === "professionnels" ? "pro" : "poulets";
+    contextuels.forEach((el) => el.setAttribute("data-demande", cible));
     liens.forEach((lien) => {
       if (courante && lien.getAttribute("href") === `#${courante.id}`) lien.setAttribute("aria-current", "location");
       else lien.removeAttribute("aria-current");

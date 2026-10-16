@@ -418,6 +418,18 @@ Conditions : Lighthouse 13.5.0, Chrome 155 sans interface, Windows 10, maquette 
 
 - 16/10/2026, à votre demande : bandeau des Fêtes transformé en notification flottante (en bas à gauche sur ordinateur, au-dessus de la barre fixe sur mobile), masquée au chargement, affichée après 4 s, bouton « Fermer l’annonce » ; fermée (ou lien suivi), elle ne revient plus de la session (`sessionStorage`). Sans JS, elle reste masquée (l’offre reste dans la section des Fêtes). Écart volontaire à la maquette (bandeau fixe en haut). Vérifié avec Playwright à 390 et 1 440 px : masquée au départ, visible à 4,5 s, masquée après fermeture et après rechargement ; 142 tests.
 
+- 16/10/2026, à votre demande : corrections de l’audit UX (écarts volontaires à la maquette, logo inchangé) :
+  - Landing épinglée raccourcie sous 64 em : 150 svh de défilement au lieu de 230 (hauteur mesurée 1 886 px à 390×780 ; même récit, en fractions).
+  - En-tête (sous 70 em) : se retire en descendant après l’accueil, revient en remontant ; jamais menu ouvert ni focus dans l’en-tête (translation seule, coupée en mouvement réduit).
+  - Bouton de l’en-tête et « Faire une demande » du menu : visent le formulaire de la section lue (`data-demande` posé par le moteur) ; libellé de l’en-tête en CSS : « Commander », « Devis cérémonie », « Essai pro » (aucun texte écrit par script avant l’hydratation).
+  - Notification des Fêtes : masquée tant que le bloc des Fêtes est à l’écran (sans compter comme fermée).
+  - Bloc des Fêtes : pastille « Prix garanti : encore N jours » (moteur, après l’hydratation ; masquée après la date limite).
+  - Paiement : icône par cas (retrait, livraison, cérémonie, autre).
+  - Référence de la demande mise en avant (vue de succès et page de confirmation sans JS) ; exemple « 6XX XX XX XX » dans le champ WhatsApp ; liens de contact du pied de page à 44 px.
+  - Déjà en place, rien à changer : bornes des dates, erreurs par champ et résumé avec focus, numéro sans indicatif accepté ; « Faites défiler » qui s’efface ; délai de réponse annoncé dans le remerciement.
+  - En attente de vous : lien Google Maps de la ferme (`coordonnees.lienItineraire`, le lien « Itinéraire » s’affiche dès qu’il est renseigné) ; vrais témoignages et photos de livraisons (rien d’inventé).
+  - Contrôles : `typecheck`, 142 tests, `build`, Playwright sur le serveur standalone (390×780 et 1 440×900) : en-tête masqué/réaffiché, bouton « Devis cérémonie » sur #ceremonies qui ouvre l’onglet cérémonie, compte à rebours, notification masquée sur le bloc puis plus jamais après fermeture, 0 lien de pied de page sous 44 px, aucune erreur de console ; captures relues. Non vérifié de bout en bout : l’affichage de la référence après un envoi réel (pas de demande créée en base de développement).
+
 ## Reste à faire
 
 - Terminer la phase 1 en ligne (par vous) : voir « Phase 1 — reste à faire » ci-dessus.

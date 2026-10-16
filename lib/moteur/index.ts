@@ -12,6 +12,7 @@
 
 import { demande } from "./demande";
 import { creerContexte } from "./outils";
+import { compteFetes } from "./page";
 
 let formulairesDemarres = false;
 
@@ -24,5 +25,7 @@ export async function demarrerApresHydratation(): Promise<void> {
   if (process.env.NODE_ENV !== "production" && !window.__hpfMoteurImmediat) {
     (await import("./immediat")).demarrerImmediat();
   }
-  demande(creerContexte());
+  const ctx = creerContexte();
+  demande(ctx);
+  compteFetes(ctx);
 }

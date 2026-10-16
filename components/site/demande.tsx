@@ -80,6 +80,7 @@ function Contact({ prefixe, type }: { prefixe: string; type: TypeDemande }) {
           type="tel"
           inputMode="tel"
           maxLength={25}
+          placeholder="6XX XX XX XX"
           autoComplete="tel"
           enterKeyHint="next"
           aria-describedby={`${prefixe}-whatsapp-aide`}
@@ -136,6 +137,9 @@ function Succes({ telephone, condoleances = false }: { telephone: string; condol
         Votre message est prêt
       </h3>
       <p className="done__text" data-done-text=""></p>
+      <p className="done__ref" data-done-ref="" hidden>
+        Référence de votre demande&nbsp;: <strong data-done-ref-valeur=""></strong>
+      </p>
       {condoleances && (
         <p className="done__text" data-done-extra="" hidden>
           Toutes nos condoléances. Nous nous occupons de l’essentiel pour que vous puissiez vous consacrer à votre famille.

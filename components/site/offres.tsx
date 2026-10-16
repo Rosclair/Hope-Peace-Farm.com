@@ -3,7 +3,7 @@
 
 import { Fragment } from "react";
 import { dateLongue, telephoneAffiche } from "@/lib/contenu/format";
-import type { ContenuPage } from "@/lib/contenu/types";
+import type { ContenuPage, Icone as NomIcone } from "@/lib/contenu/types";
 import { MESSAGE_FETES, MESSAGE_VIDEO, lienWa } from "@/lib/whatsapp/messages";
 import { Icone } from "./icone";
 import { rendu } from "./riche";
@@ -44,6 +44,11 @@ export function Poulets({ c }: { c: ContenuPage }) {
               </p>
             </div>
             <div className="fetes__side">
+              {/* Compte à rebours du prix garanti, écrit par le moteur après l’hydratation */}
+              <p className="fetes__compte" data-fetes-compte="" aria-live="off" hidden>
+                <Icone id="i-clock" />
+                <span></span>
+              </p>
               <ul className="fetes__dates">
                 {(
                   [
@@ -175,8 +180,16 @@ function SchemaZones() {
   );
 }
 
+/** Repère visuel d’une règle de paiement, d’après son cas (texte libre du contenu). */
+function iconeRegle(cas: string): NomIcone {
+  if (/c[ée]r[ée]monie/i.test(cas)) return "i-people";
+  if (/retrait|ferme/i.test(cas)) return "i-farm";
+  if (/livraison/i.test(cas)) return "i-truck";
+  return "i-receipt";
+}
+
 export function Livraison({ c }: { c: ContenuPage }) {
-  const { r } = rendu(c);
+  const { r, plat } = rendu(c);
   const s = c.livraison;
   const { paiement } = c;
   const numeros = (
@@ -228,7 +241,10 @@ export function Livraison({ c }: { c: ContenuPage }) {
           <dl className="rules" data-reveal="">
             {s.paiement.regles.map((regle, i) => (
               <div className="rule" key={i}>
-                <dt>{r(regle.cas)}</dt>
+                <dt>
+                  <Icone id={iconeRegle(plat(regle.cas))} classe="icon rule__icon" />
+                  <span>{r(regle.cas)}</span>
+                </dt>
                 <dd>{r(regle.regle)}</dd>
               </div>
             ))}

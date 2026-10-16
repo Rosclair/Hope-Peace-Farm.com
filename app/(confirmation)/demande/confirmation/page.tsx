@@ -69,6 +69,9 @@ async function Succes({ reference }: { reference: string }) {
     <div className="done">
       <h2 className="done__title">Votre message est prêt</h2>
       <p className="done__text">{texteRemerciement(d.type as TypeDemande, { nom: d.nom })}</p>
+      <p className="done__ref">
+        Référence de votre demande&nbsp;: <strong>{reference}</strong>
+      </p>
       {d.type === "ceremonie" && reponses.ceremonie === "funerailles" && (
         <p className="done__text">
           Toutes nos condoléances. Nous nous occupons de l’essentiel pour que vous puissiez vous consacrer à votre famille.

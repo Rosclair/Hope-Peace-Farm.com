@@ -169,3 +169,68 @@
 @media (prefers-reduced-motion: reduce) {
   .banner, .banner.banner--visible { transform: none; transition: none; }
 }
+
+/* ---------- Audit UX (16/10/2026) ---------- */
+
+/* 1. Landing épinglée plus courte sur mobile et tablette : le récit tient en
+   environ 1,5 écran de défilement au lieu de 2,3 (même calendrier, en fractions). */
+@media (max-width: 63.99em) {
+  .scrolly .hero { --pin: 150vh; }
+  @supports (height: 100svh) {
+    .scrolly .hero { --pin: 150svh; }
+  }
+}
+
+/* 3. En-tête : se retire en descendant après l’accueil, revient en remontant (mobile). */
+@media (max-width: 69.99em) {
+  .header { transition: box-shadow var(--t-move) var(--ease), transform var(--t-move) var(--ease); }
+  .header.is-masque { transform: translateY(-100%); box-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .header { transition: none; }
+}
+
+/* 2. Bouton de l’en-tête : libellé selon la section lue (attribut posé par le moteur). */
+.nav__cta-texte { display: none; }
+.nav__cta[data-demande="poulets"] .nav__cta-texte--poulets,
+.nav__cta[data-demande="ceremonie"] .nav__cta-texte--ceremonie,
+.nav__cta[data-demande="pro"] .nav__cta-texte--pro { display: inline; }
+
+/* 5. Fêtes : compte à rebours du prix garanti, en pastille. */
+.fetes__compte {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  justify-self: start;
+  width: fit-content;
+  max-width: 100%;
+  padding: var(--s2) var(--s4);
+  border-radius: var(--r-pill);
+  background: var(--sun);
+  color: var(--forest);
+  font-size: var(--fs-small);
+  font-weight: 700;
+}
+.fetes__compte[hidden] { display: none; }
+.fetes__compte .icon { width: 18px; height: 18px; color: currentColor; }
+
+/* 6. Paiement : un repère visuel par cas. */
+.rule dt { display: flex; align-items: flex-start; gap: var(--s3); color: var(--forest); }
+.rule__icon { flex: none; width: 22px; height: 22px; margin-top: 1px; color: var(--forest); }
+@media (max-width: 56.24em) {
+  .rule dd { padding-left: calc(22px + var(--s3)); }
+}
+
+/* 10. Référence de la demande, bien visible. */
+.done__ref {
+  margin-top: var(--s4);
+  padding: var(--s3) var(--s4);
+  border-radius: var(--r-sm);
+  background: var(--mist);
+  font-size: var(--fs-small);
+}
+.done__ref[hidden] { display: none; }
+.done__ref strong { display: block; font-size: 1.375rem; letter-spacing: .04em; font-variant-numeric: tabular-nums; color: var(--forest); }
+
+/* 11. Zones tactiles du pied de page : 44 px au moins. */
+.contact a { display: inline-flex; align-items: center; min-height: 44px; }

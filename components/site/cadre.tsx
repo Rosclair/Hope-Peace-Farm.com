@@ -64,7 +64,13 @@ export function EnTete({ c }: { c: ContenuPage }) {
               <a className="nav__link" href="#questions">Questions</a>
             </li>
           </ul>
-          <a className="btn btn--sun btn--small nav__cta" href="#demande" data-demande="poulets">Commander</a>
+          {/* Le moteur ajuste data-demande à la section en cours ; le libellé suit en CSS
+              (aucun texte modifié par script : l’hydratation reste intacte). */}
+          <a className="btn btn--sun btn--small nav__cta" href="#demande" data-demande="poulets" data-cta-contexte="">
+            <span className="nav__cta-texte nav__cta-texte--poulets">Commander</span>
+            <span className="nav__cta-texte nav__cta-texte--ceremonie">Devis cérémonie</span>
+            <span className="nav__cta-texte nav__cta-texte--pro">Essai pro</span>
+          </a>
 
           {/* Menu mobile : <details> fonctionne sans JavaScript */}
           <details className="menu">
@@ -86,7 +92,7 @@ export function EnTete({ c }: { c: ContenuPage }) {
                 </li>
               </ul>
               <div className="menu__actions">
-                <a className="btn btn--sun" href="#demande" data-demande="poulets">Faire une demande</a>
+                <a className="btn btn--sun" href="#demande" data-demande="poulets" data-cta-contexte="">Faire une demande</a>
                 <a className="btn btn--ghost-light" href={waGeneral} target="_blank" rel="noopener noreferrer" data-cta="menu_wa">
                   <Icone id="i-chat" />
                   WhatsApp

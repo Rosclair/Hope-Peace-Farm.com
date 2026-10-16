@@ -309,6 +309,14 @@ function formulaire(ctx: Contexte, type: TypeDemande, form: HTMLFormElement): vo
     if (texte) texte.textContent = texteRemerciement(type, d);
     const condoleances = $("[data-done-extra]", succes);
     if (condoleances) condoleances.hidden = d.ceremonie !== "funerailles";
+    /* Référence mise en avant (audit UX) : reprise de la fin du message « (Réf. …) » */
+    const blocRef = $("[data-done-ref]", succes);
+    const reference = repli ? null : (/\(Réf\. ([^)]+)\)\s*$/.exec(message)?.[1] ?? null);
+    if (blocRef) {
+      const valeur = $("[data-done-ref-valeur]", blocRef);
+      if (valeur) valeur.textContent = reference ?? "";
+      blocRef.hidden = !reference;
+    }
     const citation = $("[data-done-message]", succes);
     if (citation) citation.textContent = message;
     const lien = $<HTMLAnchorElement>("[data-done-wa]", succes);
