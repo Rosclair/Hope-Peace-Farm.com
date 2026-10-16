@@ -30,8 +30,8 @@ export function Ferme({ c }: { c: ContenuPage }) {
             srcSet="/photos/ferme-800.webp 800w, /photos/ferme-1600.webp 1600w"
             sizes="(min-width: 1200px) 1140px, 100vw"
             width={1600}
-            height={1063}
-            alt="Poulets de chair blancs au repos dans l’herbe, à l’ombre"
+            height={1067}
+            alt="Poulets de chair blancs dans leur enclos en terre, devant le poulailler"
             loading="lazy"
             decoding="async"
           />
