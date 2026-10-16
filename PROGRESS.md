@@ -412,6 +412,8 @@ Conditions : Lighthouse 13.5.0, Chrome 155 sans interface, Windows 10, maquette 
 
 - 16/10/2026, à votre demande : photos inversées (héros : poulets dans l’herbe, 23 et 58 Ko, non floutée ; La ferme : enclos en terre, 88 et 285 Ko) et voile du héros allégé (opacité 0,62 → 0,48 au lieu de 0,82 → 0,74). Captures 390 et 1 440 px relues : texte toujours lisible.
 
+- 16/10/2026, à votre demande : photo de l’enclos aussi en fond de la section La ferme (`#la-ferme`, `app/site.css`), sous un voile blanc à 86–90 % ; captures 390 et 1 440 px relues, texte lisible.
+
 ## Reste à faire
 
 - Terminer la phase 1 en ligne (par vous) : voir « Phase 1 — reste à faire » ci-dessus.

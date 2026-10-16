@@ -94,3 +94,18 @@
 @media (min-width: 48em) {
   .farm__photo img { aspect-ratio: 21 / 9; object-position: 50% 60%; }
 }
+
+/* La ferme : la photo de l’enclos aussi en fond de section, sous un voile clair
+   qui garde le texte sombre lisible. */
+#la-ferme {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .86) 0%, rgba(255, 255, 255, .9) 100%),
+    url("/photos/ferme-800.webp") center / cover no-repeat;
+}
+@media (min-width: 48em) {
+  #la-ferme {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, .86) 0%, rgba(255, 255, 255, .9) 100%),
+      url("/photos/ferme-1600.webp") center / cover no-repeat;
+  }
+}
