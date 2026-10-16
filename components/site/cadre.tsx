@@ -28,7 +28,10 @@ export function Sprite() {
 export function BandeauFetes({ c }: { c: ContenuPage }) {
   const { r } = rendu(c);
   return (
-    <aside className="banner" aria-label="Annonce des fêtes">
+    <aside className="banner" aria-label="Annonce des fêtes" aria-live="polite">
+      <button type="button" className="banner__close" aria-label="Fermer l’annonce">
+        <Icone id="i-close" />
+      </button>
       <p className="banner__inner container">
         {" "}
         <span className="banner__text banner__text--garanti">

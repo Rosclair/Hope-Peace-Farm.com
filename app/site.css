@@ -112,3 +112,60 @@
 
 /* Pied de page : sans nom ni devise, le bloc de marque reste groupé en haut. */
 .footer__brand { align-content: start; }
+
+/* ---------- Bandeau des Fêtes en notification ---------- */
+/* Masqué au chargement (et sans JS : l’offre reste dans la section des Fêtes) ;
+   le moteur ajoute .banner--visible après un délai. */
+.banner {
+  position: fixed;
+  z-index: 30;
+  right: var(--s4);
+  bottom: calc(var(--bar) + var(--s4));
+  left: var(--s4);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s2);
+  padding: var(--s4) var(--s3) var(--s4) var(--s4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--white);
+  box-shadow: 0 12px 32px rgba(10, 40, 18, .22);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  transition: opacity 320ms var(--ease-out), transform 320ms var(--ease-out), visibility 0s linear 320ms;
+}
+.banner.banner--visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 320ms var(--ease-out), transform 320ms var(--ease-out);
+}
+.banner .banner__inner {
+  order: -1;
+  flex: 1;
+  padding: 0;
+  font-size: var(--fs-small);
+  text-align: left;
+}
+.banner__close {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: calc(-1 * var(--s2)) 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+.banner__close:hover { background: var(--mist); }
+.banner__close .icon { width: 20px; height: 20px; }
+@media (min-width: 48em) {
+  .banner { right: auto; left: var(--s5); bottom: var(--s5); max-width: 26rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .banner, .banner.banner--visible { transform: none; transition: none; }
+}

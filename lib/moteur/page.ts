@@ -11,6 +11,33 @@ export function fetes(ctx: Contexte): void {
   if (lien && ctx.racine.classList.contains("fetes-garanti") && limite) {
     lien.href = lienWa(ctx.wa, messageFetesGaranti(limite));
   }
+  annonceFetes(ctx);
+}
+
+/* Bandeau des Fêtes en notification : masqué au chargement, il apparaît après un
+   délai et ne revient plus, dans la session, une fois fermé (ou son lien suivi). */
+const CLE_ANNONCE = "hpf-annonce-fetes-fermee";
+const DELAI_ANNONCE = 4000;
+
+function annonceFetes(ctx: Contexte): void {
+  const annonce = $(".banner");
+  if (!annonce || ctx.racine.classList.contains("fetes-fin")) return;
+  try {
+    if (sessionStorage.getItem(CLE_ANNONCE)) return;
+  } catch {
+    /* stockage indisponible : l’annonce s’affiche quand même */
+  }
+  const fermer = () => {
+    annonce.classList.remove("banner--visible");
+    try {
+      sessionStorage.setItem(CLE_ANNONCE, "1");
+    } catch {
+      /* rien à retenir */
+    }
+  };
+  $("button.banner__close", annonce)?.addEventListener("click", fermer);
+  $("a", annonce)?.addEventListener("click", fermer);
+  window.setTimeout(() => annonce.classList.add("banner--visible"), DELAI_ANNONCE);
 }
 
 /* ---------- 2. Menu mobile ---------- */

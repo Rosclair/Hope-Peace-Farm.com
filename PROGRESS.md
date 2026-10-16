@@ -416,6 +416,8 @@ Conditions : Lighthouse 13.5.0, Chrome 155 sans interface, Windows 10, maquette 
 
 - 16/10/2026, à votre demande : nom « Hope & Peace Farm » retiré de la barre de navigation (le lien garde le nom pour les lecteurs d’écran, `aria-label`) et du pied de page, devise « Nourrir l’avenir avec confiance » retirée du pied de page (le champ `pied.signature` reste en base, inutilisé). Typecheck, 142 tests, captures 390 et 1 440 px relues.
 
+- 16/10/2026, à votre demande : bandeau des Fêtes transformé en notification flottante (en bas à gauche sur ordinateur, au-dessus de la barre fixe sur mobile), masquée au chargement, affichée après 4 s, bouton « Fermer l’annonce » ; fermée (ou lien suivi), elle ne revient plus de la session (`sessionStorage`). Sans JS, elle reste masquée (l’offre reste dans la section des Fêtes). Écart volontaire à la maquette (bandeau fixe en haut). Vérifié avec Playwright à 390 et 1 440 px : masquée au départ, visible à 4,5 s, masquée après fermeture et après rechargement ; 142 tests.
+
 ## Reste à faire
 
 - Terminer la phase 1 en ligne (par vous) : voir « Phase 1 — reste à faire » ci-dessus.
